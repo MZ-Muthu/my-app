@@ -1,0 +1,130 @@
+extends ../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(type='text/javascript' src='/JS/jquery.js')
+    script(type='text/javascript' src='/JS/lightslider.js')
+    script(type='text/javascript' src='/JS/scripte.js')
+
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='/Assets/images/meettheexpert.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 My Account
+    // Hero section End
+    // Card Section Start
+    .container.mt-5.p-3
+        .row.g-2
+            a.col-md-2.h-100(href='/my-account/homecare-services')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-house-chimney-crack.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Home Care
+            a.col-md-2.h-100(href='/my-account/meet-the-experts')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-handshake.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Meet the Expert
+            a.col-md-2.h-100(href='/my-account/deaddiction-services')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-joint.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | De-Addication
+            a.col-md-2.h-100(href='/my-account/job-portal')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-briefcase.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Job Portal
+            //- a.col-md-2.h-100(href='#')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-school.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Study Abrod
+            a.col-md-2.h-100(href='/my-account/blood-donation')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-droplet.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Blood Donation
+            a.col-md-2.h-100(href='/medical-records')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-clipboard.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Medical Records
+            a.col-md-2.h-100(href='/my-account/donation-and-charity/')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-hand-holding-dollar.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Donation
+            a.col-md-2.h-100(href='/my-account/pharmacy')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-prescription-bottle-medical.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Pharmacy
+            a.col-md-2.h-100(href='/my-account/laboratory')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-vial-virus.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Laboratory
+            a.col-md-2.h-100(href='/my-account/ambulance')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-truck-medical.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Ambulance
+            a.col-md-2.h-100(href='/my-account/medical-market/my-orders')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-store.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Medical Market
+            a.col-md-2.h-100(href='/my-account/differently-abled')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-people-arrows.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color Differently Abled
+            a.col-md-2.h-100(href='./userOpticalsOrderHistory.html')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-glasses.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Eye Detection
+            a.col-md-2.h-100(href='/my-account/hearing-aid')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-ear-listen.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | Hearing Aid
+            a.col-md-2.h-100(href='/my-account/oneus/video-management')
+                div
+                    .card.text-center.border-0.rounded.small-shdow.p-3
+                        .image
+                            i.fa-solid.fa-users.main-color-background.p-4.fs-1.rounded-circle.text-white.small-shdow
+                        h6.fw-bold.text-uppercase.mt-2.main-color
+                            | One Us

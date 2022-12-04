@@ -1,0 +1,77 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='  /Assets/images/Disabledabledpeople.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Our Hearing Product list
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-1.mb-2.mt-3
+        .d-flex.justify-content-center
+            div
+                a#Consultants.tab-text(href="/hearing-aid/shop")
+                    | Hearing Aid Shops
+            div
+                a#Contractors.tab-text(href='/hearing-aid/repairStore')
+                    | Hearing Aid Repiar Shop
+            div
+                a#Services.tab-text-active(href='/hearing-aid/hospital')
+                    | Hearing Aid Hospital
+    // Catercory button Section Start
+
+    // Hearing hospital List Section Start
+    section#hearingAidhospital.mt-4.container
+        .justify-content-center
+            h5.heading Our Hearing Aid Hospital list
+
+            .underline
+            .mt-5
+                .row.row-cols-1.row-cols-md-5.g-4
+                    each doc in hearingaid
+                        .col
+                            a(href=`/hearing-aid/hospital/${doc.hiwpmID}`)
+                                .card.h-100
+                                    img.card-img-top.cart-image-product(src=doc.bannerImage alt='...')
+                                    .p-2
+                                        h6.text-center.main-color.text-uppercase
+                                            | #{doc.company}
+                                        p.text-center.text-secondary.fw-bold
+                                            | Hours:
+                                            span.text-danger #{doc.openTime} to #{doc.closeTime}
+        // Pagination Sction
+        .text-center
+            .pagination_rounded
+                ul
+                    li
+                        a.prev(href='#')
+                            i.fa.fa-angle-left(aria-hidden='true')
+                            |  Prev
+                    li
+                        a(href='#') 1
+                    li.hidden-xs
+                        a.active(href='#') 2
+                    li.hidden-xs
+                        a(href='#') 3
+                    li.hidden-xs
+                        a(href='#') 4
+                    li.hidden-xs
+                        a(href='#') 5
+                    li.visible-xs
+                        a(href='#') ...
+                    li
+                        a(href='#') 6
+                    li
+                        a.next(href='#')
+                            | Next 
+                            i.fa.fa-angle-right(aria-hidden='true')
+    // Hearing hospital Product List Section End

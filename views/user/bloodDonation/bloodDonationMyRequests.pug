@@ -1,0 +1,156 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/bloodDonation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 My Requests and Others
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading My Blood request List
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4 
+                .col
+                    .small-shdow.card.rounded.mt-3
+                        if requester
+                            .row
+                                .col-3
+                                    img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                                .col-9.p-2
+                                    .d-flex.bd-highlight
+                                        .flex-grow-1.bd-highlight
+                                            h5.main-color.fw-bold= requester.patientName
+                                        //- .bd-highlight.pe-4
+                                        //-     i.fa-solid.fa-trash.main-color
+                                        //- .bd-highlight.pe-2
+                                        //-     i.fa-solid.fa-pen.main-color
+                                    h6.main-color.fw-bold
+                                        i.fa-solid.fa-square-phone-flip
+                                        | : 
+                                        span.text-dark.ms-2= requester.phoneNumber
+                                    h6.main-color.fw-bold
+                                        | Units required: 
+                                        span.text-dark.ms-2  #{requester.unitsRequird} UNIT
+                                    .d-flex.justify-content-between
+                                        div
+                                            h6.main-color.fw-bold
+                                                | Requested Date:
+                                                span.text-dark.ms-2=new Date(requester.requriedDate).toLocaleDateString()
+                                        div.d-flex#blood_request_status
+                                            .me-1.mt-3
+                                                a.btn.btn-danger#cancel(href='#') Cancel
+                                            .me-1.mt-3
+                                                a.btn.btn-success#received(href='#') Received
+   
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Request from other pepoles
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                each doc in request
+                    .col
+                        .small-shdow.card.rounded.mt-3
+                            .row
+                                .col-3
+                                    img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                                .col-9.p-2
+                                    .d-flex.bd-highlight
+                                        .flex-grow-1.bd-highlight
+                                            h5.main-color.fw-bold= doc.requesterName
+                                        .bd-highlight.pe-4
+                                            i.fa-solid.fa-phone.main-color-background.rounded-circle.text-white.p-2
+                                        .bd-highlight.pe-2
+                                            i.fa-solid.fa-share-nodes.main-color-background.rounded-circle.text-white.p-2
+                                    h6.main-color.fw-bold
+                                        i.fa-solid.fa-square-phone-flip
+                                        | : 
+                                        span.text-dark.ms-2
+                                    h6.main-color.fw-bold
+                                        | Units required: 
+                                        span.text-dark.ms-2  #{doc.requesterRequiredUnits} UNIT
+                                    h6.main-color.fw-bold
+                                        | Hospital: 
+                                        span.text-dark.ms-2= doc.hospitalName
+                                    .d-flex.justify-content-between
+                                        div
+                                            h6.main-color.fw-bold
+                                                | Requested Date:
+                                                span.text-dark.ms-2= new Date(doc.requestersRequiredDate).toLocaleDateString()
+                                        div.d-flex.blood_request_from_other_status(data-id=doc.hiwnrqID,data-id2=doc.donnerEID)
+                                            .me-1.mt-3
+                                                a.btn.btn-danger#reject() Reject
+                                            .me-1.mt-3
+                                                a.btn.btn-success#accept() Accept
+
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Accepted request from other pepoles
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                each doc in acceptedRequest
+                    .col
+                        .small-shdow.card.rounded.mt-3
+                            .row
+                                .col-3
+                                    img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                                .col-9.p-2
+                                    .d-flex.bd-highlight
+                                        .flex-grow-1.bd-highlight
+                                            h5.main-color.fw-bold= doc.requesterName
+                                        .bd-highlight.pe-4
+                                            i.fa-solid.fa-phone.main-color-background.rounded-circle.text-white.p-2
+                                        .bd-highlight.pe-2
+                                            i.fa-solid.fa-share-nodes.main-color-background.rounded-circle.text-white.p-2
+                                    h6.main-color.fw-bold
+                                        i.fa-solid.fa-square-phone-flip
+                                        | : 
+                                        span.text-dark.ms-2
+                                    h6.main-color.fw-bold
+                                        | Units required: 
+                                        span.text-dark.ms-2  #{doc.requesterRequiredUnits} UNIT
+                                    h6.main-color.fw-bold
+                                        | Hospital: 
+                                        span.text-dark.ms-2= doc.hospitalName
+                                    h6.main-color.fw-bold
+                                        | Verification Code :  
+                                        span.text-dark.ms-2= doc.verifyId
+                                    .d-flex.justify-content-between
+                                        div
+                                            h6.main-color.fw-bold
+                                                | Requested Date:
+                                                span.text-dark.ms-2= new Date(doc.requestersRequiredDate).toLocaleDateString()
+                                        div.d-flex.blood_request_from_other_status(data-id=doc.hiwnrqID,data-id2=doc.donnerEID)
+                                            .me-1.mt-3
+                                                a.btn.btn-danger#reject() Reject

@@ -1,0 +1,50 @@
+extends ../../../layout/base
+
+block append head 
+  link(rel="stylesheet", href="/CSS/userStyle.css")
+  link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+  script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+  // Hero section Start
+  section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/fitness.jpg' alt='homecare service banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text Take Healthy Food for your life
+  // Hero section End
+  // Card Section Start
+  section.mt-5.container
+    .justify-content-center
+      h5.heading healthy food List
+      .underline
+      p.text-center.w-75.m-auto.mt-4.margin-ts-screen.small-screen-w-100
+        | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+        | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.
+    .mt-4
+      .row.row-cols-1.row-cols-md-2.row-cols-sm-2.g-4
+        each doc in foods
+          .col
+            .small-shdow.rounded.mt-3.h-100
+              .row
+                .col-5
+                  img.img-thumbnail.border-0(src= doc.bannerImage alt='Food Image')
+                .col-7.p-2
+                  .d-flex.justify-content-between
+                    .bd-highlight.m-0
+                      h6.m-0.text-uppercase.fw-bold= doc.name
+                    .bd-highlight
+                      p.text-12.fw-bold.me-2= doc.calories
+                  each des in doc.uses
+                    .d-flex.justify-content-start
+                      div
+                        i.fa-solid.fa-circle.text-warning.text-12.m-0.p-0.me-2
+                      div
+                        p.text-12.p-0.m-0.mt-1=des
+  // Card Section End

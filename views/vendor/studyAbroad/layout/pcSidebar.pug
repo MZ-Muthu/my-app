@@ -1,0 +1,17 @@
+.col-3.p-0.border.m-0.border-color.display-none
+    ul.nav.flex-column.p-0.m-0
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "home" ? "vendor-nav-link-active" : "" }` aria-current='page' href='/vendor/study-abroad') Manage Profile
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "college" ? "vendor-nav-link-active" : "" }` href='/vendor/study-abroad/college-details-management') College Management
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "course" ? "vendor-nav-link-active" : "" }` href='/vendor/study-abroad/course-details-management') Course Management
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "facilities" ? "vendor-nav-link-active" : ""}`  href='/vendor/study-abroad/facilities-management') Facilities Management
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "job" ? "vendor-nav-link-active" : "" }` href=`/vendor/${partner.for}/job-management`) Job Management
+        li.nav-item
+           a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "quotes" ? "vendor-nav-link-active" : "" }` href=`/vendor/${partner.for}/quotes`) Purchase
+        li.nav-item
+            a.nav-link.border.vendor-nav-link#logoutW log out
+        

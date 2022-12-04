@@ -1,0 +1,43 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/fitness.jpg' alt='Fitness Gym banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text Gym Workout Videos List
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-1.mb-2
+        .d-flex.justify-content-center
+            a(href='./gym')
+                h6#Consultants(class=`${name === "gym" ? "tab-text-active" : "tab-text"}`)
+                    | Gyms
+            a(href='./yoga')
+                h6#Contractors(class=`${name === "yoga" ? "tab-text-active" : "tab-text"}`)
+                    | Yoga
+            a(href='./meditation')
+                h6#Services(class=`${name === "meditation" ? "tab-text-active" : "tab-text"}`)
+                    | Meditation
+    // Catercory button Section Start
+    // Videos Start
+    section.mt-5.container-xl
+        .row.row-cols-1.row-cols-md-4.row-cols-sm-2.g-1
+            each doc in videos
+                .col
+                    a(href=`./video/${doc.name}/${doc.hiwfvmID}`)
+                        .card.h-100
+                            video(style='height:170px;' controls)
+                                source(src=doc.video type='video/mp4')
+                            .card-body
+                                h6.card-title.main-color.text-uppercase.fw-bold= doc.name
+                                p.card-text.text-dark.m-0.text-12= doc.shortDescription

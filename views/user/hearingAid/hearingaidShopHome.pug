@@ -1,0 +1,219 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='./Assets/images/Disabledabledpeople.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Our Hearing Product list
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-1.mb-2.mt-3
+        .d-flex.justify-content-center
+            div
+                a#Consultants.tab-text-active(href="/hearing-aid/shop")
+                    | Hearing Aid Shops
+            div
+                a#Contractors.tab-text(href='/hearing-aid/repairStore')
+                    | Hearing Aid Repiar Shop
+            div
+                a#Services.tab-text(href='/hearing-aid/hospital')
+                    | Hearing Aid Hospital
+    // Catercory button Section Start
+    // Hearing Product List Section Start
+    section#hearingAid.mt-4.container
+        .justify-content-center
+            h5.heading Our Hearing Aid Product list
+            .underline
+            .row
+                // Fillter Section
+                .col-4
+                    .small-shdow.p-3.rounded.mt-3
+                        h6.fw-bold Fillter by Color
+                        .mt-4
+                            label.check-box-container
+                                | Red
+                                input(type='checkbox' checked='checked')
+                                span.checkmark
+                            label.check-box-container
+                                | Green
+                                input(type='checkbox')
+                                span.checkmark
+                            label.check-box-container
+                                | Blue
+                                input(type='checkbox')
+                                span.checkmark
+                            label.check-box-container
+                                | Orange
+                                input(type='checkbox')
+                                span.checkmark
+                        h6.fw-bold.mt-5
+                            i.fa-solid.fa-hand-holding-dollar.me-3
+                            |  Sort by
+                            |                 price
+                        .mt-4
+                            form(action='#')
+                                p
+                                    input#test1(type='radio' name='radio-group' checked='')
+                                    label(for='test1') Defulte List
+                                p
+                                    input#test2(type='radio' name='radio-group')
+                                    label(for='test2') Low To Height
+                                p
+                                    input#test3(type='radio' name='radio-group')
+                                    label(for='test3') Height to Low
+                        h6.fw-bold.mt-5 Fillter Hear Type
+                        .mt-4
+                            form(action='#')
+                                p
+                                    input#test1(type='radio' name='radio-group' checked='')
+                                    label(for='test1') Left side
+                                p
+                                    input#test2(type='radio' name='radio-group')
+                                    label(for='test2') Right side
+                // Card Section
+                .col-8
+                    .small-shdow.p-2.rounded
+                        p.card-small-description Shows 1-40 out of 400
+                        h4.fw-bold Your requestd Service List
+                    .mt-5
+                        .row.row-cols-1.row-cols-md-3.g-4
+                            each doc in product
+                                .col
+                                    a(href=`/hearing-aid/product/${doc.hiwhapnsID}`)
+                                        .card.h-100
+                                            img.card-img-top.cart-image-product(src=doc.bannerImage alt='...')
+                                            .card-body
+                                                h6.text-center.main-color.text-uppercase
+                                                    | #{doc.productName}
+                                                p.text-center.text-secondary.fw-bold
+                                                    if doc.discountPrice
+                                                        | Rs.#{doc.discountPrice} 
+                                                        del
+                                                            span.text-success Rs. #{doc.price} 
+                                                    else 
+                                                        | Rs.#{doc.price} 
+                                                        
+                    // Pagination Sction
+                    div
+                        .pagination_rounded
+                            ul
+                                li
+                                    a.prev(href='#')
+                                        i.fa.fa-angle-left(aria-hidden='true')
+                                        |  Prev
+                                li
+                                    a(href='#') 1
+                                li.hidden-xs
+                                    a.active(href='#') 2
+                                li.hidden-xs
+                                    a(href='#') 3
+                                li.hidden-xs
+                                    a(href='#') 4
+                                li.hidden-xs
+                                    a(href='#') 5
+                                li.visible-xs
+                                    a(href='#') ...
+                                li
+                                    a(href='#') 6
+                                li
+                                    a.next(href='#')
+                                        | Next 
+                                        i.fa.fa-angle-right(aria-hidden='true')
+    // Hearing Aid Product List Section End
+    // Hearing Repiar List Section Start
+    section#hearingAidRepiar.mt-4.container.display-n
+        .justify-content-center
+            h5.heading Our Hearing Aid Repair Shop list
+            .underline
+            .mt-5
+                .row.row-cols-1.row-cols-md-5.g-4
+                    .col
+                        a(href='./userHearingAidShop.html')
+                            .card.h-100
+                                img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                                .p-2
+                                    h6.text-center.main-color.text-uppercase
+                                        | Shop Name
+                                    p.text-center.text-secondary.fw-bold
+                                        | Hours:
+                                        span.text-danger 10:00 AM to 11:00 PM
+        // Pagination Sction
+        .text-center
+            .pagination_rounded
+                ul
+                    li
+                        a.prev(href='#')
+                            i.fa.fa-angle-left(aria-hidden='true')
+                            |  Prev
+                    li
+                        a(href='#') 1
+                    li.hidden-xs
+                        a.active(href='#') 2
+                    li.hidden-xs
+                        a(href='#') 3
+                    li.hidden-xs
+                        a(href='#') 4
+                    li.hidden-xs
+                        a(href='#') 5
+                    li.visible-xs
+                        a(href='#') ...
+                    li
+                        a(href='#') 6
+                    li
+                        a.next(href='#')
+                            | Next 
+                            i.fa.fa-angle-right(aria-hidden='true')
+    // Hearing Repiar Product List Section End
+    // Hearing hospital List Section Start
+    section#hearingAidhospital.mt-4.container.display-n
+        .justify-content-center
+            h5.heading Our Hearing Aid Hospital list
+            .underline
+            .mt-5
+                .row.row-cols-1.row-cols-md-5.g-4
+                    .col
+                        a(href='./userDisabledabledProductDetails.html')
+                            .card.h-100
+                                img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                                .p-2
+                                    h6.text-center.main-color.text-uppercase
+                                        | Hospital Name
+                                    p.text-center.text-secondary.fw-bold
+                                        | Hours:
+                                        span.text-danger 10:00 AM to 11:00 PM
+        // Pagination Sction
+        .text-center
+            .pagination_rounded
+                ul
+                    li
+                        a.prev(href='#')
+                            i.fa.fa-angle-left(aria-hidden='true')
+                            |  Prev
+                    li
+                        a(href='#') 1
+                    li.hidden-xs
+                        a.active(href='#') 2
+                    li.hidden-xs
+                        a(href='#') 3
+                    li.hidden-xs
+                        a(href='#') 4
+                    li.hidden-xs
+                        a(href='#') 5
+                    li.visible-xs
+                        a(href='#') ...
+                    li
+                        a(href='#') 6
+                    li
+                        a.next(href='#')
+                            | Next 
+                            i.fa.fa-angle-right(aria-hidden='true')
+    // Hearing hospital Product List Section End

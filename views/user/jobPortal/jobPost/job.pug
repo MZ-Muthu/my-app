@@ -1,0 +1,50 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block
+    // Compnay Details Section Start
+    section.container.small-shdow.p-4.mt-4
+        .container.ps-4.pe-4
+            .row
+                .col-12.border.border-color.width-100.p-0
+                    hr
+                    .p-5.pt-2#manage_data
+                        .text-end
+                            a.btn.btn-success.me-md-2(href=`./post-new-job`)
+                                | Post Job
+                        if jobs.active.length
+                            each doc in jobs.active
+                                div
+                                    .border.rounded.p-3.mt-4
+                                        .d-flex.bd-highlight.ms-0
+                                            .me-auto.bd-highlight
+                                                h6.fs-5.main-color.fw-bold= doc.jobTitle
+                                            .p-2.bd-highlight
+                                                //- i.fa-solid.fa-trash.text-danger.fs-5#deletejob(data-job=doc.hiwjbmID data-from=partner.for)
+                                            .p-2.bd-highlight.ms-4
+                                                a(href=`./update-job/${doc.hiwjbmID}`)
+                                                    i.fa-solid.fa-pen.main-color.fs-5
+                                        div
+                                            h6.fw-bold.text-dark
+                                                | Job Description:
+                                                span.text-secondary.fw-normal= doc.description
+                                        div
+                                            h6.fw-bold.text-dark
+                                                | Year of Experience:
+                                                span.text-secondary.fw-normal= doc.yearOfExperience
+                                        .d-flex.bd-highlight.ms-0
+                                            .me-auto.bd-highlight
+                                                h6.fw-bold.text-dark
+                                                    | Posted Date:
+                                                    span.text-secondary.fw-normal=new Date(doc.createdAt).toLocaleDateString()
+                                            .p-2.bd-highlight
+                                                a(href=`/job-portal/view-a-job/${doc.hiwjbmID}`) View Profiles
+                        else 
+                            p Currently you don't have any active jobs.

@@ -1,0 +1,333 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        const invidual = document.getElementById("invidual");
+        const company = document.getElementById("company");
+        const Active = document.getElementById("Active-things");
+        const Wait = document.getElementById("Waiting-things");
+        const Completed = document.getElementById("HomeCare-Books");
+        const wai = document.getElementById("wai");
+        function Invidual() {
+        invidual.className = "tab-text-active";
+        company.className = "tab-text";
+        wai.className = "tab-text";
+        Active.className = " mt-5 container display-block";
+        Completed.className = "display-n";
+        Wait.className = "display-n";
+        }
+        function Company() {
+        invidual.className = "tab-text";
+        company.className = "tab-text-active";
+        Active.className = "display-n";
+        Completed.className = " mt-5 container display-block";
+        wai.className = "tab-text";
+        Wait.className = "display-n";
+        }
+        function Waiting() {
+        invidual.className = "tab-text";
+        Active.className = "display-n";
+        company.className = "tab-text";
+        Completed.className = "display-n";
+        wai.className = "tab-text-active";
+        Wait.className = " mt-5 container display-block";
+        }
+
+
+
+block block
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/ambulance.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 My Ambulace Bookings
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-3
+        .d-flex.justify-content-center
+            div
+                h6#wai.tab-text-active(onclick='Waiting()')
+                    | Waiting List
+            div
+                h6#invidual.tab-text(onclick='Invidual()')
+                    | Active List
+            div
+                h6#company.tab-text(onclick='Company()')
+                    | Completed History
+    // Catercory button Section Start
+    // Card Section Start
+    section#Waiting-things.mt-5.container.display-block
+        .justify-content-center
+            h5.heading My Ambulance booking Active list
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            #cancel_quotes_user
+                each docs,inds in quotes.waiting
+                    .row.pt-3 
+                        .col-sm-6
+                            p
+                                b Quote ID : 
+                                span=docs._id
+                        .col-sm-6
+                            p
+                                b Status : 
+                                span Active
+                    .row
+                        .col-sm-6
+                            p
+                                b Scheduled Date: 
+                                span #{new Date(docs.bookingDate).toLocaleDateString()} 
+                        .col-sm-6
+                            p
+                                b Scheduled Time : 
+                                span #{ docs.bookingTime}
+                    button.btn.btn-danger#cance_quote(data-quote=docs._id) Cancel Quote
+                    
+                    hr.m-0
+    section#Active-things.mt-5.container.display-n
+        .justify-content-center
+            h5.heading My Ambulance booking Response list
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            #cancel_quotes_user
+                each docs,inds in quotes.active
+                    .row.pt-3 
+                        .col-sm-6
+                            p
+                                b Quote ID : 
+                                span=docs._id
+                        .col-sm-6
+                            p
+                                b Status : 
+                                span Active
+                    .row
+                        .col-sm-6
+                            p
+                                b Scheduled Date: 
+                                span #{new Date(docs.list[0].bookingDate).toLocaleDateString()} 
+                        .col-sm-6
+                            p
+                                b Scheduled Time : 
+                                span #{ docs.list[0].bookingTime}
+                    button.btn.btn-danger#cance_quote(data-quote=docs._id) Cancel Quote
+                    table.table.table-bordered.table-font
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    |Requester Name
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requester Phone
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Scheduled Date
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Asked Services
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requested Date
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Status 
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Details
+                        tbody#ambulance_quote_status_user
+                            each doc,index in docs.list
+                                tr
+                                    td=user.name
+                                    td=user.phone
+                                    td #{new Date(doc.bookingDate).toLocaleDateString()}, #{doc.bookingTime},
+                                    td= doc.requestedService
+                                    td= new Date(doc.createdAt).toLocaleDateString()
+                                    td
+                                        select.form-select.update_status(id=`updateStatus-${index}` data-apply=doc.hiwnrqID data-index=index )
+                                            if doc.status === 'requested'
+                                                option(value=""  selected) Requested
+                                            else 
+                                                option(value="") requested
+                                            if doc.status === "responded"
+                                                option(value="responded" selected) Responded
+                                            else
+                                                option(value="responded" ) Responded
+                                            if doc.status === "accepted"
+                                                option(value="accepted" selected) Accepted
+                                            else
+                                                option(value="accepted" ) Accepted
+                                            if doc.status === /^rejected/ig
+                                                option(value="rejected" selected) Rejected
+                                            else
+                                                option(value="rejected" ) Rejected
+                                            option(value='canceled') Canceled
+                                            option(value='completed') completed
+                                    td
+                                        a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activeBookingdetails-${inds}-${index}`) View
+                                        // Modal
+                                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' id= `activeBookingdetails-${inds}-${index}` aria-hidden='true')
+                                            .modal-dialog.modal-dialog-scrollable
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#staticBackdropLabel.modal-title
+                                                            | Booking Details
+                                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                    .modal-body.table-responsive
+                                                        table.table.table-bordered
+                                                            thead
+                                                                tr
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking Details
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking ID - #{doc._id.toString().slice(-6)}-#{doc.hiwnrqID.slice(0,doc.hiwnrqID.indexOf('-'))}#{doc.batch.slice(doc.batch.lastIndexOf('-'),doc.batch.length)}
+                                                            tbody
+                                                                tr
+                                                                    th(scope='row') Booking Id
+                                                                    td #{doc._id.toString().slice(-6)}-#{doc.hiwnrqID.slice(0,doc.hiwnrqID.indexOf('-'))}#{doc.batch.slice(doc.batch.lastIndexOf('-'),doc.batch.length)}
+                                                                tr
+                                                                    th(scope='row') User Name
+                                                                    td= user.name
+                                                                tr
+                                                                    th(scope='row') Booked Date
+                                                                    td= new Date(doc.createdAt).toLocaleString()
+                                                                tr
+                                                                    th(scope='row') Asked Date
+                                                                    td #{new Date(doc.bookingDate).toLocaleDateString()}, #{doc.bookingTime}
+
+                                                                //- tr
+                                                                    th(scope='row') Location
+                                                                    td 
+                                                                        div( id=`activeAmbulanceId-${inds}-${index}` class="activeAmbulanceMapStartUser" data-startLocation=[doc.userStartLocation.coordinates[1],doc.userStartLocation.coordinates[0]] data-endLocation=[doc.userDestinationLocation.coordinates[1],doc.userDestinationLocation.coordinates[0]] data-index=index data-index0=inds style='width:100%;height:200px;')
+                                                                tr
+                                                                    th(scope='row') Vendor Respond Time
+                                                                    td=  `${doc.providerResponstTime ? new Date(doc.providerResponstTime).toLocaleDateString() : "-" }`
+                                                                tr
+                                                                    th(scope='row') Quoted Amount
+                                                                    td=`${doc.providerResponstTime ? (doc.quoteAmount) : "-" }`
+                                                                tr
+                                                                    th(scope='row') User Respond Time
+                                                                    td=`${ doc.userRespondTime ? new Date( doc.userRespondTime).toLocaleDateString() : "-" }`
+
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                            | Cancel
+                    hr.m-0
+
+    section#HomeCare-Books.mt-5.container.display-n
+        .justify-content-center
+            h5.heading My Ambulance booking list
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            each docs,inds in quotes.history
+                if docs.list.length
+                    .row.pt-3 
+                        .col-sm-6
+                            p
+                                b Quote ID : 
+                                span=docs._id
+                        .col-sm-6
+                            p
+                                b Status : 
+                                span Active
+                    .row
+                        .col-sm-6
+                            p
+                                b Scheduled Date: 
+                                span #{new Date(docs.list[0].bookingDate).toLocaleDateString()} 
+                        .col-sm-6
+                            p
+                                b Scheduled Time : 
+                                span #{ docs.list[0].bookingTime}
+                    table.table.table-bordered.table-font
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    |Requester Name
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requester Phone
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Scheduled Date
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Asked Services
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requested Date
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Status 
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Details
+                        tbody#ambulance_quote_status_user
+                            each doc,index in docs.list
+                                tr
+                                    td=user.name
+                                    td=user.phone
+                                    td #{new Date(doc.bookingDate).toLocaleDateString()}, #{doc.bookingTime},
+                                    td= doc.requestedService
+                                    td= new Date(doc.createdAt).toLocaleDateString()
+                                    td= doc.status
+                                    td
+                                        a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#historyBookingdetails-${inds}-${index}`) View
+                                        // Modal
+                                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' id= `historyBookingdetails-${inds}-${index}` aria-hidden='true')
+                                            .modal-dialog.modal-dialog-scrollable
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#staticBackdropLabel.modal-title
+                                                            | Booking Details
+                                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                    .modal-body.table-responsive
+                                                        table.table.table-bordered
+                                                            thead
+                                                                tr
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking Details
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking ID - #{doc._id.toString().slice(-6)}-#{doc.hiwnrqID.slice(0,doc.hiwnrqID.indexOf('-'))}#{doc.batch.slice(doc.batch.lastIndexOf('-'),doc.batch.length)}
+                                                            tbody
+                                                                tr
+                                                                    th(scope='row') Booking Id
+                                                                    td #{doc._id.toString().slice(-6)}-#{doc.hiwnrqID.slice(0,doc.hiwnrqID.indexOf('-'))}#{doc.batch.slice(doc.batch.lastIndexOf('-'),doc.batch.length)}
+                                                                tr
+                                                                    th(scope='row') User Name
+                                                                    td= user.name
+                                                                tr
+                                                                    th(scope='row') Booked Date
+                                                                    td= new Date(doc.createdAt).toLocaleString()
+                                                                tr
+                                                                    th(scope='row') Asked Date
+                                                                    td #{new Date(doc.bookingDate).toLocaleDateString()}, #{doc.bookingTime}
+
+                                                                //- tr
+                                                                    th(scope='row') Location
+                                                                    td 
+                                                                        div( id=`historyAmbulanceId-${inds}-${index}` class="historyAmbulanceMapStartUser" data-startLocation=[doc.userStartLocation.coordinates[1],doc.userStartLocation.coordinates[0]] data-endLocation=[doc.userDestinationLocation.coordinates[1],doc.userDestinationLocation.coordinates[0]] data-index=index data-index0=inds style='width:100%;height:200px;')
+                                                                tr
+                                                                    th(scope='row') Vendor Respond Time
+                                                                    td=  `${doc.providerResponstTime ? new Date(doc.providerResponstTime).toLocaleDateString() : "-" }`
+                                                                tr
+                                                                    th(scope='row') Quoted Amount
+                                                                    td=`${doc.providerResponstTime ? (doc.quoteAmount) : "-" }`
+                                                                tr
+                                                                    th(scope='row') User Respond Time
+                                                                    td=`${ doc.userRespondTime ? new Date( doc.userRespondTime).toLocaleDateString() : "-" }`
+
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                            | Cancel
+                    hr.m-0

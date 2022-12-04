@@ -1,0 +1,124 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Medicine List Section Start
+    section.mt-4.container
+        .row
+            // Card Section
+            .col-12
+                h5.fw-bold.mb-4.text-uppercase Order Details
+                .d-flex.justify-content-start
+                    div
+                        img.gif-image(src='./Assets/images/placeOrder.gif')
+                    div
+                        .container
+                            h5#headline.mt-5
+                                | Your Order Will be delivryed with in time
+                            h5#demo
+                .row.row-cols-1.row-cols-md-2.g-4
+                    each doc in orders.active
+                        .col
+                            a.card.h-.text-dark(href=`/my-account/pharmacy/order/${doc._id}`) 
+                                .row
+                                    .col-5
+                                        img.img-thumbnail.border-0(src=`${doc.requestType === "prescription" ? doc.prescription : doc.medicines[0].bannerImage}` alt='Shop Name')
+                                    .col-7.p-2
+                                        h6.m-0.text-uppercase.fw-bold=doc.requestType === "prescription" ? "Prescription" : `${doc.medicines[0].name} & ${doc.medicines.length-1} Other medicines.`
+                                        p.m-0=doc.requestType === "prescription" ? "-" : doc.medicines[0].description
+                                        .d-flex.justify-content-between.m-0
+                                            .bd-highlight
+                                                h6.fw-bold.main-color
+                                                    | Rs.500
+                                                    span.fw-normal.text-danger (80%)
+                                            div
+                                                h6
+                                                    i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                    | (145)
+                                            div
+
+    section.mt-4.container
+        .row
+            // Card Section
+            .col-12
+                h5.fw-bold.mb-4.text-uppercase Your Old Orders
+                .row.row-cols-1.row-cols-md-2.g-4
+                    .col
+                        .card.h-100
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='./Assets/images/meettheexpert.jpg' alt='Shop Name')
+                                .col-7.p-2
+                                    h6.m-0.text-uppercase.fw-bold atenolol tablet
+                                    p.m-0 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .bd-highlight
+                                            h6.fw-bold.main-color
+                                                | Rs.500
+                                                span.fw-normal.text-danger (80%)
+                                        div
+                                            h6
+                                                i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                | (145)
+                                        div
+                    .col
+                        .card.h-100
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='./Assets/images/meettheexpert.jpg' alt='Shop Name')
+                                .col-7.p-2
+                                    h6.m-0.text-uppercase.fw-bold atenolol tablet
+                                    p.m-0 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .bd-highlight
+                                            h6.fw-bold.main-color
+                                                | Rs.500
+                                                span.fw-normal.text-danger (80%)
+                                        div
+                                            h6
+                                                i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                | (145)
+                                        div
+                    .col
+                        .card.h-100
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='./Assets/images/meettheexpert.jpg' alt='Shop Name')
+                                .col-7.p-2
+                                    h6.m-0.text-uppercase.fw-bold atenolol tablet
+                                    p.m-0 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .bd-highlight
+                                            h6.fw-bold.main-color
+                                                | Rs.500
+                                                span.fw-normal.text-danger (80%)
+                                        div
+                                            h6
+                                                i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                | (145)
+                                        div
+                    .col
+                        .card.h-100
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='./Assets/images/meettheexpert.jpg' alt='Shop Name')
+                                .col-7.p-2
+                                    h6.m-0.text-uppercase.fw-bold atenolol tablet
+                                    p.m-0 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .bd-highlight
+                                            h6.fw-bold.main-color
+                                                | Rs.500
+                                                span.fw-normal.text-danger (80%)
+                                        div
+                                            h6
+                                                i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                | (145)
+                                        div
+    // Medicine List Section End

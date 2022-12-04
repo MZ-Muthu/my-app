@@ -1,0 +1,331 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+    link(rel="stylesheet", href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    // Slick Carousel
+    script(type='text/javascript' src='//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js')
+    script.
+        $(".services-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+
+
+block block
+    // Product List Section Start
+    section.mt-4.container
+        .row
+            // Product Image Section
+            .col-6
+                .text-center#market_image_slide
+                    img#main-img.product-big-image(src=product.imageGallery[0])
+                    .row.mt-4
+                        each docs,index in product.imageGallery
+                            .col
+                                img.market_subImage.product-small-image(class=`${index === 0 && "active-small-image"}` src=docs style='width:86px;' alt='product image')
+            #script
+                -let data = product.hiwmmpmID
+                script.
+                    data = `#{data}`
+                    document.cookie=`mmpd-id=${data};expires=${new Date(
+                        Date.now() + 1000 * 60 * 5
+                        )};path=/`;
+                    document.getElementById('script').remove()
+
+            // Details Section
+            .col-6.ps-3
+                h4.fw-bold Hospital Apparel, Linen and
+                p.text-secondry
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti,
+                    | ut.
+                #marketPrices
+                    if product.discountPrice
+                        h5.fw-bold Rs.#{product.discountPrice}
+                            small.ms-2.text-secondary
+                                del Rs.#{product.price}
+                    else 
+                        h5.fw-bold Rs.#{product.price}
+                if product.productType === "colorOnly" 
+                    p
+                        span.fw-bold.me-2 Color:
+                        span#marketProductColor  #{product.productDetails[0].color}
+
+                    each docs,index in product.productDetails
+                        if index === 0
+                            img.Active-color.img_color.cursor-pointer(style="width:50px;" data-img=docs.hiwmmppdsmID src=docs.bannerImage)
+                        else
+                            img.ms-2.img_color.cursor-pointer(style="width:50px;" data-img=docs.hiwmmppdsmID src=docs.bannerImage)
+                if product.productType === "sizeOnly" 
+                    p.mt-4
+                        span.me-2.fw-bold size:
+                        span  
+                            select.marketSelectColor.market_product_size#market_img_size
+                                option(disabled selected) --size--
+                                each size,index in product.productDetails[0].subDetails 
+                                    if index == 0
+                                        option(value=size.hiwmmpdssID selected)= size.size 
+                                    else 
+                                        option(value=size.hiwmmpdssID)=size.size
+                if product.productType === "colorWithSize" 
+                    p
+                        span.fw-bold.me-2 Color:
+                        span#marketProductColor  #{product.productDetails[0].color}
+                    each docs,index in product.productDetails
+                        if index === 0
+                            img.Active-color.img_color.cursor-pointer(style="width:50px;" data-img=docs.hiwmmppdsmID src=docs.bannerImage)
+                        else
+                            img.ms-2.img_color.cursor-pointer(style="width:50px;" data-img=docs.hiwmmppdsmID src=docs.bannerImage)
+                    p.mt-4
+                        span.me-2.fw-bold size:
+                        span  
+                            select.marketSelectColor#market_color_wih_size.market_product_size
+                                option(disabled selected) --size--
+                                each size,index in product.productDetails[0].subDetails 
+                                    if index === 0
+                                        option(value=size.hiwmmpdssID selected)= size.size 
+                                    else 
+                                        option(value=size.hiwmmpdssID)=size.size
+                p.mt-4
+                    span.me-2.fw-bold Quantity:
+                    span  
+                        select.marketSelectColor#market_quantity
+                            option(disabled) --qty--
+                            option(value=1 selected) 1
+                            option(value=2) 2
+                            option(value=3) 3
+                            option(value=4) 4
+                            option(value=5) 5
+
+                .mt-3.h4 Addictional Informations
+                each val,key in product.additionalProductDetails
+                    p.fw-bold
+                        | #{key}
+                        span.fw-normal.text-secondry : #{val}
+                p.add-wishlist#market_add_to_wishlist(data-id=product.hiwmmpmID)
+                    i.fa-regular.fa-heart.me-2
+                    |  Add to WishList
+                .d-flex.flex-row.mb-3
+                    .p-2
+                        buttons.cat-button#market_add_to_cart(data-id=product.hiwmmpmID) Add to Cart
+                    .p-2
+                        a.buy-button#market_buy_product(data-id=product.hiwmmpmID) Buy Now
+                div
+                    h6.fw-bold Our service&rsquo;s facilities
+                    each docs in product.aboutItem
+                        p.m-0.ms-3
+                            i.fa-solid.fa-circle.me-2= docs
+
+        .mt-5.mb-5.vertical-line
+        // Review and Related Product
+        div
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+            h4.fw-bold.mb-4.mt-5 Related Products
+            .services-list
+                div
+                    .card.h-100.me-2
+                        img.card-img-top(src='./Assets/images/homeCare.jpg' alt='service Name')
+                        .p-2
+                            h6.fw-bold.main-color Massage + lymphatic drainage
+                            p.m-0.text-12
+                                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                                | ullam.
+                            p.fw-bold.m-0 Rs.600
+                            .d-flex
+                                .flex-grow-1
+                                    p.fw-bold
+                                        | Rating :
+                                        span.text-12.text-warning
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-regular.fa-star
+                                div
+                                    i.fa-solid.fa-cart-shopping.card-cart-icon
+                                div
+                                    i.fa-solid.fa-heart.card-cart-icon
+                        a(href='./userProductViewPage.html')
+                            h6.merket-category-card.m-0 Buy Now
+                div
+                    .card.h-100.me-2
+                        img.card-img-top(src='./Assets/images/homeCare.jpg' alt='service Name')
+                        .p-2
+                            h6.fw-bold.main-color Massage + lymphatic drainage
+                            p.m-0.text-12
+                                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                                | ullam.
+                            p.fw-bold.m-0 Rs.600
+                            .d-flex
+                                .flex-grow-1
+                                    p.fw-bold
+                                        | Rating :
+                                        span.text-12.text-warning
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-regular.fa-star
+                                div
+                                    i.fa-solid.fa-cart-shopping.card-cart-icon
+                                div
+                                    i.fa-solid.fa-heart.card-cart-icon
+                        a(href='./userProductViewPage.html')
+                            h6.merket-category-card.m-0 Buy Now
+                div
+                    .card.h-100.me-2
+                        img.card-img-top(src='./Assets/images/homeCare.jpg' alt='service Name')
+                        .p-2
+                            h6.fw-bold.main-color Massage + lymphatic drainage
+                            p.m-0.text-12
+                                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                                | ullam.
+                            p.fw-bold.m-0 Rs.600
+                            .d-flex
+                                .flex-grow-1
+                                    p.fw-bold
+                                        | Rating :
+                                        span.text-12.text-warning
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-regular.fa-star
+                                div
+                                    i.fa-solid.fa-cart-shopping.card-cart-icon
+                                div
+                                    i.fa-solid.fa-heart.card-cart-icon
+                        a(href='./userProductViewPage.html')
+                            h6.merket-category-card.m-0 Buy Now
+                div
+                    .card.h-100.me-2
+                        img.card-img-top(src='./Assets/images/homeCare.jpg' alt='service Name')
+                        .p-2
+                            h6.fw-bold.main-color Massage + lymphatic drainage
+                            p.m-0.text-12
+                                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                                | ullam.
+                            p.fw-bold.m-0 Rs.600
+                            .d-flex
+                                .flex-grow-1
+                                    p.fw-bold
+                                        | Rating :
+                                        span.text-12.text-warning
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-regular.fa-star
+                                div
+                                    i.fa-solid.fa-cart-shopping.card-cart-icon
+                                div
+                                    i.fa-solid.fa-heart.card-cart-icon
+                        a(href='./userProductViewPage.html')
+                            h6.merket-category-card.m-0 Buy Now
+                div
+                    .card.h-100.me-2
+                        img.card-img-top(src='./Assets/images/homeCare.jpg' alt='service Name')
+                        .p-2
+                            h6.fw-bold.main-color Massage + lymphatic drainage
+                            p.m-0.text-12
+                                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
+                                | ullam.
+                            p.fw-bold.m-0 Rs.600
+                            .d-flex
+                                .flex-grow-1
+                                    p.fw-bold
+                                        | Rating :
+                                        span.text-12.text-warning
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-solid.fa-star
+                                            i.fa-regular.fa-star
+                                div
+                                    i.fa-solid.fa-cart-shopping.card-cart-icon
+                                div
+                                    i.fa-solid.fa-heart.card-cart-icon
+                        a(href='./userProductViewPage.html')
+                            h6.merket-category-card.m-0 Buy Now
+    // Product List Section End

@@ -1,0 +1,24 @@
+extends ../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/login.css")
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js") 
+
+block block 
+    .container
+     .center
+        h1 Login
+        form#user__login
+
+            .txt_field
+                input#phone(type='text' required='')
+                span
+                label Phone Number
+            button#otpButton(type='button' value='Send OTP') Send  OTP
+            .txt_field
+                input#otp(type='text' required='')
+                span
+                label OTP
+            input(type='submit' value='Login')
+

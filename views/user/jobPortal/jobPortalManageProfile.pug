@@ -1,0 +1,478 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+    // Profile Details Section Start
+    section.container.p-4.mt-4
+        .row
+            //- .col-2
+            //-     img.company-logo(src='./Assets/images/userProfileImage.jpg')
+            //- .col-8
+                h4.main-color.fw-bold= doc.personalDetails.name
+                p.m-0.fs-5 Lorem ipsum dolor sit amet.
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-location-dot.me-2.text-primary
+                            |                 Chennai
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-business-time.me-2.ms-3.text-primary
+                            |                 Construction Worker
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-phone.me-2.text-primary
+                            |                 +91 9698091007
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-envelope.me-2.ms-3.text-primary
+                            |                 muthu123@gmail.com
+        .vertical-line.mt-3.mb-3
+    // Profile Details Section End
+    // Details Section Start
+    section.container.mt-0.p-4
+        // Personal Details
+        .small-shdow.rounded.p-3
+            .d-flex.justify-content-between
+                div
+                    h5 Personal Details
+                div
+                    button.btn.btn-outline-primary(type='button' data-bs-toggle='modal' data-bs-target='#staticBackdrop')
+                        | Update
+            .row.ms-2
+                .col-3
+                    p.fw-bold Name
+                .col-6
+                    p : #{doc.personalDetails.name}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Gender
+                .col-6
+                    p : #{doc.personalDetails.gender}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Date of Birth
+                .col-6
+                    p : #{doc.personalDetails.dateOfBirth}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Email
+                .col-6
+                    p : #{doc.personalDetails.email}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Phone
+                .col-6
+                    p : #{doc.personalDetails.phone}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Address
+                .col-6
+                    p : #{doc.personalDetails.address}
+        // Previous Experience Details
+        .small-shdow.rounded.p-3.mt-3
+            .d-flex.justify-content-between.mb-2
+                div
+                    h5 Previous Experience Details
+                div
+                    button.btn.btn-outline-primary(type='button' data-bs-toggle='modal' data-bs-target='#Experience') Add
+            .row
+                each docs,index in doc.employementDetails
+                    .col-8
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Designation
+                            .col-6
+                                p : #{docs.designation}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Work Place
+                            .col-6
+                                p : #{docs.workplace}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Duration
+                            .col-6
+                                p : #{docs.duration}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Job Type
+                            .col-6
+                                p : #{docs.jobtype}
+                        .horsonadal-line
+                    .col-4
+                        .d-flex.justify-content-end
+                            div
+                                button.btn.btn-outline-success(type='button' data-bs-toggle='modal' data-bs-target=`#Experience${index}`)
+                                    | Update
+                            div
+                                button.btn.btn-outline-danger(type='button')
+                                    | Delete
+                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='ExperienceLabel' id=`Experience${index}` aria-hidden='true')
+                        .modal-dialog.modal-dialog-scrollable
+                            .modal-content
+                                .modal-header
+                                    h5#ExperienceLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                                        | Previous Experience
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    form.update_job_experience(data-id=docs.jpUEID data-index=index)
+                                        div
+                                            h6
+                                                | Designation
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Designation...' name='fname' value=docs.designation required='' id=`designation${index}`)
+                                        div
+                                            h6
+                                                | Work Place
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Work Place...' name='fname' value=docs.workplace required='' id=`workplace${index}`)
+                                        div
+                                            h6
+                                                | Duration
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Duration...' name='fname' value=docs.duration required='' id=`duration${index}`)
+                                        div
+                                            h6
+                                                | Job Type
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                select.form-select.border(aria-label='Default select example' id=`jobtype${index}`)
+                                                    option(selected='' disabled) --Job Type--
+                                                    if docs.jobtype === "Full-Time"
+                                                        option(value='Full-Time' selected) Full Time
+                                                        option(value='Part-Time') Part Time
+                                                    else
+                                                        option(value='Full-Time' ) Full Time
+                                                        option(value='Part-Time' selected) Part Time
+                                            button.conform-service-booking(type="submit") Submit
+
+        // Education Details
+        .small-shdow.rounded.p-3.mt-3
+            .d-flex.justify-content-between.mb-2
+                div
+                    h5 Education Details
+                div
+                    button.btn.btn-outline-primary(type='button' data-bs-toggle='modal' data-bs-target='#Education') Add
+            each docs,index in doc.educationDetails
+                .row
+                    .col-8
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Degree
+                            .col-6
+                                p : #{docs.degree}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Education
+                            .col-6
+                                p : #{docs.education}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold University
+                            .col-6
+                                p : #{docs.university}
+                        .row.ms-2
+                            .col-3
+                                p.fw-bold Year odf Passing
+                            .col-6
+                                p : #{docs.yearofpassing}
+                        .horsonadal-line
+                    .col-4
+                        .d-flex.justify-content-end
+                            div
+                                button.btn.btn-outline-success(type='button' data-bs-toggle='modal' data-bs-target=`#Education${index}`)
+                                    | Update
+                            div
+                                button.btn.btn-outline-danger(type='button')
+                                    | Delete
+                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='ExperienceLabel' id=`Education${index}` aria-hidden='true')
+                        .modal-dialog.modal-dialog-scrollable
+                            .modal-content
+                                .modal-header
+                                    h5#ExperienceLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                                        | Education
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    form.update_job_education(data-id=docs.jpUEID data-index=index)
+                                        div
+                                            h6
+                                                | Degree
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Degree...' name='fname' value=docs.degree required='' id=`degree${index}`)
+                                        div
+                                            h6
+                                                | Education
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Education...' name='fname' value=docs.education required='' id=`education${index}`)
+                                        div
+                                            h6
+                                                | University
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='University...' name='fname' value=docs.university required='' id=`university${index}`)
+                                        div
+                                            h6
+                                                | Year of Passing
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(placeholder='Year of Passing...' name='fname' value=docs.yearofpassing required='' id=`yearofpassing${index}`)
+                                            button.conform-service-booking(type="submit") Submit
+
+        // Profile Sammury
+        .small-shdow.rounded.p-3
+            .d-flex.justify-content-between
+                div
+                    h5 Profile Sammury
+                div
+                    button.btn.btn-outline-primary(type='button' data-bs-toggle='modal' data-bs-target='#ProfileSummury')
+                        | Update
+            .row.ms-2
+                .col-3
+                    p.fw-bold Profile Title
+                .col-6
+                    p : #{doc.profileSummary.profileTitle}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Total Experience
+                .col-6
+                    p : #{doc.profileSummary.exprience}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Current Location
+                .col-6
+                    p : #{doc.profileSummary.currentLocation}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Current CTC
+                .col-6
+                    p : #{doc.profileSummary.currentSalary}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Category
+                .col-6
+                    p : #{doc.profileSummary.category}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Speaciality
+                .col-6
+                    p : #{doc.profileSummary.speciality}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Pre-Location
+                .col-6
+                    p : #{doc.profileSummary.preLocation}
+            .row.ms-2
+                .col-3
+                    p.fw-bold Expected Salary
+                .col-6
+                    p : #{doc.profileSummary.expectSalary}
+    // Details Section End
+    // Personal Details Modal
+    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#staticBackdropLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Personal Details
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#update_job_user_personsl_details
+                        div
+                            h6
+                                | Full name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#name(placeholder='Full name...' name='fname' required='' value=doc.personalDetails.name)
+                        div
+                            h6
+                                | Phone number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#phone(placeholder='Phone number...' name='fname' required='' value=doc.personalDetails.phone)
+                        div
+                            h6
+                                | Email
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#email(placeholder='Email...' name='fname' required='' value=doc.personalDetails.email)
+                        div
+                            h6
+                                | Date of Birth
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#dateOfBirth(placeholder='12-12-2022...' type="date" name='fname' required='' value=doc.personalDetails.dateOfBirth)
+                        div
+                            h6
+                                | Gender
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                -const gndr = ['male',"female",'others'];
+                                select#gender.form-select.border(aria-label='Default select example' )
+                                    option(selected='') Select Gender
+                                    each docs in gndr 
+                                        if docs === doc.personalDetails.gender
+                                            option(value=docs selected)= docs
+                                        else    
+                                            option(value=docs )= docs
+                        div
+                            h6
+                                | Full Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#address(placeholder='Full Address...' name='fname' required='' value=doc.personalDetails.address)
+                                button.conform-service-booking.mt-3(type="submit") Submit
+                .modal-footer
+    // Profile Sammury Modal
+    #ProfileSummury.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='ProfileSummuryLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#ProfileSummuryLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Profile Sammury
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    -const {profileTitle,exprience,currentLocation,currentSalary,category,speciality,expectSalary} = doc.profileSummary
+                    form#update_job_profile_summary
+                        div
+                            h6
+                                | Profile Type
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#profileTitle(placeholder='Profile Type...' name='fname' required='' value=profileTitle)
+                        div
+                            h6
+                                | Total Experience
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#exprience(placeholder='Experience...' name='fname' required='' value=exprience)
+                        div
+                            h6
+                                | Category
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#category(placeholder='Profile Type...' name='fname' required='' value=category)
+                        div
+                            h6
+                                | Speciality
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#speciality(placeholder='Profile Type...' name='fname' required='' value=speciality)
+                        div
+                            h6
+                                | Current location
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#currentLocation(placeholder='Profile Type...' name='fname' required='' value=currentLocation)
+                        //- div
+                        //-     h6
+                        //-         | Expected location
+                        //-         i.fa-solid.fa-star-of-life.text-danger.text-12
+                        //-     p
+                        //-         select.form-select.border(aria-label='Default select example')
+                        //-             option(selected='') Select Location
+                        //-             option(value='1') Chennai
+                        //-             option(value='2') Vellor
+                        //-             option(value='3') Thiruvallur
+                        div
+                            h6
+                                | Current CTC / month
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#currentSalary(placeholder='50,000...' name='fname' required='' value=currentSalary)
+                        div
+                            h6
+                                | Expected CTC / month
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#expectSalary(placeholder='50,000...' name='fname' required='' value=expectSalary)
+                            button.conform-service-booking(type="submit") Submit
+                .modal-footer
+    // Education Details Modal
+    #Education.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='EducationLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#EducationLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Education Detail
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#add_job_education
+                        div
+                            h6
+                                | Degree
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#degree(placeholder='Degree...' name='fname' required='')
+                        div
+                            h6
+                                | Education
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#education(placeholder='Education...' name='fname' required='')
+                        div
+                            h6
+                                | University
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#university(placeholder='University...' name='fname' required='')
+                        div
+                            h6
+                                | Year odf Passing
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#yearofpassing(placeholder='Year odf Passing...' name='fname' required='')
+                            button.conform-service-booking(type="submit") Submit
+                .modal-footer
+    // Previous Experience Modal
+    #Experience.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='ExperienceLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#ExperienceLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Previous Experience
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#add_job_experience
+                        div
+                            h6
+                                | Designation
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#designation(placeholder='Designation...' name='fname' required='')
+                        div
+                            h6
+                                | Work Place
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#workplace(placeholder='Work Place...' name='fname' required='')
+                        div
+                            h6
+                                | Duration
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#duration(placeholder='Duration...' name='fname' required='')
+                        div
+                            h6
+                                | Job Type
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                select#jobtype.form-select.border(aria-label='Default select example')
+                                    option(selected='' disabled) --Job Type--
+                                    option(value='Full-Time') Full Time
+                                    option(value='Part-Time') Part Time
+                            button.conform-service-booking(type="submit") Submit
+                .modal-footer

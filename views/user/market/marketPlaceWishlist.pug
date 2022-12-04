@@ -1,0 +1,64 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block
+    // Card List Section Start
+    section.mt-4.container
+        div
+            h5.fw-bold.mb-4.text-uppercase MY Wislist
+            .row.row-cols-2.row-cols-md-4.g-3.m-0
+                each docs in wishlists
+                    .col
+                        .card.h-100
+                            img.card-img-top(src=docs.product.bannerImage alt='service Name')
+                            .p-2
+                                h6.fw-bold.main-color= docs.product.productName
+                                p.m-0.text-12= docs.product.description
+                                //- p.fw-bold.m-0 Rs
+                                .d-flex
+                                    .flex-grow-1
+                                        //- p.fw-bold
+                                            | Rating :
+                                            span.text-12.text-warning
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-regular.fa-star
+
+                                    i.fa-solid.fa-trash-can.text-danger.border.border-danger.p-1.border-3.rounded.delete_market_wishlist.cursor-pointer(data-id=docs.hiwmmpwlID)
+                            a.merket-category-card.m-0.market_wishlist_to_cart.cursor-pointer(data-id=docs.hiwmmpwlID) Move to Cart
+            // Pagination Sction
+            .text-center
+                .pagination_rounded
+                    ul
+                        li
+                            a.prev(href='#')
+                                i.fa.fa-angle-left(aria-hidden='true')
+                                |  Prev
+                        li
+                            a(href='#') 1
+                        li.hidden-xs
+                            a.active(href='#') 2
+                        li.hidden-xs
+                            a(href='#') 3
+                        li.hidden-xs
+                            a(href='#') 4
+                        li.hidden-xs
+                            a(href='#') 5
+                        li.visible-xs
+                            a(href='#') ...
+                        li
+                            a(href='#') 6
+                        li
+                            a.next(href='#')
+                                | Next 
+                                i.fa.fa-angle-right(aria-hidden='true')
+    // Medicine List Section End

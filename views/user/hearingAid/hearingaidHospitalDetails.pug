@@ -1,0 +1,190 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Product List Section Start
+    section.mt-4.container
+        .row
+            // Product Image Section
+            .col-6
+                .text-center
+                    img#main-img(src='https://images.unsplash.com/photo-1629198688000-71f23e745b6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80')
+            // Details Section
+            .col-6.ps-3
+                h4.fw-bold= doc.company.toUpperCase()
+                h6.main-color.text-uppercase.mt-3.fw-bold
+                    | Hospital Details
+                h5.fw-bold
+                    | Price: 
+                    span.text-secondary &#x20B9; #{doc.hearingAid.price}
+                   
+                p.fw-bold
+                    | Availability Hours :
+                    span.fw-normal.text-secondry #{doc.openTime} to #{doc.closeTime}
+                p.fw-bold
+                    | Availability Doctor : 
+                    span.fw-normal.text-secondry #{doc.hearingAid.availableDoctors}
+                p.fw-bold
+                    | Phone : 
+                    span.fw-normal.text-secondry #{doc.centerPhone}
+                p.fw-bold
+                    | Land line :
+                    span.fw-normal.text-secondry #{doc.centerLandLine}
+                p.fw-bold
+                    | Address :
+                    span.fw-normal.text-secondry= doc.address
+                div
+                    h6.fw-bold About Us
+                    p.m-0= doc.aboutUs
+                .p-2.mt-3.text-center
+                    p.cat-button(data-bs-toggle='modal' data-bs-target='#Request')
+                        | Book Slot Now
+        .mt-5.mb-5.vertical-line
+        // Request Doner Modal
+        #Request.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='RequestLabel' aria-hidden='true')
+            .modal-dialog.modal-dialog-scrollable.modal-lg
+                .modal-content
+                    .modal-header
+                        h5#RequestLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                            | Book Hispital
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                                //- #script
+                    -let data = doc.hiwpmID
+                    script.
+                        data = `#{data}`
+                        document.cookie=`bhidhId=${data};expires=${new Date(
+                            Date.now() + 1000 * 60 * 5
+                            )};path=/`;
+                        document.getElementById('script').remove()
+                    ul#pills-tab.nav.nav-pills.mb-3.d-flex.justify-content-around.mt-3(role='tablist')
+                        -const arr = [0,1,2,3,4,5,6]
+                        -const weekDay =  ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                        -const day = 2
+                        each doc,index in arr
+                            li.nav-item(role='presentation')
+                                a.btn.btn-outline-primary(class=`${index === 0 && 'active'}` data-bs-toggle='pill' id=`day-tab-${index}` data-bs-target=`#day-${index}` type='button' role='tab' aria-controls=`day-${index}` aria-selected='true' data-index=index)
+                                    span 
+                                        div #{`${doc+day < 7  ? weekDay[doc+day] : weekDay[doc+day-7]}`} 
+                                        div  #{new Date(new Date().setDate(new Date().getDate()+index)).toLocaleDateString()}
+                    .modal-footer
+                        a.conform-service-booking#confirm_hearingaid_hospital_booking() Conform Booking
+        // Review and Related Product
+        div
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+            h4.fw-bold.mb-4.mt-5 Related Hospitals
+            .services-list
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+                div
+                    a(href='./userHearingAidHospitalDetails.html')
+                        .card.h-100.me-2
+                            img.card-img-top.cart-image-product(src='./Assets/images/Hearing Aid.jpg' alt='...')
+                            .p-2
+                                h6.text-center.main-color.text-uppercase
+                                    | Shop Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Hours:
+                                    span.text-danger 10:00 AM to 11:00 PM
+    // Product List Section End

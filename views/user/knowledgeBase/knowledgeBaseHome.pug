@@ -1,0 +1,255 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+    script.
+        let suggestions = [
+        "Channel",
+        "CodingLab",
+        "CodingNepal",
+        "YouTube",
+        "YouTuber",
+        "YouTube Channel",
+        "Blogger",
+        "Bollywood",
+        "Vlogger",
+        "Vechiles",
+        "Facebook",
+        "Freelancer",
+        "Facebook Page",
+        "Designer",
+        "Developer",
+        "Web Designer",
+        "Web Developer",
+        "Login Form in HTML & CSS",
+        "How to learn HTML & CSS",
+        "How to learn JavaScript",
+        "How to became Freelancer",
+        "How to became Web Designer",
+        "How to start Gaming Channel",
+        "How to start YouTube Channel",
+        "What does HTML stands for?",
+        "What does CSS stands for?",
+        ];
+        // getting all required elements
+        const searchWrapper = document.querySelector(".search-input");
+        const inputBox = searchWrapper.querySelector("input");
+        const suggBox = searchWrapper.querySelector(".autocom-box");
+        const icon = searchWrapper.querySelector(".icon");
+        let linkTag = searchWrapper.querySelector("a");
+        let webLink;
+        let marginTop = document.getElementById("align-center-page");
+        let resultSection = document.getElementById("result-section");
+        // if user press any key and release
+        inputBox.onkeyup = (e) => {
+        let userData = e.target.value; //user enetered data
+        let emptyArray = [];
+        if (userData) {
+        icon.onclick = () => {
+        // webLink = "https://www.google.com/search?q=" + userData;
+        // linkTag.setAttribute("href", webLink);
+        // console.log(webLink);
+        // linkTag.click();
+        marginTop.className = "justify-content-center";
+        resultSection.className = "display-block";
+        };
+        emptyArray = suggestions.filter((data) => {
+        //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+        return data
+        .toLocaleLowerCase()
+        .startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((data) => {
+        // passing return data inside li tag
+        return (data = "<li>" + data + "</li>");
+        });
+        searchWrapper.classList.add("active"); //show autocomplete box
+        showSuggestions(emptyArray);
+        let allList = suggBox.querySelectorAll("li");
+        for (let i = 0; i < allList.length; i++) {
+        //adding onclick attribute in all li tag
+        allList[i].setAttribute("onclick", "select(this)");
+        }
+        } else {
+        searchWrapper.classList.remove("active"); //hide autocomplete box
+        }
+        };
+        function select(element) {
+        let selectData = element.textContent;
+        inputBox.value = selectData;
+        icon.onclick = () => {
+        //   webLink = "https://www.google.com/search?q=" + selectData;
+        //   linkTag.setAttribute("href", webLink);
+        //   linkTag.click();
+        marginTop.className = "justify-content-center";
+        resultSection.className = "display-block";
+        };
+        searchWrapper.classList.remove("active");
+        }
+        function showSuggestions(list) {
+        let listData;
+        if (!list.length) {
+        userValue = inputBox.value;
+        listData = "<li>" + userValue + "</li>";
+        } else {
+        listData = list.join("");
+        }
+        suggBox.innerHTML = listData;
+        }
+    // Togal button Scripte
+    script.
+        function Uses() {
+        const uses = document.getElementById("Uses");
+        const properties = document.getElementById("Properties");
+        const sideEffects = document.getElementById("SideEffects");
+        const causes = document.getElementById("Causes");
+        causes.className = "tab-text";
+        uses.className = "tab-text-active";
+        properties.className = "tab-text";
+        sideEffects.className = "tab-text";
+        const usessection = document.getElementById("uses-section");
+        const propertiessection = document.getElementById("properties-section");
+        const sideEffectssection = document.getElementById(
+        "sideEffects-section"
+        );
+        const causessection = document.getElementById("causes-section");
+        usessection.className = "display-block";
+        propertiessection.className = "display-n";
+        sideEffectssection.className = "display-n";
+        causessection.className = "display-n";
+        }
+        function Properties() {
+        const uses = document.getElementById("Uses");
+        const properties = document.getElementById("Properties");
+        const sideEffects = document.getElementById("SideEffects");
+        const causes = document.getElementById("Causes");
+        causes.className = "tab-text";
+        uses.className = "tab-text";
+        properties.className = "tab-text-active";
+        sideEffects.className = "tab-text";
+        const usessection = document.getElementById("uses-section");
+        const propertiessection = document.getElementById("properties-section");
+        const sideEffectssection = document.getElementById(
+        "sideEffects-section"
+        );
+        const causessection = document.getElementById("causes-section");
+        usessection.className = "display-n";
+        propertiessection.className = "display-block";
+        sideEffectssection.className = "display-n";
+        causessection.className = "display-n";
+        }
+        function SideEffects() {
+        const uses = document.getElementById("Uses");
+        const properties = document.getElementById("Properties");
+        const sideEffects = document.getElementById("SideEffects");
+        const causes = document.getElementById("Causes");
+        causes.className = "tab-text";
+        uses.className = "tab-text";
+        properties.className = "tab-text";
+        sideEffects.className = "tab-text-active";
+        const usessection = document.getElementById("uses-section");
+        const propertiessection = document.getElementById("properties-section");
+        const sideEffectssection = document.getElementById(
+        "sideEffects-section"
+        );
+        const causessection = document.getElementById("causes-section");
+        usessection.className = "display-n";
+        propertiessection.className = "display-n";
+        sideEffectssection.className = "display-block";
+        causessection.className = "display-n";
+        }
+        function Causes() {
+        const uses = document.getElementById("Uses");
+        const properties = document.getElementById("Properties");
+        const sideEffects = document.getElementById("SideEffects");
+        const causes = document.getElementById("Causes");
+        causes.className = "tab-text-active";
+        uses.className = "tab-text";
+        properties.className = "tab-text";
+        sideEffects.className = "tab-text";
+        const usessection = document.getElementById("uses-section");
+        const propertiessection = document.getElementById("properties-section");
+        const sideEffectssection = document.getElementById(
+        "sideEffects-section"
+        );
+        const causessection = document.getElementById("causes-section");
+        usessection.className = "display-n";
+        propertiessection.className = "display-n";
+        sideEffectssection.className = "display-n";
+        causessection.className = "display-block";
+        }
+
+block block 
+    // Serch Box Section Start
+    section.mt-4.container
+        #align-center-page.justify-content-center.align-centerpage
+            h5.heading Knowledge Base about the medicin
+            .underline
+        .wrapper
+            .search-input
+                a(href='' target='_blank' hidden='')
+                input(type='text' placeholder='Type to search..')
+                .autocom-box
+                    // here list are inserted from javascript
+                .icon
+                    i.fas.fa-search
+        #result-section.display-n
+            h4.fw-bold.main-color.text-uppercase.text-center.mb-3
+                | Dolo 650
+            // Catercory button Section Start
+            section.mt-1.mb-2
+                .d-flex.justify-content-center
+                    div
+                        h6#Uses.tab-text-active(onclick='Uses()') Uses
+                    div
+                        h6#Properties.tab-text(onclick='Properties()')
+                            | Properties
+                    div
+                        h6#SideEffects.tab-text(onclick='SideEffects()')
+                            | Side Effects
+                    div
+                        h6#Causes.tab-text(onclick='Causes()') Causes
+            // Catercory button Section Start
+            .vertical-line
+            #uses-section.m-3.display-block
+                h5.fw-bold.main-color.text-uppercase.mt-3 Uses
+                p
+                    | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+                    | aliquid animi iure totam? Totam, porro perspiciatis. Similique
+                    | dignissimos aut tempore debitis sit dicta laboriosam beatae totam
+                    | optio repellat repudiandae iste aperiam, dolorum labore obcaecati
+                    | quo ipsa est architecto adipisci ad alias sequi animi aliquam! A
+                    | maxime accusamus beatae consequuntur dolore.
+            #properties-section.m-3.display-n
+                h5.fw-bold.main-color.text-uppercase.mt-3 Properties
+                p
+                    | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+                    | aliquid animi iure totam? Totam, porro perspiciatis. Similique
+                    | dignissimos aut tempore debitis sit dicta laboriosam beatae totam
+                    | optio repellat repudiandae iste aperiam, dolorum labore obcaecati
+                    | quo ipsa est architecto adipisci ad alias sequi animi aliquam! A
+                    | maxime accusamus beatae consequuntur dolore.
+            #sideEffects-section.m-3.display-n
+                h5.fw-bold.main-color.text-uppercase.mt-3 Side Effects
+                p
+                    | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+                    | aliquid animi iure totam? Totam, porro perspiciatis. Similique
+                    | dignissimos aut tempore debitis sit dicta laboriosam beatae totam
+                    | optio repellat repudiandae iste aperiam, dolorum labore obcaecati
+                    | quo ipsa est architecto adipisci ad alias sequi animi aliquam! A
+                    | maxime accusamus beatae consequuntur dolore.
+            #causes-section.m-3.display-n
+                h5.fw-bold.main-color.text-uppercase.mt-3 Causes
+                p
+                    | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+                    | aliquid animi iure totam? Totam, porro perspiciatis. Similique
+                    | dignissimos aut tempore debitis sit dicta laboriosam beatae totam
+                    | optio repellat repudiandae iste aperiam, dolorum labore obcaecati
+                    | quo ipsa est architecto adipisci ad alias sequi animi aliquam! A
+                    | maxime accusamus beatae consequuntur dolore.
+    // Serch Box Section End

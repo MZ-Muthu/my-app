@@ -1,0 +1,65 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9
+
+        .d-flex.bd-highlight.mt-3
+            .p-2.flex-grow-1.bd-highlight
+                h6.fs-5.text-body.fw-bold.text-uppercase Manage Modules
+            .me-3.flex-grow-1.bd-highlight
+                form.mt-0(action='')
+                    .p-1.bg-light.rounded.rounded-pill.shadow-sm.mt-0
+                        .input-group
+                            input.form-control.border-0.bg-light(type='search' placeholder="What're you searching for?" aria-describedby='button-addon1')
+                            .input-group-append
+                                button#button-addon1.btn.btn-link.text-secondary(type='submit')
+                                    i.fa.fa-search
+            .p-2.bd-highlight
+                i.fa-solid.fa-bell.fs-5.text-body
+            .p-2.bd-highlight
+                h6.fs-5.text-body.fw-bold |
+            .p-2.bd-highlight
+                h6.fs-5.text-body.fw-bold Akstar111
+            .p-2.bd-highlight
+                img.login-user-image(src='/Assets/image/profile.jpg' alt='user image')
+        hr
+        include shared/dataList
+        .d-flex
+            .flex-grow-1.d-flex.justify-content-between
+                h5.fw-bold.mt-3.ms-3 Pharmacy Categories
+
+        table.table.table-bordered.table-font
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Sponser Name
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    |  Phone
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Email
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Call_limit
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Calls_Received
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Status
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Select
+                        tbody#updateOpinorRequest
+                            each doc,index in sponsers
+                                tr
+                                    th(scope='row')= doc.name
+                                    td= doc.phone
+                                    td= doc.email
+                                    td= doc.callLimit
+                                    td= doc.called
+                                    td= doc.status
+                                    td 
+                                        select.form-select.form-control.update_status(data-id=doc.hiwsosmID)
+                                            option -- Select Status --
+                                            option(value='accepted')  Accepted
+                                            option(value='rejected') Rejected
+

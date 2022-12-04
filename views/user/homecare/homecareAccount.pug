@@ -1,0 +1,117 @@
+extends ../../layout/base
+
+block append head 
+  link(rel="stylesheet", href="/CSS/userStyle.css")
+  link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+  script(src="/JS/bundle/user/bundleUser.js")     
+
+block block
+  // Hero section Start
+  section
+    img.hero-image(src='/Assets/images/homeCare.jpg' alt='homecare service banner')
+    .hero-image-overlay
+      .hero-image-text
+        h1 My Home Care Bookings
+  // Hero section End
+  // Catercory button Section Start
+  section.mt-3
+    //- .d-flex.justify-content-center
+      div
+        h6#invidual.tab-text-active(onclick='Invidual()')
+          | Active List
+      div
+        h6#company.tab-text(onclick='Company()')
+          | Completed History
+  // Catercory button Section Start
+  // Card Section Start
+  section#Active-things.mt-5.container.display-block
+    .justify-content-center
+      h5.heading My HOSPITAL CONSTRUCTION booking list
+      .underline
+      p.text-center.w-75.m-auto.mt-4
+        | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+        | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.
+    .mt-4
+      .row.row-cols-2.row-cols-md-2.g-4
+        each doc in docs
+          .col
+            .small-shdow.card.rounded.mt-3
+              .row
+                .col-5
+                  img.img-thumbnail.border-0.h-100(src=doc.serviceDetails.bannerImage alt='Shop Name')
+                .col-7.p-2
+                  .d-flex.bd-highlight
+                    .flex-grow-1.bd-highlight
+                      h6.main-color.fw-bold.text-uppercase= doc.serviceDetails.company
+                  p.main-color.fw-bold.m-0= doc.serviceDetails.city
+                  p.text-12.m-0= doc.serviceDetails.description
+                  .d-flex.justify-content-between
+                    div
+                      p.main-color.fw-bold.text-12.m-0
+                        |  Date:
+                        span.ms-2.text-secondary= new Date(doc.createdAt).toLocaleDateString() 
+                  .d-flex.justify-content-between
+                    div
+                      p.main-color.fw-bold.text-12.m-0
+                        | Service Name:
+                        span.ms-2.text-secondary= doc.serviceDetails.serviceName
+                  .d-flex.justify-content-between
+                    div
+                      p.main-color.fw-bold.text-12.m-0
+                        | Phone:
+                        span.ms-2.text-secondary= doc.serviceDetails.phone
+                    div
+                      h5.main-color.fw-bold.m-0.me-2
+                        | Rs.#{doc.serviceDetails.priceFrom} - Rs.#{doc.serviceDetails.priceTo}
+
+  section#HomeCare-Books.mt-5.container.display-n
+    .justify-content-center
+      h5.heading My service booking list
+      .underline
+      p.text-center.w-75.m-auto.mt-4
+        | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+        | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+        | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+        | impedit.
+    .mt-4
+      .row.row-cols-2.row-cols-md-2.g-4
+        .col
+          .small-shdow.card.rounded.mt-3
+            .row
+              .col-5
+                img.img-thumbnail.border-0.h-100(src='./Assets/images/homeCare.jpg' alt='Shop Name')
+              .col-7.p-2
+                .d-flex.bd-highlight
+                  .flex-grow-1.bd-highlight
+                    h6.main-color.fw-bold.text-uppercase
+                      | Home care services Centre Name
+                p.main-color.fw-bold.m-0 User Name
+                p.text-12.m-0
+                  | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  | Cupiditate possimus, nostrum fugiat atque suscipit
+                  | perspiciatis.
+                .d-flex.justify-content-between
+                  div
+                    p.main-color.fw-bold.text-12.m-0
+                      | Requested Date:
+                      span.ms-2.text-secondary  12-10-2022 
+                .d-flex.justify-content-between
+                  div
+                    p.main-color.fw-bold.text-12.m-0
+                      | Service Name:
+                      span.ms-2.text-secondary  Home Care 
+                .d-flex.justify-content-between
+                  div
+                    p.main-color.fw-bold.text-12.m-0
+                      | Phone:
+                      span.ms-2.text-secondary  +91 9698091007 
+                  div
+                    h5.main-color.fw-bold.m-0.me-2
+                      | Rs.2000
+  // Card Section End

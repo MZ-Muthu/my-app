@@ -1,0 +1,66 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")       
+
+block block 
+    #right.col-9 
+        hr
+        .p-5.pt-2
+            h6.col-6.fw-bold.main-color.mt-5.text-head
+                | You job
+            hr.m-0
+            div#manage_data
+                .border.rounded.p-3.mt-4
+                    .d-flex.bd-highlight.ms-0
+                        .me-auto.bd-highlight
+                            h6.fs-5.main-color.fw-bold= job.jobTitle
+                        .p-2.bd-highlight
+                            i.fa-solid.fa-trash.text-danger.fs-5#deletejob(data-job=job.hiwjbmID data-from=partner.for)
+                        .p-2.bd-highlight.ms-4
+                            a(href=`/admin/vendor-management/vendor-details/${partner.for}/${partner.hiwpmID}/jobs/update-job/${job.hiwjbmID}`)
+                                i.fa-solid.fa-pen.main-color.fs-5
+                    div
+                        h6.fw-bold.text-dark
+                            | Job Description:
+                            span.text-secondary.fw-normal= job.description
+                    div
+                        h6.fw-bold.text-dark
+                            | Year of Experience:
+                            span.text-secondary.fw-normal= job.yearOfExperience
+                    div
+                        h6.fw-bold.text-dark
+                            | Salary :
+                            span.text-secondary.fw-normal= job.salaryPerMonth
+                    .d-flex.bd-highlight.ms-0
+                        .me-auto.bd-highlight
+                            h6.fw-bold.text-dark
+                                | Posted Date:
+                                span.text-secondary.fw-normal= new Date(job.createdAt).toLocaleDateString()
+                .mt-3.table-responsive
+
+                    table.table.table-bordered
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Name
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Phone Number
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Email
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Applied Date
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Resume
+                        tbody
+                            if job.applicants.length
+                                each doc,index in job.applicants
+                                    tr
+                                        th(scope='row')= doc.name
+                                        td= doc.phone
+                                        td=doc.email
+                                        td= new Date(doc.createdAt).toLocaleDateString()
+                                        td
+                                            a(href=`/admin/vendor-management/vendor-details/${partner.for}/${partner.hiwpmID}/jobs/applicant/${doc.hiwnjasID}`) View
+                            else 
+                                p Currently you don't have any applicants.

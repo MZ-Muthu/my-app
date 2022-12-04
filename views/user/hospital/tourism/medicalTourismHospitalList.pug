@@ -1,0 +1,124 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='./Assets/images/MedicalTourism.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Best Hospital list
+    // Hero section End
+    // Home Care Service Centres List Section Start
+    section.mt-4.container
+        .row
+            // Fillter Section
+            .col-4
+                .small-shdow.p-2.rounded
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold
+                                i.fa-solid.fa-gears.me-3
+                                |  Other Treatment
+                                |                   List
+                        div
+                            //- a.text-12.text-decoration-underline(href=`./`) View All
+                    .mt-4
+                        .row.row-cols-1.row-cols-md-2.g-4
+                            each doc in packages
+                                .col
+                                    a(href=`./${doc.name}`)
+                                        .card.p-2
+                                            img.fillter-package-image(src=doc.bannerImage alt='package name')
+                                            h6.text-center.main-color.text-12.fw-bold.text-uppercase.mt-2=doc.name
+                .small-shdow.p-3.rounded.mt-3
+                    h6.fw-bold
+                        i.fa-solid.fa-location-dot.me-3
+                        |  Fillter by Location
+                    .mt-4
+                        label.check-box-container
+                            | One
+                            input(type='checkbox' checked='checked')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded
+                    p.card-small-description Shows 1-40 out of 400
+                    h4.fw-bold Avilable Hospital List
+                each doc in docs
+                    .small-shdow.rounded.mt-3
+                        .row
+                            .col-3
+                                img.img-thumbnail.border-0(src=doc.bannerImage alt='Shop Name')
+                            .col-9.p-2
+                                h5.m-0= doc.name
+                                p.m-0= name
+                                .d-flex.flex-row.bd-highlight.m-0
+                                    .bd-highlight.m-0
+                                        p
+                                            i.fa-solid.fa-book.me-2.text-primary
+                                    .bd-highlight
+                                        p.card-small-description= doc.aboutUs
+                                .d-flex.justify-content-between.m-0
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        .bd-highlight.me-1.fw-bold Ratings :
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-regular.fa-star.text-12.text-warning
+                                    .me-2.mt-5
+                                        a.button-view-details(href=`./${name}/${doc.id}`)
+                                            | View Details 
+                                            i.fa-solid.fa-arrow-right
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Home Care Service Centres List Section End

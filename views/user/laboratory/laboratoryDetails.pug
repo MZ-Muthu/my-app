@@ -1,0 +1,174 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block  
+    // Hero section Start
+    section
+        .carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src=doc.bannerImage alt='...')
+                    .hero-image-overlay
+                    .carousel-caption.overlay-section.container.d-none.d-md-block
+                        p.mt-5.fs-2.float-end
+                            a(href='#')
+                                i.fa-solid.fa-share.text-white
+                        h1.text-white.mt-5= doc.company
+                        p.text-white
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt,
+                            | corporis!
+                        .d-flex.flex-row.bd-highlight.mb-5
+                            .bd-highlight.me-2
+                                p.text-white
+                                    i.fa-solid.fa-address-book.fs-2
+                            .bd-highlight
+                                p.text-white= doc.address
+                        .mt-5.text-white
+                            .row.mt-5.mb-3
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone.me-2
+                                        |  #{doc.centerPhone}
+                                .col
+                                    h6.fw-bold
+                                        i.fa-regular.fa-clock.me-2
+                                        |  #{doc.opentTime} to #{doc.closeTime}
+                            .row
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone-volume.me-2
+                                        |  #{doc.centerLandLine}
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-star.me-2
+                                        |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Scetion Start
+    section.container
+        .mt-3
+            h4.fw-bold.mb-4 About Us
+            p
+                | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet sint
+                | cumque, magnam aut officia voluptatem repellendus, in doloribus modi
+                | sapiente quis impedit rem quae natus possimus atque odit dolorum
+                | voluptates, esse unde? Magni veritatis accusamus perferendis dolore
+                | amet ducimus ea esse voluptatum odio repellat laborum quae, inventore
+                | unde. Dolor earum, expedita deleniti ad fugit a! Quidem laudantium
+                | quisquam nemo, sunt minus facere soluta molestiae illum ratione rem
+                | natus tenetur perferendis velit facilis earum. Alias sed accusantium
+                | voluptate dolor itaque impedit odit doloribus, praesentium ipsa ipsum
+                | dignissimos! Rerum pariatur minus libero dicta blanditiis vitae,
+                | accusantium totam sunt voluptatum dolor itaque adipisci!
+            h4.fw-bold.mb-4.mt-5 Our Laboratry images
+            .row.row-cols-1.row-cols-md-6.g-4
+                each docs in doc.laboratory.labImages
+                    .col
+                        .card.h-100
+                            img.card-img-top(src=docs alt='...')
+
+            h4.fw-bold.mb-4.mt-5 Our Laboratry Services
+            .services-list
+                each docs in doc.laboratory.availableTests
+                    div
+                        .service-list-card.h-100
+                            img.service-card-img(src='https://images.unsplash.com/photo-1622958191801-3ee875d24662?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80' alt='Service Image')
+                            .service-card-body
+                                h6.service-heading= docs.name
+                                p.service-des= docs.description
+                                .d-flex.justify-content-between
+                                    div
+                                        p.service-price Rs.#{doc.price}
+
+            h4.fw-bold.mb-4.mt-5 Our Laboratry facilities
+            .facilities-list
+                each docs in doc.laboratory.fecilities
+                    div
+                        .service-list-card.h-100
+                            img.service-card-img(src=docs.bannerImage alt='Service Image')
+                            .service-card-body
+                                h6.service-heading= docs.title
+                                p.service-des= docs.description
+
+            .mt-4.justify-content-center
+                a.book-service.cursor-pointer(data-bs-toggle='modal' data-bs-target='#Register') Book Laboratry Test
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Scetion End
+    // Booking Home Modal
+    #Register.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='RegisterLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+            .modal-content
+                .modal-header
+                    h5#RegisterLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Book Now
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    div
+                        h6
+                            | Booking Date
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#selectDate(placeholder='Name...' type="date" required='')
+                    h6
+                        | Select Services : 
+                    .d-flex.justify-content-center.flex-wrap
+                        each docs in doc.laboratory.availableTests
+                            div.p-2
+                                #test0.card.h-100.p-1.cursor-pointer.select_laboratory_serice(data-id=docs.hiwlabatsID)
+                                    img.specialists-card-img.rounded(src=doc.bannerImage alt='Facility Name')
+                                    .card-body.p-1
+                                        h6.main-color.mt-2.text-center=doc.name
+                .modal-footer
+                    a.conform-service-booking#laboratory_checkout(data-id=doc.hiwpmID) Checkout

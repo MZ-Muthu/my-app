@@ -1,0 +1,53 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src=doc.partner.bannerImage alt='homecare service banner')
+        .hero-image-overlay
+        .overlay-section.mt-5
+            .container
+                p.mt-5.fs-2.float-end
+                    a(href='#')
+                        i.fa-solid.fa-share.text-white
+                h1.text-white.mt-5= doc.partner.company
+                p.text-white= doc.partner.hospital.aboutUs
+                .d-flex.flex-row.bd-highlight.mb-5
+                    .bd-highlight.me-2
+                        p.text-white
+                            i.fa-solid.fa-address-book.fs-2
+                    .bd-highlight
+                        p.text-white #{doc.partner.address}, #{doc.partner.city}
+                .mt-5.text-white
+                    .row.mt-5.mb-3
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-phone.me-2
+                                |  #{doc.partner.phone}
+                        .col
+                            h6.fw-bold
+                                i.fa-regular.fa-clock.me-2
+                                |  #{doc.partner.openTime} to #{doc.partner.closeTime}
+                    .row
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-phone-volume.me-2
+                                |  #{doc.partner.centerPhone}
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-star.me-2
+                                |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Section Start
+    section.container.mt-5
+        div
+            h4.fw-bold.mb-4.mt-5 Organ Details
+            

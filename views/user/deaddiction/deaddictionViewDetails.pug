@@ -1,0 +1,153 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(type='text/javascript' src='/JS/jquery.js')
+    script(type='text/javascript' src='/JS/lightslider.js')
+    script(type='text/javascript' src='/JS/scripte.js')
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src=doc.bannerImage,alt='homecare service banner')
+        .hero-image-overlay
+        .overlay-section.mt-5
+            .container
+                p.mt-5.fs-2.float-end
+                    a(href='#')
+                        i.fa-solid.fa-share.text-white
+                h1.text-white.mt-5= doc.partner.company
+                p.text-white=doc.serviceName
+                .d-flex.flex-row.bd-highlight.mb-5
+                    .bd-highlight.me-2
+                        p.text-white
+                            i.fa-solid.fa-address-book.fs-2
+                    .bd-highlight
+                        p.text-white= doc.description
+                .mt-5.text-white
+                    .row.mt-5.mb-3
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-phone.me-2= doc.partner.phone
+                        .col
+                            h6.fw-bold
+                                i.fa-regular.fa-clock.me-2
+                                |  #{doc.partner.openTime} to #{doc.partner.closeTime}
+                    .row
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-phone-volume.me-2
+                                |  #{doc.partner.centerPhone}
+                        .col
+                            h6.fw-bold
+                                i.fa-solid.fa-star.me-2
+                                |  4/5 (125 Reviews)
+                .mt-5
+                    a.text-white.border.p-2.rounded.border-white.donate-linkstyle(data-bs-toggle='modal' data-bs-target='#staticBackdrop') Book De-Addication Centres
+    // Hero section End
+    // Modal
+    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#staticBackdropLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Fill Require Details and Conform booking
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#book_deaddiction_service(data-id=doc.hiwdacmID)
+                        div
+                            h6
+                                | Full name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#name(placeholder='Full name...' name='fname' required='')
+                        div
+                            h6
+                                | Phone number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#phone(placeholder='Phone number...' name='fname' required='')
+                        div
+                            h6
+                                | Addiction support &amp; kind of support required
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea#problem(placeholder='About the addication...' name='fname' required='')
+                        button.conform-service-booking(type="submit") Conform Booking
+                .modal-footer
+    // Content Section Start
+    section.container.mt-5
+        div
+            h4.fw-bold.mb-4 About Us
+            .ps-4= doc.partner.aboutUs
+            h4.fw-bold.mb-4.mt-5 Our Other Services
+            .services-list.d-flex.row.row-cols-4
+                each docs in doc.related
+                    div.col
+                        .service-list-card.h-100
+                            img.service-card-img(src=docs.bannerImage)
+                            .service-card-body
+                                h6.service-heading= docs.serviceName
+                                p.service-des.trangate-text= docs.description
+                                .d-flex.justify-content-between
+                                    div
+                                        p.service-price Rs.#{docs.priceFrom} to Rs.#{docs.priceTo}
+                                    div
+                                        a.service-hours(href=`/deaddiction-services/centre/${docs._id}`) View
+
+            .mt-4.justify-content-center
+                a.book-service(href='#') Book De-Addication Centres
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Section End

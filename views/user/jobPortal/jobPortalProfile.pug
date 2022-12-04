@@ -1,0 +1,110 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+    // Compnay Details Section Start
+    section.container.small-shdow.p-4.mt-4
+        .row
+            .col-2
+                img.company-logo(src='./Assets/images/userProfileImage.jpg')
+            .col-8
+                h4.main-color.fw-bold= profile.personalDetails.name
+                p.m-0.fs-5= profile.profileSummary.profileTitle
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-location-dot.me-2.text-primary
+                            |                 #{profile.profileSummary.preLocation}
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-business-time.me-2.ms-3.text-primary
+                            |                 #{profile.profileSummary.speciality}
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-phone.me-2.text-primary
+                            |                 #{profile.personalDetails.phone}
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-envelope.me-2.ms-3.text-primary
+                            |                 #{profile.personalDetails.email}
+            .col-2
+                a.apply-job(href='/my-account/job-portal/manage-profile') Edit Profile
+        .vertical-line.mt-3.mb-3
+    // Compnay Details Section End
+    // Job List Section Start
+    section.container.small-shdow.p-4.mt-4
+        // Card Section
+        div
+            .small-shdow.p-2.rounded
+                p.card-small-description Shows 1-40 out of 400
+                h4.fw-bold Your Jobs List
+            each doc in jobs.active
+                .small-shdow.rounded.mt-3
+                    .row
+                        .col-3
+                            img.img-thumbnail.border-0(src=doc.jobDetails.bannerImage alt='Shop Name')
+                        .col-9.p-2
+                            h5.m-0= doc.jobDetails.jobTitle
+                            p.m-0 #{doc.jobDetails.category}, #{doc.jobDetails.speciality}
+                            .d-flex.flex-row.bd-highlight.m-0
+                                .bd-highlight
+                                    p.card-small-description
+                                        i.fa-solid.fa-calendar-day.me-2.text-primary
+                                        |                     #{doc.jobDetails.yearOfExperience} Years
+                                .bd-highlight
+                                    p.card-small-description
+                                        i.fa-solid.fa-location-dot.me-2.ms-3.text-primary
+                                        |                     #{doc.jobDetails.city}
+                                .bd-highlight
+                                    p.card-small-description
+                                        i.fa-solid.fa-business-time.me-2.ms-3.text-primary
+                                        |                     #{doc.jobDetails.jobType}
+                            .d-flex.flex-row.bd-highlight.m-0
+                                .bd-highlight.m-0
+                                    p
+                                        i.fa-solid.fa-book.me-2.text-primary
+                                .bd-highlight
+                                    p.card-small-description= doc.jobDetails.description
+                            .d-flex.justify-content-between.m-0
+                                .d-flex.flex-row.bd-highlight.m-0
+                                    .bd-highlight.me-1.fw-bold Posted Date :
+                                    .bd-highlight
+                                        p.ms-2.text-secondry.text-12.mt-1= new Date(doc.createdAt).toLocaleDateString()
+                                    .bd-highlight.ms-5.fw-bold Applied Date :
+                                    .bd-highlight
+                                        p.ms-2.text-secondry.text-12.mt-1= new Date(doc.jobDetails.createdAt).toLocaleDateString()
+                                //- .me-1.mt-3
+                                    a.button-Selected Selected
+            div
+                .pagination_rounded
+                    ul
+                        li
+                            a.prev(href='#')
+                                i.fa.fa-angle-left(aria-hidden='true')
+                                |  Prev
+                        li
+                            a(href='#') 1
+                        li.hidden-xs
+                            a.active(href='#') 2
+                        li.hidden-xs
+                            a(href='#') 3
+                        li.hidden-xs
+                            a(href='#') 4
+                        li.hidden-xs
+                            a(href='#') 5
+                        li.visible-xs
+                            a(href='#') ...
+                        li
+                            a(href='#') 6
+                        li
+                            a.next(href='#')
+                                | Next 
+                                i.fa.fa-angle-right(aria-hidden='true')

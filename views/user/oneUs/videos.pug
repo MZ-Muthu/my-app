@@ -1,0 +1,66 @@
+extends ../../layout/base
+
+block append head 
+  link(rel="stylesheet", href="/CSS/userStyle.css")
+  link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+  script(src="/JS/bundle/user/bundleUser.js")     
+
+block block     
+  // Hero section Start
+  section.small-hero-image-div
+    img.small-hero-image(src='/Assets/images/community.jpg' alt='homecare service banner')
+    .small-hero-image-overlay
+      .hero-image-text
+        h1 Our Commnuity
+  // Hero section End
+  // Catercory button Section Start
+  section.mt-1.mb-2.mt-4
+    .d-flex.justify-content-center
+      div
+        a(href='/one-us/videos')
+          h6#tab1.tab-text-active()
+            | Video
+      div
+        a(href='/one-us/blogs')
+          h6#tab2.tab-text() Blogs
+      div
+        h6#tab3.tab-text() News
+      div
+        h6#tab4.tab-text() Chating
+  // Catercory button Section Start
+  // Video Section
+  section#content1.display-block
+    .container
+      .d-flex.justify-content-between
+        div
+          h5 Our Community Video Collection
+        div
+         a(href="/my-account/oneus/video-management")
+          h6.tab-text-active(data-bs-toggle='modal' data-bs-target='#Video')
+            | Add Videos
+      .row.row-cols-1.row-cols-md-3.g-4
+        each doc,index in videos
+          .col
+
+            .video-card
+              video(style='width:100%;' height='240' controls )
+                source(src=doc.video type='video/mp4')
+                | Your browser does not support the video tag.
+              a.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#VideoPlay${index}`)
+                .video-card-body.m-0
+                  h6.main-color.text-uppercase.fw-bold= doc.title
+                  p.text-secondary.p-0.text-12.two-line= doc.description
+            // Upload Videos Modal
+            .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='VideoPlayLabel' id=`VideoPlay${index}` controls aria-hidden='true')
+              .modal-dialog.modal-xl.modal-dialog-scrollable
+                .modal-content
+                  .modal-header
+                    h5#VideoPlayLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold= doc.title
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                  .modal-body
+                    video(style='width:100%;height:100%;')
+                      source(src=doc.video type='video/mp4')
+                    h5.fw-bold.text-uppercase.mt-3= doc.title
+                    p.text-secondary= doc.description

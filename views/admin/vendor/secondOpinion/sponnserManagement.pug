@@ -1,0 +1,54 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9 
+        include ../../shared/detailsList
+        .p-3
+            .d-flex.justify-content-between
+                .flex-grow-1
+                    h5.fw-bold.mt-3.ms-3.fs-5 My Availablity Slots
+                .form-check.form-switch
+                    label.form-check-label(for='counsilarStatus') Status
+                    if partner.secondOpinion.status
+                        input#opinionSponserStatus.form-check-input(type='checkbox' data-id=partner.hiwpmID checked)
+                    else 
+                        input#opinionSponserStatus.form-check-input(type='checkbox' data-id=partner.hiwpmID)
+            hr.m-0
+            ul#pills-tab.nav.nav-pills.mb-3.d-flex.justify-content-around.mt-3(role='tablist')
+            h5.fw-bold.mt-3.ms-3.fs-5 Scheduled Slots
+            div#update_schudle
+                #pills-tabContent.tab-content.ms-3.mt-3.mb-3.p-2.border.pt-2
+                    .mt-3.table-responsive
+                        table.table.table-bordered.table-font
+                            thead
+                                tr
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Sponser Name
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        |  Phone
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Email
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Call_limit
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Calls_Received
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Status
+                                    th.color-white.main-color-background.text-center(scope='col')
+                                        | Select
+                            tbody
+                                each doc,index in sponsers
+                                    tr
+                                        th(scope='row')= doc.name
+                                        td= doc.phone
+                                        td= doc.email
+                                        td= doc.callLimit
+                                        td= doc.called
+                                        td= doc.status
+                                        td 
+                                            .d-grid
+                                                a.btn(class=`${doc.select ? "btn-success" : "btn-primary selectOpnionSponser"}` data-id=partner.hiwpmID data-id2=doc.hiwsosmID)=doc.select ? "Already Selected" : "Select"
+

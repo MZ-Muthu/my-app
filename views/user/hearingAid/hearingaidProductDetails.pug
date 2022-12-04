@@ -1,0 +1,184 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Product List Section Start
+    section.mt-4.container
+        .row
+            // Product Image Section
+            .col-6
+                .text-center#hearingaid_image_slide
+                    img#main-img.product-big-image(src=doc.imageGallery[0])
+                    .row.mt-4
+                        each docs,index in doc.imageGallery
+                            .col
+                                img.market_subImage.product-small-image(class=`${index === 0 && "active-small-image"}` src=docs style='width:86px;' alt='product image')
+            #script
+                -let data = doc.hiwhapnsID
+                script.
+                    data = `#{data}`
+                    document.cookie=`pdohdId=${data};expires=${new Date(
+                        Date.now() + 1000 * 60 * 5
+                        )};path=/`;
+                    document.getElementById('script').remove()
+            // Details Section
+            .col-6.ps-3
+                h4.fw-bold= doc.productName
+                p.text-secondry= doc.partners[0].company
+                #hearingAidPrice
+                    if doc.discountPrice
+                        h5.fw-bold Rs.#{doc.discountPrice}
+                            small.ms-2.text-secondary
+                                del Rs.#{doc.price}
+                    else 
+                        h5.fw-bold Rs.#{doc.price}
+                p
+                    span.fw-bold.me-2 Color:
+                    span#hearingProductColor  #{doc.productDetails[0].color}
+                each docs,index in doc.productDetails
+                    if index === 0
+                        img.Active-color.img_hearing_color.cursor-pointer(style="width:50px;" data-img=docs.hiwhapdsID src=docs.bannerImage)
+                    else
+                        img.ms-2.img_hearing_color.cursor-pointer(style="width:50px;" data-img=docs.hiwhapdsID src=docs.bannerImage)
+                p.mt-4
+                    span.me-2.fw-bold size:
+                    span  
+                        select.hearingaidSelectColor#hearinagaid_details
+                            option(disabled selected) --size--
+                            each size,index in doc.productDetails[0].subDetails 
+                                if index === 0
+                                    option(value=size.hiwhaicscpID selected)= size.size 
+                                else 
+                                    option(value=size.hiwhaicscpID)=size.size
+                p.mt-4
+                    span.me-2.fw-bold Quantity:
+                    span  
+                        select.marketSelectColor#hearingaid_quantity
+                            option(disabled) --qty--
+                            option(value=1 selected) 1
+                            option(value=2) 2
+                            option(value=3) 3
+                            option(value=4) 4
+                            option(value=5) 5
+                div
+                    h6.fw-bold About Product
+                    p.m-0= doc.description
+                .p-2.mt-3.text-center
+                    a.cursor-pointer#hearingaid_checkout(data-id=doc.hiwhapnsID)
+                        p.cat-button Buy Now
+                div
+                    h6.fw-bold Features
+                    each docs in doc.features
+                        p.m-0.ms-3
+                            i.fa-solid.fa-circle.me-2
+                            | #{docs}
+        .mt-5.mb-5.vertical-line
+        // Review and Related Product
+        div
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+            h4.fw-bold.mb-4.mt-5 Related Products
+            .services-list
+                div
+                    a.me-2(href='./userHearingAidProductDetails.html')
+                        .card.h-100
+                            img.card-img-top.cart-image-product(src='./Assets/images/hearing_aid.png' alt='...')
+                            .card-body
+                                h6.text-center.main-color.text-uppercase
+                                    | Product Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Rs.5000 
+                                    span.text-success 3000
+                div
+                    a.me-2(href='./userHearingAidProductDetails.html')
+                        .card.h-100
+                            img.card-img-top.cart-image-product(src='./Assets/images/hearing_aid.png' alt='...')
+                            .card-body
+                                h6.text-center.main-color.text-uppercase
+                                    | Product Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Rs.5000 
+                                    span.text-success 3000
+                div
+                    a.me-2(href='./userHearingAidProductDetails.html')
+                        .card.h-100
+                            img.card-img-top.cart-image-product(src='./Assets/images/hearing_aid.png' alt='...')
+                            .card-body
+                                h6.text-center.main-color.text-uppercase
+                                    | Product Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Rs.5000 
+                                    span.text-success 3000
+                div
+                    a.me-2(href='./userHearingAidProductDetails.html')
+                        .card.h-100
+                            img.card-img-top.cart-image-product(src='./Assets/images/hearing_aid.png' alt='...')
+                            .card-body
+                                h6.text-center.main-color.text-uppercase
+                                    | Product Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Rs.5000 
+                                    span.text-success 3000
+                div
+                    a.me-2(href='./userHearingAidProductDetails.html')
+                        .card.h-100
+                            img.card-img-top.cart-image-product(src='./Assets/images/hearing_aid.png' alt='...')
+                            .card-body
+                                h6.text-center.main-color.text-uppercase
+                                    | Product Name
+                                p.text-center.text-secondary.fw-bold
+                                    | Rs.5000 
+                                    span.text-success 3000
+    // Product List Section End

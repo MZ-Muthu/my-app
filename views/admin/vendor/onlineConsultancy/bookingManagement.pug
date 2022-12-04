@@ -1,0 +1,465 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9 
+        include ../../shared/detailsList
+        .p-3
+            .d-flex.justify-content-between
+                .flex-grow-1
+                    h5.fw-bold.mt-3.ms-3.fs-5 My Availablity Slots
+                hr.mt-2.mb-2
+            .mb-3.row.ms-3
+                label.col-sm-6.col-form-label.fw-bold(for='inputPassword') Vendor Type:
+                .col-sm-4
+                    select.form-select.bg-li.border#consultancyBookType(aria-label='Default select example')
+                        option(value='online') ONLINE
+                        option(value='opd') OPD
+            .p-5.pt-2.nav-tabs-section#activeOnline
+                ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-home-tab.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home' type='button' role='tab' aria-controls='pills-home' aria-selected='true')
+                            | Online Bookings
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-profile-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                            | History
+                #pills-tabContent.tab-content
+                    #pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab')
+                        .d-flex.mt-3
+                            .flex-grow-1
+                                h5.fw-bold.mt-3.ms-3.fs-5 Booking Summary
+                        hr.m-0
+                        .modal-body.table-responsive.mt-2
+                            table.table.table-bordered.table-font
+                                thead
+                                    tr
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | User Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Patient Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Time
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Update Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Details
+                                tbody#update_online_consultancy_status(data-id=partner.hiwpmID)
+                                    -const data = booking?.active?.online?.bookings ? booking.active.online.bookings : [];
+                                    -const status = ['requested','accepted','rejected','canceled','completed','not-arrived']
+                                    each docs,index in data
+                                        tr
+                                            td= docs.user.name
+                                            td= docs.patientName
+                                            td= docs.user.phone
+                                            td= new Date(docs.date).toLocaleString()
+                                            td= docs.time
+                                            td
+                                                select.form-select#update_status(data-id=docs.hiwdocboID)
+                                                    option(disabled) -- Select Status --
+                                                    each doc in status
+                                                        if(doc === docs.status)
+                                                            option(value=doc selected)=doc
+                                                        else
+                                                            option(value=doc )=doc
+                                            td
+                                                a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activonline${index}`) View
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' id=`activonline${index}` tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                                    .modal-dialog.modal-dialog-scrollable
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | appointment Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | #{docs.user.name}
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Appointment ID - 09869766875
+                                                                    tbody
+                                                                        tr
+                                                                            th(scope='row') Patient Name
+                                                                            td=docs.patientName
+                                                                        tr
+                                                                            th(scope='row') Doctor Name
+                                                                            td= partner.name
+                                                                        tr
+                                                                            th(scope='row') Doctors speciality
+                                                                            td= partner.onlineConsultancy.speciality
+                                                                        tr
+                                                                            th(scope='row') Doctors Sub-speciality
+                                                                            td= partner.onlineConsultancy.category
+                                                                        tr
+                                                                            th(scope='row') Experience
+                                                                            td= partner.onlineConsultancy.experience
+                                                                        tr
+                                                                            th(scope='row') Appointment Date
+                                                                            td= new Date(docs.date).toLocaleDateString()
+                                                                        tr
+                                                                            th(scope='row') Appointment Time
+                                                                            td= docs.time
+                                                                        tr
+                                                                            th(scope='row') Booked Mode
+                                                                            td= new Date(docs.createdAt).toLocaleString()
+                                                                        tr
+                                                                            th(scope='row') Fees
+                                                                            td= docs.price
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Status
+                                                                            td.text-danger Paid
+                                                                        tr
+                                                                            th(scope='row') Appointment Status
+                                                                            td= docs.status
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td= docs.acceptedDate ? new Date(docs.acceptedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Completed Date
+                                                                            td= docs.completedDate ? new Date(docs.completedDate).toLocaleString() : "-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel
+                                    
+                    #pills-profile.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile-tab')
+                        .d-flex.mt-3
+                            .flex-grow-1
+                                h5.fw-bold.mt-3.ms-3.fs-5 History
+                        hr.m-0
+                        .modal-body.table-responsive.mt-2
+                            table.table.table-bordered.table-font
+                                thead
+                                    tr
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | User Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Patient Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Time
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Update Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Details
+                                tbody
+                                    -const hdata = booking?.history?.online?.bookings ? booking.history.online.bookings : [];
+                                    each docs,index in hdata
+                                        tr
+                                            td= docs.user.name
+                                            td= docs.patientName
+                                            td= docs.user.phone
+                                            td= new Date(docs.date).toLocaleString()
+                                            td= docs.time
+                                            td=docs.status
+                                            td
+                                                a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#historyonline${index}`) View
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' id=`historyonline${index}` tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                                    .modal-dialog.modal-dialog-scrollable
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | appointment Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | #{docs.user.name}
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Appointment ID - 09869766875
+                                                                    tbody
+                                                                        tr
+                                                                            th(scope='row') Patient Name
+                                                                            td=docs.patientName
+                                                                        tr
+                                                                            th(scope='row') Doctor Name
+                                                                            td= partner.name
+                                                                        tr
+                                                                            th(scope='row') Doctors speciality
+                                                                            td= partner.onlineConsultancy.speciality
+                                                                        tr
+                                                                            th(scope='row') Doctors Sub-speciality
+                                                                            td= partner.onlineConsultancy.category
+                                                                        tr
+                                                                            th(scope='row') Experience
+                                                                            td= partner.onlineConsultancy.experience
+                                                                        tr
+                                                                            th(scope='row') Appointment Date
+                                                                            td= new Date(docs.date).toLocaleDateString()
+                                                                        tr
+                                                                            th(scope='row') Appointment Time
+                                                                            td= docs.time
+                                                                        tr
+                                                                            th(scope='row') Booked Mode
+                                                                            td= new Date(docs.createdAt).toLocaleString()
+                                                                        tr
+                                                                            th(scope='row') Fees
+                                                                            td= docs.price
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Status
+                                                                            td.text-danger Paid
+                                                                        tr
+                                                                            th(scope='row') Appointment Status
+                                                                            td= docs.status
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td= docs.acceptedDate ? new Date(docs.acceptedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Rejected Date
+                                                                            td= docs.rejectedDate ? new Date(docs.rejectedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Canceled Date
+                                                                            td= docs.canceledDate ? new Date(docs.canceledDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Completed Date
+                                                                            td= docs.completedDate ? new Date(docs.completedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Not-Arrived Date
+                                                                            td= docs.notArrivedDate ? new Date(docs.notArrivedDate).toLocaleString() : "-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel
+                                    
+            .p-5.pt-2.nav-tabs-section#activeOPD.d-none
+                ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-home-tab2.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home2' type='button' role='tab' aria-controls='pills-home2' aria-selected='true')
+                            | OPD Booking
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-profile2-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile2' type='button' role='tab' aria-controls='pills-profile2' aria-selected='false')
+                            | History
+                #pills-tabContent.tab-content
+                    #pills-home2.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab2')
+                        .d-flex.mt-3
+                            .flex-grow-1
+                                h5.fw-bold.mt-3.ms-3.fs-5 Booking Summary
+                        hr.m-0
+                        .modal-body.table-responsive.mt-2
+                            table.table.table-bordered.table-font
+                                thead
+                                    tr
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | User Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Patient Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Time
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Update Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Details
+                                tbody#update_opd_consultancy_status(data-id=partner.hiwpmID)
+                                    -const dataopd = booking?.active?.opd?.bookings ? booking.active.opd.bookings : [];
+                                    each docs,index in dataopd
+                                        tr
+                                            td= docs.user.name
+                                            td= docs.patientName
+                                            td= docs.user.phone
+                                            td= new Date(docs.date).toLocaleString()
+                                            td= docs.time
+                                            td
+                                                select.form-select#update_status(data-id=docs.hiwdocboID)
+                                                    option(disabled) -- Select Status --
+                                                    each doc in status
+                                                        if(doc === docs.status)
+                                                            option(value=doc selected)=doc
+                                                        else
+                                                            option(value=doc )=doc
+                                            td
+                                                a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activonline${index}`) View
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' id=`activonline${index}` tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                                    .modal-dialog.modal-dialog-scrollable
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | appointment Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | #{docs.user.name}
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Appointment ID - 09869766875
+                                                                    tbody
+                                                                        tr
+                                                                            th(scope='row') Patient Name
+                                                                            td=docs.patientName
+                                                                        tr
+                                                                            th(scope='row') Doctor Name
+                                                                            td= partner.name
+                                                                        tr
+                                                                            th(scope='row') Doctors speciality
+                                                                            td= partner.onlineConsultancy.speciality
+                                                                        tr
+                                                                            th(scope='row') Doctors Sub-speciality
+                                                                            td= partner.onlineConsultancy.category
+                                                                        tr
+                                                                            th(scope='row') Experience
+                                                                            td= partner.onlineConsultancy.experience
+                                                                        tr
+                                                                            th(scope='row') Appointment Date
+                                                                            td= new Date(docs.date).toLocaleDateString()
+                                                                        tr
+                                                                            th(scope='row') Appointment Time
+                                                                            td= docs.time
+                                                                        tr
+                                                                            th(scope='row') Booked Mode
+                                                                            td= new Date(docs.createdAt).toLocaleString()
+                                                                        tr
+                                                                            th(scope='row') Fees
+                                                                            td= docs.price
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Status
+                                                                            td.text-danger Paid
+                                                                        tr
+                                                                            th(scope='row') Appointment Status
+                                                                            td= docs.status
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td= docs.acceptedDate ? new Date(docs.acceptedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Completed Date
+                                                                            td= docs.completedDate ? new Date(docs.completedDate).toLocaleString() : "-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel
+                                
+                    #pills-profile2.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile2-tab')
+                        .d-flex.mt-3
+                            .flex-grow-1
+                                h5.fw-bold.mt-3.ms-3.fs-5 History
+                        hr.m-0
+                        .modal-body.table-responsive.mt-2
+                            table.table.table-bordered.table-font
+                                thead
+                                    tr
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | User Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Patient Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Appoinment Time
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Update Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Details
+                                tbody
+                                    -const opdata = booking?.history?.opd?.bookings ? booking.history.opd.bookings : [];
+                                    each docs,index in opdata
+                                        tr
+                                            td= docs.user.name
+                                            td= docs.patientName
+                                            td= docs.user.phone
+                                            td= new Date(docs.date).toLocaleString()
+                                            td= docs.time
+                                            td=docs.status
+                                            td
+                                                a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#historyopd${index}`) View
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' id=`historyopd${index}` tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                                    .modal-dialog.modal-dialog-scrollable
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | appointment Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | #{docs.user.name}
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Appointment ID - 09869766875
+                                                                    tbody
+                                                                        tr
+                                                                            th(scope='row') Patient Name
+                                                                            td=docs.patientName
+                                                                        tr
+                                                                            th(scope='row') Doctor Name
+                                                                            td= partner.name
+                                                                        tr
+                                                                            th(scope='row') Doctors speciality
+                                                                            td= partner.onlineConsultancy.speciality
+                                                                        tr
+                                                                            th(scope='row') Doctors Sub-speciality
+                                                                            td= partner.onlineConsultancy.category
+                                                                        tr
+                                                                            th(scope='row') Experience
+                                                                            td= partner.onlineConsultancy.experience
+                                                                        tr
+                                                                            th(scope='row') Appointment Date
+                                                                            td= new Date(docs.date).toLocaleDateString()
+                                                                        tr
+                                                                            th(scope='row') Appointment Time
+                                                                            td= docs.time
+                                                                        tr
+                                                                            th(scope='row') Booked Mode
+                                                                            td= new Date(docs.createdAt).toLocaleString()
+                                                                        tr
+                                                                            th(scope='row') Fees
+                                                                            td= docs.price
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Status
+                                                                            td.text-danger Paid
+                                                                        tr
+                                                                            th(scope='row') Appointment Status
+                                                                            td= docs.status
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td= docs.acceptedDate ? new Date(docs.acceptedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Rejected Date
+                                                                            td= docs.rejectedDate ? new Date(docs.rejectedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Canceled Date
+                                                                            td= docs.canceledDate ? new Date(docs.canceledDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Completed Date
+                                                                            td= docs.completedDate ? new Date(docs.completedDate).toLocaleString() : "-"
+                                                                        tr
+                                                                            th(scope='row') Not-Arrived Date
+                                                                            td= docs.notArrivedDate ? new Date(docs.notArrivedDate).toLocaleString() : "-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel

@@ -1,0 +1,40 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+    // Hero section Start
+    section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/HospitalPackge.jpg' alt='Hospital Package banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text Our Hospital Package List
+                p.text-dark.fw-bold.hero-description Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, optio
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container.margin-ts-screen
+        .justify-content-center.mb-5.margin-tb-screen
+            h5.heading Package Category List
+            .underline
+        .row.row-cols-1.row-cols-md-4.row-cols-sm-2.g-2
+            each doc in packages
+                .col
+                    .card.h-100.pt-2
+                        img.package-image.rounded(src= doc.bannerImage alt='Package Image')
+                        div
+                            .p-1
+                                h6.text-secondary.fw-bold.mt-2.text-center.text-uppercase.text-size-small= doc.name
+                            a.m-0(href=`/hospital/package/${doc.name}`)
+                                .d-flex.justify-content-center.m-0.package-card-button
+                                    .p-2.bd-highlight
+                                        h6.color-white.text-size-small.small-szie-margin-top View List
+                                    .p-2.bd-highlight
+                                        i.fa-solid.fa-arrow-right.color-white.text-size-small
+    // Card Section End

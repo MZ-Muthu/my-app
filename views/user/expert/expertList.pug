@@ -1,0 +1,162 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='./Assets/images/meettheexpert.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Our Best Experts list
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-3
+        .d-flex.justify-content-center
+            div
+                a#invidual(class=`${type === "individual" ? "tab-text-active" : "tab-text"}` href=`/meet-the-experts/${name}?vendorType=individual`)
+                    | Invidual
+            div
+                a#company(class=`${type === "company" ? "tab-text-active" : "tab-text"}` href=`/meet-the-experts/${name}?vendorType=company`) Company
+    // Catercory button Section Start
+    // Home Care Service Centres List Section Start
+    section.mt-4.container
+        .row
+            // Fillter Section
+            .col-4
+                //- .small-shdow.p-2.rounded
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold
+                                i.fa-solid.fa-gears.me-3
+                                |  Other Experts
+                                |                   Services
+                        div
+                            a.text-12.text-decoration-underline(href='./UserHomeCareServiceHome.html') View All
+                    .mt-4
+                        .row.row-cols-1.row-cols-md-2.g-4
+                            .col
+                                a(href='#')
+                                    div
+                                        img.small-shdow.img-thumbnail(src='./Assets/images/meettheexpert.jpg' alt='category name')
+                                        h6.text-center.main-color Category Name
+                            .col
+                                a(href='#')
+                                    div
+                                        img.small-shdow.img-thumbnail(src='./Assets/images/meettheexpert.jpg' alt='category name')
+                                        h6.text-center.main-color Category Name
+                .small-shdow.p-3.rounded.mt-3
+                    h6.fw-bold
+                        i.fa-solid.fa-location-dot.me-3
+                        |  Fillter by Location
+                    .mt-4
+                        label.check-box-container
+                            | One
+                            input(type='checkbox' checked='checked')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                    h6.fw-bold.mt-5
+                        i.fa-solid.fa-hand-holding-dollar.me-3
+                        |  Sort by price
+                    .mt-4
+                        form(action='#')
+                            p
+                                input#test1(type='radio' name='radio-group' checked='')
+                                label(for='test1') Apple
+                            p
+                                input#test2(type='radio' name='radio-group')
+                                label(for='test2') Peach
+                            p
+                                input#test3(type='radio' name='radio-group')
+                                label(for='test3') Orange
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded
+                    p.card-small-description Shows 1-40 out of 400
+                    h4.fw-bold Your requestd Service List
+                if experts.length
+                    each doc in experts
+                        .small-shdow.rounded.mt-3
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src=doc.partnerId.bannerImage alt='Shop Name')
+                                .col-7.p-2
+                                    h5.m-0= doc.partnerId.company
+                                    p.m-0= doc.serviceType
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        .bd-highlight
+                                            p.card-small-description
+                                                i.fa-solid.fa-indian-rupee-sign.me-2.text-primary
+                                                |                       Rs.#{doc.priceFrom} - Rs.#{doc.priceTo}
+                                        .bd-highlight
+                                            p.card-small-description
+                                                i.fa-solid.fa-location-dot.me-2.ms-3.text-primary
+                                                |                       #{doc.partnerId.city}
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        .bd-highlight.m-0
+                                            p
+                                                i.fa-solid.fa-book.me-2.text-primary
+                                        .bd-highlight
+                                            p.card-small-description= doc.description
+                                    .d-flex.justify-content-between.m-0
+                                        .d-flex.flex-row.bd-highlight.m-0
+                                            .bd-highlight.me-1.fw-bold Ratings :
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-regular.fa-star.text-12.text-warning
+                                        .me-1.mt-3
+                                            a.button-view-details(href=`/meet-the-experts/details/${doc.hiwmtespsID}`)
+                                                | View Details 
+                                                i.fa-solid.fa-arrow-right
+                else 
+                    p No data found
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Home Care Service Centres List Section End

@@ -1,0 +1,150 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")  
+    script.
+        $(".services-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });   
+
+block block 
+    // Hero section Start
+    section
+      .carousel.slide(data-bs-ride='carousel')
+        .carousel-inner
+          .carousel-item.active
+            img.d-block.w-100(src='/Assets/images/fitness.jpg' alt='...')
+            .hero-image-overlay1
+            .carousel-caption.overlay-section.container.d-none.d-md-block
+              p.mt-5.fs-2.float-end
+                a(href='#')
+                  i.fa-solid.fa-share.text-white
+              h1.text-white.mt-5= center.company
+              p.text-white= center.name
+              .d-flex.flex-row.bd-highlight.mb-5
+                .bd-highlight.me-2
+                  p.text-white
+                    i.fa-solid.fa-address-book.fs-2
+                .bd-highlight
+                  p.text-white= center.address
+              .mt-5.text-white
+                .row.mt-5.mb-3
+                  .col
+                    h6.fw-bold
+                      i.fa-solid.fa-phone.me-2= center.centerPhone
+                  .col
+                    h6.fw-bold
+                      i.fa-regular.fa-clock.me-2
+                      |  #{center.openTime} to #{center.closeTime}
+                .row
+                  .col
+                    h6.fw-bold
+                      i.fa-solid.fa-phone-volume.me-2
+                      | #{center.centerLandLine ? center.centerLandLine : "-"}
+                  .col
+                    h6.fw-bold
+                      i.fa-solid.fa-star.me-2
+                      |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Section Start
+    section.container.mt-5
+      div
+        h4.fw-bold.mb-4 OUR GYM FACILITIES
+        each doc in center.fitness.fecilities
+          .ps-4
+            .d-flex.justify-content-start
+              div
+                i.fa-solid.fa-circle.me-2.text-12
+              div
+                h5= doc.title
+                p=doc.description
+        h4.fw-bold.mb-4.mt-5 OUR GYM EQUPMENTS
+        .services-list.d-flex.flex-wrap
+          each doc in center.fitness.equipments
+            div
+              .service-list-card.h-100.me-4
+                img.service-card-img(src=doc.bannerImage alt='Service Image')
+                .service-card-body
+                  h6.service-heading= doc.name
+                  p.service-des= doc.description
+
+        h4.fw-bold.mb-4.mt-5 Reviews
+        div
+          .d-flex.flex-row.bd-highlight
+            .p-2.bd-highlight
+              i.fa-solid.fa-circle-user.fs-1.fw-bold
+            .p-2.bd-highlight
+              h6.fw-bold
+                | Muthazhagan 
+                span.review-date-time  - Jan-01-2022 | 04:30:45
+              .d-flex.flex-row.bd-highlight.starts
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-regular.fa-star.text-12.text-warning
+              p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+              p.user-review.m-0
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate at temporibus optio est praesentium nisi! Quae facere maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+          .d-flex.flex-row.bd-highlight
+            .p-2.bd-highlight
+              i.fa-solid.fa-circle-user.fs-1.fw-bold
+            .p-2.bd-highlight
+              h6.fw-bold
+                | Muthazhagan 
+                span.review-date-time  - Jan-01-2022 | 04:30:45
+              .d-flex.flex-row.bd-highlight.starts
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-solid.fa-star.text-12.text-warning
+                div
+                  i.fa-regular.fa-star.text-12.text-warning
+              p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+              p.user-review.m-0
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate at temporibus optio est praesentium nisi! Quae facere maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Section End

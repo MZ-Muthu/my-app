@@ -1,0 +1,352 @@
+extends ../../layout/base
+
+block append script 
+    script(src="/JS/bundle/vendor/bundleVendor.js")     
+
+block block 
+    // Hero Section
+    .vendor-hero-image(style=`background-image: url(${partner.bannerImage})`)
+        img.m-auto.d-block.vendor-image(src=partner.profileImage alt='vendor Image')
+    // Hero Section
+    h3.center-heading.fs-4.text-center=partner.company
+    hr
+    // Mobile nav section
+    include layout/mobileSidebar
+    // Mobile nav section
+    // Nav and Content section
+    .container.ps-4.pe-4
+        .row
+            include layout/pcSidebar
+            .col-10.border.border-color.width-100.p-0
+                #carouselExampleIndicators.carousel.slide(data-bs-ride='carousel')
+                    .carousel-indicators
+                        each doc,index in partner.imageGallery
+                            button(type='button' class=`${index === 0 ? "active" :""}` data-bs-target='#carouselExampleIndicators' data-bs-slide-to=index aria-current=`${index === 0 ?"true" : "false"}` aria-label=`Slide ${index}`)
+                    .carousel-inner
+                        each doc,index in partner.imageGallery
+                            .carousel-item.side-h(class=`${index === 0 ? "active" :""}`)
+                                img.d-block.w-100(src=doc alt='Vendor images')
+
+                .p-2
+                    h3.vendor-heading.fs-4.mb-0 Company/ Store Name
+                    p.mt-0
+                        | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus
+                        | voluptates quo qui corporis nam rem.
+                .p-5.pt-2.nav-tabs-section
+                    ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                        li.nav-item.border.rounded(role='presentation')
+                            button#pills-home-tab.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home' type='button' role='tab' aria-controls='pills-home' aria-selected='true')
+                                | New Requests
+                        li.nav-item.border.rounded(role='presentation')
+                            button#pills-profile-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                                | Negotiations
+                        li.nav-item.border.rounded(role='presentation')
+                            button#pills-contact-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+                                | History
+                    #pills-tabContent.tab-content
+                        #pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab')
+                            h6.col-6.fw-bold.main-color.mt-5.text-head
+                                | Order List
+                            hr.m-0
+                            .mt-3.table-responsive
+                                table.table.table-bordered
+                                    thead
+                                        tr.text-nowrap
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Requester Name
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Product Name	
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Proposal Date
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Description
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Status
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | View
+                                    tbody#update_vendor_market_quote_status
+                                        -const status = ['requested', 'proposal-submited','accepted','rejected', 'completed']
+                                        each doc,inds in requested
+                                            tr.text-nowrap
+                                                th(scope='row')= doc.user.name
+                                                td= doc.productName
+                                                td= new Date(doc.createdAt).toLocaleString()
+                                                td= doc.productDescription
+                                                td  
+                                                    select.form-select.border.update_status(aria-label='Default select example' id=`update_market_quote_status-${inds}` data-index=inds data-id=doc.hiwmmqrrsID style="width:auto;")
+                                                        each docs in status
+                                                            if docs === doc.proposeStatus
+                                                                option(value=docs selected)= docs
+                                                            else 
+                                                                option(value=docs)= docs
+
+                                                td
+                                                    a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#orderActive-${inds}`) View
+                                                    // Modal
+                                                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`orderActive-${inds}`)
+                                                        .modal-dialog.modal-dialog-scrollable.modal-lg
+                                                            .modal-content
+                                                                .modal-header
+                                                                    h5#staticBackdropLabel.modal-title
+                                                                        | Product Details
+                                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                                .modal-body.table-responsive
+                                                                    table.table.table-bordered
+                                                                        thead
+                                                                            tr
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    | Quote Details
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    //- | Order ID - 09869766875
+                                                                        tbody
+                                                                            //- tr
+                                                                            //-     th(scope='row') Product Id
+                                                                            //-     td 8798789678
+                                                                            tr
+                                                                                th(scope='row') Product Name
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Quantity
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Address
+                                                                                td= doc.address
+                                                                            //- tr
+                                                                                th(scope='row') Product Image
+                                                                                td
+                                                                                    img.thumbnail(src=doc.product.bannerImage alt='Product Image')
+                                                                            //- tr
+                                                                                th(scope='row') Product Image Gallery
+                                                                                td
+                                                                                    if doc.product && doc.product.imageGallery
+                                                                                        each galImg in doc.product.imageGallery
+                                                                                            img.p-2(src=galImg,style=`width:75px`, alt="", srcset="")
+                                                                                    else 
+                                                                                        p -
+                                                                            tr
+                                                                                th(scope='row') Description
+                                                                                td= doc.productDescription
+                                                                            
+                                                                            tr
+                                                                                th(scope='row') Quoted Price
+                                                                                td= doc.estimateCost ? doc.estimateCost : "-"
+                                                                            tr
+                                                                                th(scope='row') Quoted Date
+                                                                                td=doc.createdAt ? new Date(doc.createdAt).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Accepted Date
+                                                                                td=doc.acceptedDate ? new Date(doc.acceptedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Shipped Date
+                                                                                td=doc.shippedDate ? new Date(doc.shippedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Out of Delivery Date Date
+                                                                                td=doc.outOfDeliveryDate ? new Date(doc.outOfDeliveryDate).toLocaleString():"-"
+                                                                .modal-footer
+                                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                        | Cancel
+
+                        #pills-profile.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile-tab')
+                            h6.col-6.fw-bold.main-color.mt-5.text-head
+                                | Order List
+                            hr.m-0
+                            .mt-3.table-responsive
+                                table.table.table-bordered
+                                    thead
+                                        tr.text-nowrap
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Requester Name
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Product Name	
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Proposal Date
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Description
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Status
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | View
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Respond
+                                    tbody#update_vendor_market_quote_status
+                                        each doc,inds in negotiate
+                                            tr.text-nowrap
+                                                th(scope='row')= doc.user.name
+                                                td= doc.productName
+                                                td= new Date(doc.createdAt).toLocaleString()
+                                                td= doc.productDescription
+                                                td=doc.proposeStatus
+
+                                                td
+                                                    a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#nagotiveActive-${inds}`) View
+                                                    // Modal
+                                                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`nagotiveActive-${inds}`)
+                                                        .modal-dialog.modal-dialog-scrollable.modal-lg
+                                                            .modal-content
+                                                                .modal-header
+                                                                    h5#staticBackdropLabel.modal-title
+                                                                        | Product Details
+                                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                                .modal-body.table-responsive
+                                                                    table.table.table-bordered
+                                                                        thead
+                                                                            tr
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    | Quote Details
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    //- | Order ID - 09869766875
+                                                                        tbody
+                                                                            //- tr
+                                                                            //-     th(scope='row') Product Id
+                                                                            //-     td 8798789678
+                                                                            tr
+                                                                                th(scope='row') Product Name
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Quantity
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Address
+                                                                                td= doc.address
+                                                                            //- tr
+                                                                                th(scope='row') Product Image
+                                                                                td
+                                                                                    img.thumbnail(src=doc.product.bannerImage alt='Product Image')
+                                                                            //- tr
+                                                                                th(scope='row') Product Image Gallery
+                                                                                td
+                                                                                    if doc.product && doc.product.imageGallery
+                                                                                        each galImg in doc.product.imageGallery
+                                                                                            img.p-2(src=galImg,style=`width:75px`, alt="", srcset="")
+                                                                                    else 
+                                                                                        p -
+                                                                            tr
+                                                                                th(scope='row') Description
+                                                                                td= doc.productDescription
+                                                                            
+                                                                            tr
+                                                                                th(scope='row') Quoted Price
+                                                                                td= doc.estimateCost ? doc.estimateCost : "-"
+                                                                            tr
+                                                                                th(scope='row') Negotiate Message
+                                                                                td= doc.negotiateDescription
+                                                                            tr
+                                                                                th(scope='row') Quoted Date
+                                                                                td=doc.createdAt ? new Date(doc.createdAt).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Negotiate Date
+                                                                                td=doc.createdAt ? new Date(doc.negotiateDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Accepted Date
+                                                                                td=doc.acceptedDate ? new Date(doc.acceptedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Shipped Date
+                                                                                td=doc.shippedDate ? new Date(doc.shippedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Out of Delivery Date Date
+                                                                                td=doc.outOfDeliveryDate ? new Date(doc.outOfDeliveryDate).toLocaleString():"-"
+                                                                .modal-footer
+                                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                        | Cancel
+                                                td 
+                                                    button.btn.btn-primary.negotiateResponse(data-index=inds data-id=doc.hiwmmqrrsID ) Replay
+                     
+                        #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+                            h6.col-6.fw-bold.main-color.mt-5.text-head History
+                            hr.m-0
+                            .mt-3.table-responsive
+                                table.table.table-bordered
+                                    thead
+                                        tr.text-nowrap
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Requester Name
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Product Name	
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Proposal Date
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Description
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Status
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | View
+                                    tbody#update_vendor_market_quote_status
+                                        each doc,inds in history
+                                            tr.text-nowrap
+                                                th(scope='row')= doc.user.name
+                                                td= doc.productName
+                                                td= new Date(doc.createdAt).toLocaleString()
+                                                td= doc.productDescription
+                                                td=doc.proposeStatus
+
+                                                td
+                                                    a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#nagotiveActive-${inds}`) View
+                                                    // Modal
+                                                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`nagotiveActive-${inds}`)
+                                                        .modal-dialog.modal-dialog-scrollable.modal-lg
+                                                            .modal-content
+                                                                .modal-header
+                                                                    h5#staticBackdropLabel.modal-title
+                                                                        | Product Details
+                                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                                .modal-body.table-responsive
+                                                                    table.table.table-bordered
+                                                                        thead
+                                                                            tr
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    | Quote Details
+                                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                                    //- | Order ID - 09869766875
+                                                                        tbody
+                                                                            //- tr
+                                                                            //-     th(scope='row') Product Id
+                                                                            //-     td 8798789678
+                                                                            tr
+                                                                                th(scope='row') Product Name
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Quantity
+                                                                                td= doc.productName
+                                                                            tr
+                                                                                th(scope='row') Address
+                                                                                td= doc.address
+                                                                            //- tr
+                                                                                th(scope='row') Product Image
+                                                                                td
+                                                                                    img.thumbnail(src=doc.product.bannerImage alt='Product Image')
+                                                                            //- tr
+                                                                                th(scope='row') Product Image Gallery
+                                                                                td
+                                                                                    if doc.product && doc.product.imageGallery
+                                                                                        each galImg in doc.product.imageGallery
+                                                                                            img.p-2(src=galImg,style=`width:75px`, alt="", srcset="")
+                                                                                    else 
+                                                                                        p -
+                                                                            tr
+                                                                                th(scope='row') Description
+                                                                                td= doc.productDescription
+                                                                            
+                                                                            tr
+                                                                                th(scope='row') Quoted Price
+                                                                                td= doc.estimateCost ? doc.estimateCost : "-"
+                                                                            tr
+                                                                                th(scope='row') Negotiate Message
+                                                                                td= doc.negotiateDescription
+                                                                            tr
+                                                                                th(scope='row') Quoted Date
+                                                                                td=doc.createdAt ? new Date(doc.createdAt).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Negotiate Date
+                                                                                td=doc.createdAt ? new Date(doc.negotiateDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Accepted Date
+                                                                                td=doc.completedDate ? new Date(doc.completedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Shipped Date
+                                                                                td=doc.shippedDate ? new Date(doc.shippedDate).toLocaleString():"-"
+                                                                            tr
+                                                                                th(scope='row') Out of Delivery Date Date
+                                                                                td=doc.outOfDeliveryDate ? new Date(doc.outOfDeliveryDate).toLocaleString():"-"
+                                                                .modal-footer
+                                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                        | Cancel

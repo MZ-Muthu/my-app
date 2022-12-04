@@ -1,0 +1,73 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block    
+    section.mt-4.container
+        div
+            h5.fw-bold.mb-4.text-uppercase MY Orders
+            .row.row-cols-2.row-cols-md-4.g-3.m-0
+                each docs in orders
+                    .col
+                        .card.h-100
+                            img.card-img-top(src=docs.proudcts[0].product.bannerImage alt='service Name')
+                            .p-2
+                                -const arr = []
+                                -let price = 0
+                                each val in docs.proudcts
+                                    -arr.push(val.product.name)
+                                    -price = val.product.discountPrice ? val.product.discountPrice + price : val.product.price+price
+                                h6.fw-bold.main-color= arr.join(', ')
+                                     
+                                p.m-0.text-12= docs.proudcts[0].productData.description
+                                p.fw-bold.m-0 Rs. #{price}
+                                .d-flex
+                                    .flex-grow-1
+                                        p.fw-bold
+                                            | Rating :
+                                            span.text-12.text-warning
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-solid.fa-star
+                                                i.fa-regular.fa-star
+                                    //- div
+                                        i.fa-solid.fa-cart-shopping.card-cart-icon
+                                    //- div
+                                        i.fa-solid.fa-heart.card-cart-icon
+                            a(href=`/my-account/medical-market/my-orders/view-order/${docs._id}`)
+                                h6.merket-category-card.m-0 View Details
+
+            // Pagination Sction
+            .text-center
+                .pagination_rounded
+                    ul
+                        li
+                            a.prev(href='#')
+                                i.fa.fa-angle-left(aria-hidden='true')
+                                |  Prev
+                        li
+                            a(href='#') 1
+                        li.hidden-xs
+                            a.active(href='#') 2
+                        li.hidden-xs
+                            a(href='#') 3
+                        li.hidden-xs
+                            a(href='#') 4
+                        li.hidden-xs
+                            a(href='#') 5
+                        li.visible-xs
+                            a(href='#') ...
+                        li
+                            a(href='#') 6
+                        li
+                            a.next(href='#')
+                                | Next 
+                                i.fa.fa-angle-right(aria-hidden='true')
+    // Product Order List Section End

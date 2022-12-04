@@ -1,0 +1,26 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Body Section Start
+    section
+        .d-flex.justify-content-center
+            video.video-width(controls)
+                source(src=video.video type='video/mp4')
+        .container
+            h4.text-uppercase.fw-bold= video.name
+            p.text-danger= video.shortDescription
+            if video.partner.description
+                h6.mt-3.fw-bold About Us
+                p= video.partner.description
+            h6.mt-4.fw-bold Instructions:
+            each doc in video.instruction
+                p
+                    i.fa-solid.fa-circle.text-primary.me-3.text-12
+                    | #{doc}

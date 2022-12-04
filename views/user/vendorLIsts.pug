@@ -1,0 +1,32 @@
+extends ../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(type='text/javascript' src='/JS/jquery.js')
+    script(type='text/javascript' src='/JS/lightslider.js')
+    script(type='text/javascript' src='/JS/scripte.js')
+
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/Medical.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Partner Home
+    // Hero section End
+    .container
+        section.mt-5.container-xl.margin-ts-screen
+            .justify-content-center.mb-5.margin-tb-screen
+                h5.heading Eligiblity Partners
+                .underline
+        section.d-flex.flex-wrap.justify-content-around
+            -const ven ={"Homecare service":"/vendor/homecare-services","Blood Bank":"/vendor/blood-bank","De-Addiction service":"vendor/deaddiction-service","Differently Abled":"/vendor/differently-abled-products","Hearing AID":"/vendor/hearingaid","Hospital":"/vendor/hospital","Laboratory":"/vendor/laboratory","Medical Market":"/vendor/medical-market","Opticals":"/vendor/opticals","Pharmacy":"/vendor/pharmacy","Study Abroad":"/vendor/study-abroad"}
+            each doc in vendors
+                a.col-sm-3.m-3.shadow.p-3.bg-primary.text-white.pt-4(href=ven[doc])
+                    p.fw-bold.text-center= doc

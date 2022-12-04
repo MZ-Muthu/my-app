@@ -1,0 +1,9 @@
+// Mobile nav section
+.scrollmenu.display-header.p-3
+  a.nav-link.scroll-nav.p-1(class=`${ activeScreen === "home" && "scroll-nav-active" }` href='/vendor/pharmacy') Manage Pharmacy
+  a.nav-link.scroll-nav.p-1(class=`${ activeScreen === "medicines" && "scroll-nav-active" }` href='/vendor/pharmacy/my-medicines') Medicines Management
+  a.nav-link.scroll-nav.p-1(class=`${ activeScreen === "request" && "scroll-nav-active" }` href='/vendor/pharmacy/quotes-management') Quotes Management
+  a.nav-link.scroll-nav.p-1(class=`${ activeScreen === "job" && "scroll-nav-active" }` href=`/vendor/${partner.for}/job-management`) Job Managemnet
+  a.nav-link.scroll-nav.p-1(class=`${ activeScreen === "product" && "scroll-nav-active" }` href=`/vendor/${partner.for}/quotes`) Purchase
+  a.nav-link.scroll-nav.p-1#logoutM Log out
+// Mobile nav section

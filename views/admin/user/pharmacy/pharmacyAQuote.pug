@@ -1,0 +1,114 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")       
+
+block block 
+    #right.col-9 
+        .p-3
+            .d-flex.mt-3
+                .flex-grow-1.d-flex.justify-content-between
+                    h5.fw-bold.mt-3.ms-3.fs-5 Booking Summary
+                    if quotes.status === "requested" || quotes.status === "responded" 
+                        button.btn.btn-danger#cancel_pharmacy_quote(data-id=quotes.hiwpmrmsID data-id2=user.id) Cancel
+            .d-flex.justify-content-between.flex-wrap
+                each doc in quotes.medicines
+                    .card.mb-3(style='max-width: 45%;')
+                        .row.g-0
+                            .col-md-4
+                                img.img-fluid.rounded-start(src=doc.bannerImage alt='...')
+                            .col-md-8
+                                .card-body
+                                    h5.card-title=doc.name
+                                    p.card-text= doc.description
+                                    p.card-text= doc.price
+                                    p.card-text Categorie : 
+                                        small.text-muted= doc.categorie
+                  
+            hr.m-0
+            .modal-body.table-responsive.mt-2
+                table.table.table-bordered.table-font
+                    thead
+                        tr
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Number of Medicines
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Requested
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Update Status 
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Details
+                    tbody#update_pharmacy_vendor_status()
+                        -const status = ['pending','responded','packed','outofdelivery','completed','canceled   ']
+                        each doc,index in quotes.response
+                            tr
+                                td= doc.medicines.length
+                                td= new Date(doc.createdAt).toLocaleString()
+                                td= doc.status
+                                    //- select.update_status.form-select.border.border-2.bg-li(id=`pharmacy_booking_status${index}` data-index= index data-id=doc.id required)
+                                        each sts in status 
+                                            if sts === doc.status
+                                                option(value=sts selected) #{sts}
+                                            else
+                                                option(value=sts ) #{sts}
+                                td
+                                    a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activeHearingaidBooking-${index}`) View
+
+                                    // Modal
+                                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`activeHearingaidBooking-${index}`)
+                                        .modal-dialog.modal-dialog-scrollable
+                                            .modal-content
+                                                .modal-header
+                                                    h5#staticBackdropLabel.modal-title
+                                                        | Booking Details
+                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                .modal-body.table-responsive
+                                                    table.table.table-bordered
+                                                        thead
+                                                            tr
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    | Booking Details
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    //- | Booking ID - 09869766875
+                                                        tbody
+                                                            tr.text-center
+                                                                th(scope='row')  Number of Medicines
+                                                                td= doc.medicines.length
+                                                            tr
+                                                                th(scope='row') Requested Date
+                                                                td= new Date(doc.createdAt).toLocaleString()
+                                                            tr
+                                                                th(scope='row') Status
+                                                                td= doc.status
+                                                            if quotes.address
+                                                                tr
+                                                                    th(scope='row') Requested Address
+                                                                    td  
+                                                                        each values in Object.entries(quotes.address)
+                                                                            -const [key,value] = values
+                                                                            div 
+                                                                                p 
+                                                                                    b.fw-fold #{key} : 
+                                                                                    span= value
+                                                            tr
+                                                                th(scope='row') Medicine Details
+                                                                td
+                                                                    each med in doc.medicines
+                                                                        div 
+                                                                            p 
+                                                                                b.fw-fold Medicine Name : 
+                                                                                span= med.name
+                                                                            p 
+                                                                                b.fw-fold Description : 
+                                                                                span= med.description
+                                                                            p 
+                                                                                b.fw-fold Price : 
+                                                                                span= med.price
+                                                                            p 
+                                                                                b.fw-fold Categorie : 
+                                                                                span= med.categorie
+                                                                            img(src=med.bannerImage,style='width:200px;', alt="", srcset="")
+                                                .modal-footer
+                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                        | Cancel
+                            | Cancel

@@ -1,0 +1,131 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block
+    // Card List Section Start
+    section.mt-4.container
+        .row
+            -const priceDetails =[]
+            // Card Section
+            .col-8
+                h5.fw-bold.mb-4.text-uppercase mY cART
+                .row.row-cols-1.row-cols-md-2.g-4
+                    each docs,index in carts
+                        .col.market_datas(data-id=docs.hiwmmpcsID)
+                            .card.h-100
+                                .row
+                                    -let productData={}
+                                    case docs.product.productType
+                                        when "single"
+                                            -productData.bannerImage = docs.product.bannerImage
+                                            -productData.price = docs.product.price;
+                                            -productData.discountPrice = docs.product.discountPrice
+                                            -priceDetails.push({price:docs.product.price*docs.quantity,discountPrice:docs.product.discountPrice*docs.quantity})
+                                        when 'colorOnly'
+                                            each colorOnly in docs.product.productDetails
+                                                if colorOnly.color === docs.color
+                                                    -productData.color = colorOnly.color
+                                                    -productData.price = colorOnly.subDetails[0].price
+                                                    -productData.discountPrice = colorOnly.subDetails[0].discountPrice
+                                                    -productData.bannerImage = colorOnly.bannerImage
+                                                    -priceDetails.push({price:colorOnly.subDetails[0].price*docs.quantity,discountPrice:colorOnly.subDetails[0].discountPrice*docs.quantity})
+                                        when 'sizeOnly'
+                                            -productData.bannerImage = docs.product.productDetails[0].bannerImage
+                                            each sizeOnly in docs.product.productDetails[0].subDetails
+                                                if sizeOnly.size === docs.size
+                                                    -productData.size = docs.size
+                                                    -productData.price = sizeOnly.price
+                                                    -productData.discountPrice = sizeOnly.discountPrice
+                                                    -priceDetails.push({price:sizeOnly.price*docs.quantity,discountPrice:sizeOnly.discountPrice*docs.quantity})
+                                        when 'colorWithSize'
+                                            each cws in docs.product.productDetails
+                                                if(cws.color === docs.color)
+                                                    -productData.color = cws.color
+                                                    -productData.bannerImage = cws.bannerImage
+                                                    each sv in cws.subDetails
+                                                        if sv.size === docs.size
+                                                            -productData.size = sv.size
+                                                            -productData.price = sv.price
+                                                            -productData.discountPrice = sv.discountPrice
+                                                            -priceDetails.push({price:sv.price*docs.quantity,discountPrice:sv.discountPrice*docs.quantity})
+                                    .col-5
+                                        img.img-thumbnail.border-0(src=productData.bannerImage alt='Shop Name')
+                                    .col-7.p-2 
+                                        .d-flex.justify-content-between.manage_market_cart_quantity(data-index=index)
+                                            div
+                                                h6.m-0.text-uppercase.fw-bold= docs.product.productName                                                
+                                            .d-flex.justify-content-between.m-0.me-2.border.rounded.ps-1.pe-1
+                                                p.cursor-pointer.m-0.fw-bold.me-3#sub_quantity(data-id=docs.hiwmmpcsID  data-index=index) -
+                                                div
+                                                    p.m-0.fw-bold.me-3(id=`cart_quantity${index}`)= docs.quantity
+                                                a.cursor-pointer.m-0.fw-bold#add_quantity(data-id=docs.hiwmmpcsID data-index=index) +
+                                        if productData.color
+                                            p.m-0
+                                                span.fw-bold Color : 
+                                                span= productData.color
+                                        if productData.size
+                                            p.m-0
+                                                span.fw-bold Size : 
+                                                span= productData.size
+                                        p.m-0= docs.product.description
+                                        .d-flex.justify-content-between.m-0
+                                            .bd-highlight
+                                                if productData.discountPrice
+                                                    h6.fw-bold.main-color
+                                                        | Rs.#{productData.discountPrice}
+                                                        span.text-secondary.ms-2
+                                                            del Rs.#{productData.price}
+                                                else 
+                                                    h6.fw-bold.main-color
+                                                        | Rs.#{productData.price}
+
+                                                    //- span.fw-normal.text-danger (80%)
+                                                    //- div
+                                                        h6
+                                                            i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                            | (145)
+                                            .me-1.mt-1
+                                                i.fa-solid.fa-trash-can.me-2.cursor-pointer.text-danger.delete_market_cart(data-id=docs.hiwmmpcsID)
+
+            .col-4
+                .small-shdow.p-3.rounded
+                    h5.fw-bold.mb-4.text-uppercase Price Details
+                    -let totalPrice = 0
+                    -let totalDiscountPrice = 0
+                    -let finalPrice = 0
+                    each docs in priceDetails
+                        -totalPrice = totalPrice + docs.price
+                        -totalDiscountPrice = totalDiscountPrice + docs.discountPrice
+                        -finalPrice = docs.discountPrice ? finalPrice+docs.discountPrice : finalPrice+docs.price
+                    .row
+                        .col-7
+                            p.fw-bold Total Price
+                        .col-5
+                            p Rs. #{totalPrice}
+                    .row
+                        .col-7
+                            p.fw-bold Total Discount Price
+                        .col-5
+                            p Rs. #{totalDiscountPrice}
+                    .row
+                        .col-7
+                            p.fw-bold Amount you saved
+                        .col-5
+                            p Rs. #{totalPrice -totalDiscountPrice}
+                    .border-top.w-100
+                    .row
+                        .col-7
+                            p.fw-bold Final Price
+                        .col-5
+                            p Rs. #{finalPrice}
+                    .border-top.w-100
+                    .mt-4.justify-content-center.text-center.m-auto
+                        a.add-address-button#place_order_from_pharmacy Place Order
+    // Medicine List Section End

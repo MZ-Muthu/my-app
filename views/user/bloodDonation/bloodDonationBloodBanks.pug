@@ -1,0 +1,67 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/bloodDonation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Blood Donor List
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Blood Donor List
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                .col
+                    .small-shdow.card.rounded.mt-3
+                        .row
+                            .col-3
+                                img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                            .col-9.p-2
+                                h5.main-color.fw-bold Food Name
+                                h6.main-color.fw-bold
+                                    | Units required:  
+                                    span.text-dark.ms-2  2 UNIT
+                                h6.main-color.fw-bold
+                                    | Last Donated Date:   
+                                    span.text-dark.ms-2  12-10-2022  
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details(href='#')
+                                            | Request Donor 
+                                            i.fa-solid.fa-arrow-right
+                .col
+                    .small-shdow.card.rounded.mt-3
+                        .row
+                            .col-3
+                                img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                            .col-9.p-2
+                                h5.main-color.fw-bold Food Name
+                                h6.main-color.fw-bold
+                                    | Units required:  
+                                    span.text-dark.ms-2  2 UNIT
+                                h6.main-color.fw-bold
+                                    | Last Donated Date:   
+                                    span.text-dark.ms-2  12-10-2022  
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details(href='#')
+                                            | Request Donor 
+                                            i.fa-solid.fa-arrow-right
+    // Card Section End

@@ -1,0 +1,57 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/bloodDonation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Blood Donor List
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Blood Donor List
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                each doc in docs
+                    .col
+                        .small-shdow.card.rounded.mt-3
+                            .row
+                                .col-3
+                                    img.img-thumbnail.border-0(src='/Assets/images/blooddonation/abneg.png' alt='Shop Name')
+                                .col-9.p-2
+                                    h5.main-color.fw-bold= doc.donners[0].donnerName
+                                    h6.main-color.fw-bold
+                                        | Units required:  
+                                        span.text-dark.ms-2  #{doc.requesterRequiredUnits} UNIT
+                                    h6.main-color.fw-bold
+                                        | Donner Responded at:   
+                                        span.text-dark.ms-2= new Date(doc.donnerResponseDate).toLocaleDateString()
+                                    -const data = new Date(new Date(doc.requestersRequiredDate).setHours(0,0,0,0)).valueOf() === new Date(new Date().setHours(0,0,0,0)).valueOf() 
+                                    if data
+                                        .d-flex.flex-row-reverse.bd-highlight
+                                            .me-1.mt-3
+                                                a.button-view-details.verify_user_blood_request.cursor-pointer(data-id=doc.hiwnrqID)
+                                                    | Verify Donner 
+                                                    i.fa-solid.fa-arrow-right
+                                    else    
+                                        .d-flex.flex-row-reverse.bd-highlight.opacity-25
+                                            .me-1.mt-3
+                                                a.button-view-details
+                                                    | Verify Donor 
+                                                    i.fa-solid.fa-arrow-right

@@ -1,0 +1,81 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/meettheexpert.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Our Experts list
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center.mb-5
+            h5.heading Our Best Expert Services
+            .underline
+
+    .container        
+        p-5.pt-2.nav-tabs-section
+            ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                li.nav-item.border.rounded(role='presentation')
+                    button#pills-home-tab.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home' type='button' role='tab' aria-controls='pills-home' aria-selected='true')
+                        | Contractors
+                li.nav-item.border.rounded(role='presentation')
+                    button#pills-profile-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                        | Consultants
+                li.nav-item.border.rounded(role='presentation')
+                    button#pills-contact-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+                        | Services
+            #pills-tabContent.tab-content
+                #pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab')
+                    .row.row-cols-2.row-cols-md-4.g-5
+                        each doc in categories.contractors
+                            .col
+                                .card.h-100.p-1
+                                    img.card-img-top.rounded(src=doc.bannerImage alt='service Name')
+                                    .card-body.p-1
+                                        h6.main-color.mt-2= doc.name
+                                        p.card-small-description= doc.description
+                                        a(href=`/meet-the-experts/${doc.name}`)
+                                            .d-flex.justify-content-center.m-0.Expert-card-button
+                                                .p-2.bd-highlight
+                                                    h6.color-white View List
+                                                .p-2.bd-highlight
+                                                    i.fa-solid.fa-arrow-right.color-white
+                #pills-profile.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile-tab')
+                    .row.row-cols-2.row-cols-md-4.g-5
+                        each doc in categories.consultants
+                            .col
+                                .card.h-100.p-1
+                                    img.card-img-top.rounded(src=doc.bannerImage alt='service Name')
+                                    .card-body.p-1
+                                        h6.main-color.mt-2= doc.name
+                                        p.card-small-description= doc.description
+                                        a(href=`/meet-the-experts/${doc.name}`)
+                                            .d-flex.justify-content-center.m-0.Expert-card-button
+                                                .p-2.bd-highlight
+                                                    h6.color-white View List
+                                                .p-2.bd-highlight
+                                                    i.fa-solid.fa-arrow-right.color-white
+                #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+                    .row.row-cols-2.row-cols-md-4.g-5
+                        each doc in categories.services
+                            .col
+                                .card.h-100.p-1
+                                    img.card-img-top.rounded(src=doc.bannerImage alt='service Name')
+                                    .card-body.p-1
+                                        h6.main-color.mt-2= doc.name
+                                        p.card-small-description= doc.description
+                                        a(href=`/meet-the-experts/${doc.name}`)
+                                            .d-flex.justify-content-center.m-0.Expert-card-button
+                                                .p-2.bd-highlight
+                                                    h6.color-white View List
+                                                .p-2.bd-highlight
+                                                    i.fa-solid.fa-arrow-right.color-white

@@ -1,0 +1,63 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/fitness.jpg' alt='Fitness banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text Our Best Fitness Related Services
+                p.text-dark.fw-bold.hero-description Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, optio
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container-xl.margin-ts-screen
+        .justify-content-center
+            h5.heading Our Fitness Services
+            .underline
+            p.text-center.w-75.m-auto.mt-4.text-small-for-smallS.margin-ts-screen.small-screen-w-100
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-1.row-cols-md-3.row-cols-sm-2.g-4
+                .col
+                    a(href='/fitness/workout-videos/gym')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='/Assets/images/workout.jpg' alt='Workout Image')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text.small-header-text
+                                    | Serach Workout Videos
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='/fitness/fitness-centers/gym')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='/Assets/images/fitness.jpg' alt='Gym Image')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text.small-header-text
+                                    | Gyms and Yoga Centres
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='/fitness/healthy-foods')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='/Assets/images/food.jpg' alt='Food Image')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text.small-header-text
+                                    | Take healthy food
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+    // Card Section End

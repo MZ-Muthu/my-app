@@ -1,0 +1,133 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='/Assets/images/study_abroad.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Collages and Universitys list
+    // Hero section End
+    // Home Care Service Centres List Section Start
+    section.mt-4.container
+        .row
+            // Fillter Section
+            .col-4
+                .small-shdow.p-3.rounded
+                    h6.fw-bold
+                        i.fa-solid.fa-location-dot.me-3
+                        |  Fillter by Country
+                    .mt-4
+                        label.check-box-container
+                            | One
+                            input(type='checkbox' checked='checked')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                    h6.fw-bold.mt-5
+                        i.fa-solid.fa-hand-holding-dollar.me-3
+                        |  Sort by price
+                    .mt-4
+                        form(action='#')
+                            p
+                                input#test1(type='radio' name='radio-group' checked='')
+                                label(for='test1') Defulte Order
+                            p
+                                input#test2(type='radio' name='radio-group')
+                                label(for='test2') Low to Height
+                            p
+                                input#test3(type='radio' name='radio-group')
+                                label(for='test3') Height to Low
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded
+                    p.card-small-description Shows 1-40 out of 400
+                    h4.fw-bold Collages and Universitys List
+                each doc in docs
+                    .small-shdow.ronded.mt-3
+                        .row
+                            .col-5
+                                img.img-thumbnail.border-0(src=doc.partnerId.bannerImage alt='Shop Name')
+                            .col-7.p-2
+                                h5.m-0= doc.partnerId.company
+                                p.m-0= doc.partnerId.address
+                                .d-flex.flex-row.bd-highlight.m-0
+                                    .bd-highlight
+                                        p.card-small-description
+                                            i.fa-solid.fa-indian-rupee-sign.me-2.text-primary
+                                            |                       Rs.#{doc.courseDetails.underGraduateFees.tutionFees}
+                                    .bd-highlight
+                                        p.card-small-description
+                                            i.fa-solid.fa-location-dot.me-2.ms-3.text-primary
+                                            |                       #{doc.partnerId.city}
+                                .d-flex.flex-row.bd-highlight.m-0
+                                    .bd-highlight.m-0
+                                        p
+                                            i.fa-solid.fa-book.me-2.text-primary
+                                    .bd-highlight
+                                        p.card-small-description
+                                            | Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                            | Qui corrupti perferendis incidunt consequuntur harum
+                                            | aliquid deserunt omnis est, sequi ab.
+                                .d-flex.justify-content-between.m-0
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        .bd-highlight.me-1.fw-bold Ratings :
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-solid.fa-star.text-12.text-warning
+                                        .bd-highlight
+                                            i.fa-regular.fa-star.text-12.text-warning
+                                    .me-1.mt-3
+                                        a.button-view-details(href=`./college/${doc.hiwsabmID}`)
+                                            | View Details 
+                                            i.fa-solid.fa-arrow-right
+
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Home Care Service Centres List Section End

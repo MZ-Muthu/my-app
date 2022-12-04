@@ -1,0 +1,689 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        function setYerorNo(text) {
+        const yes = document.getElementById("yes");
+        const no = document.getElementById("no");
+        const details = document.getElementById("details");
+        if (text === "Yes") {
+        yes.className = "tab-text-active donationView";
+        no.className = "tab-text";
+
+        }else{
+        yes.className = "tab-text";
+        no.className = "tab-text-active donationView";
+        }
+        }
+        function setYerorNoNPD(text) {
+        const yes = document.getElementById("yesNPD");
+        const no = document.getElementById("noNPD");
+        if (text === "Yes") {
+        yes.className = "tab-text-active productDonationView";
+        no.className = "tab-text";
+
+        }else{
+        yes.className = "tab-text";
+        no.className = "tab-text-active productDonationView";
+        }
+        }
+        function setYerorNoPDQ(text) {
+        const yes = document.getElementById("yesPDRQ");
+        const no = document.getElementById("noPDRQ");
+        if (text === "Yes") {
+        yes.className = "tab-text-active productDonationRequestView";
+        no.className = "tab-text";
+
+        }else{
+        yes.className = "tab-text";
+        no.className = "tab-text-active productDonationRequestView";
+        }
+        }
+        function setYerorNoSub(textmindex,index) {
+        const yes = document.getElementById("yes"+index);
+        const no = document.getElementById("no"+index);
+        const details = document.getElementById("details"+index);
+        if (textmindex === "Yes") {
+        yes.className = `tab-text-active donationView${index}`;
+        no.className = "tab-text";
+
+        }else{
+        yes.className = "tab-text";
+        no.className = `tab-text-active donationView${index}`;
+        }
+        }
+        function setYerorNoProduct(textmindex,index) {
+        const yes = document.getElementById("yesPro"+index);
+        const no = document.getElementById("noPro"+index);
+        if (textmindex === "Yes") {
+        yes.className = `tab-text-active productDonationView${index}`;
+        no.className = "tab-text";
+
+        }else{
+        yes.className = "tab-text";
+        no.className = `tab-text-active productDonationView${index}`;
+        }
+        }
+
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='./Assets/images/bloodDonation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Donation and Charity Home
+    // Hero section End
+    // Summary section
+    section.container.mt-5
+        .justify-content-center
+            h5.heading Donation and Charity Summary
+            .underline
+        .row.row-cols-1.row-cols-md-4.g-4.mt-3
+            .col
+                .card.h-100.p-3
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold.text-secondary Donation Received
+                        div
+                            i.fa-solid.fa-hand-holding-dollar.text-success.fs-4.me-3
+                    h6.fw-bold Rs. 1000
+                    .d-flex.justify-content-between.mt-2.mb-0
+                        div
+                            p.text-success
+                                i.fa-regular.fa-circle-up.fs-4.me-1
+                                | 3.5%
+                        div
+                            h6.text-secondary Since Last Month
+            .col
+                .card.h-100.p-3
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold.text-secondary Donation Settled
+                        div
+                            i.fa-solid.fa-hand-holding-heart.text-success.fs-4.me-3
+                    h6.fw-bold Rs. 1000
+                    .d-flex.justify-content-between.mt-2.mb-0
+                        div
+                            p.text-success
+                                i.fa-regular.fa-circle-up.fs-4.me-1
+                                | 3.5%
+                        div
+                            h6.text-secondary Since Last Month
+            .col
+                .card.h-100.p-3
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold.text-secondary Requested People
+                        div
+                            i.fa-solid.fa-arrows-down-to-people.text-success.fs-4.me-3
+                    h6.fw-bold Rs. 1000
+                    .d-flex.justify-content-between.mt-2.mb-0
+                        div
+                            p.text-success
+                                i.fa-regular.fa-circle-up.fs-4.me-1
+                                | 3.5%
+                        div
+                            h6.text-secondary Since Last Month
+            .col
+                .card.h-100.p-3
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold.text-secondary Received People
+                        div
+                            i.fa-solid.fa-users.text-success.fs-4.me-3
+                    h6.fw-bold 1000
+                    .d-flex.justify-content-between.mt-2.mb-0
+                        div
+                            p.text-danger
+                                i.fa-regular.fa-circle-down.fs-4.me-1
+                                | 3.5%
+                        div
+                            h6.text-secondary Since Last Month
+    // Donation Request and Donated Section
+    section.container.mt-5
+        .justify-content-center
+            h5.heading Donation Request and Donated Section
+            .underline
+        .row.row-cols-1.row-cols-md-4.g-4.mt-3
+            .col
+                .card.h-100.rounded-pill.bg-success.cursor-pointer(data-bs-toggle='modal' data-bs-target='#Donate')
+                    .d-flex.justify-content-start
+                        div
+                            i.fa-solid.fa-money-bill-1-wave.fs-4.text-success.p-3.rounded-circle.bg-white
+                        div
+                            h6.fw-bold.text-white.mt-3.ms-3 Willing to Donate?
+            .col
+                .card.h-100.rounded-pill.bg-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target='#Request')
+                    .d-flex.justify-content-start
+                        div
+                            i.fa-solid.fa-hand-holding-dollar.fs-4.text-primary.p-3.rounded-circle.bg-white
+                        div
+                            h6.fw-bold.text-white.mt-3.ms-3
+                                | Request for Donation
+            .col
+                .card.h-100.rounded-pill.bg-warning.cursor-pointer(data-bs-toggle='modal' data-bs-target='#ProductDonner')
+                    .d-flex.justify-content-start
+                        div
+                            i.fa-solid.fa-wheelchair.fs-4.text-warning.p-3.rounded-circle.bg-white
+                        div
+                            h6.fw-bold.text-white.mt-3.ms-3 Donate a Product
+            .col
+                .card.h-100.rounded-pill.bg-info.cursor-pointer(data-bs-toggle='modal' data-bs-target='#ProductDonationRequest')
+                    .d-flex.justify-content-start
+                        div
+                            i.fa-solid.fa-boxes-packing.fs-4.text-info.p-3.rounded-circle.bg-white
+                        div
+                            h6.fw-bold.text-white.mt-3.ms-3 Request a Product
+    // Donation Modal
+    #Donate.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='DonateLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#DonateLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Donate Now
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#common_fund_donation()
+                        div
+                            h6
+                                | Enter Donor Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`name` placeholder='Enter Donor Name...' required='')
+                        div
+                            h6
+                                | Organization Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`organization` placeholder='Organization Name...' required='')
+                        div
+                            h6
+                                | E - Mail
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`email` placeholder='E - Mail...' required='')
+                        div
+                            h6
+                                | Phone Number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`phone` placeholder='Phone Number...' required='')
+                        div
+                            h6
+                                | Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`address` placeholder='Address...' required='')
+                        div
+                            h6
+                                | Enter Amount
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`amount` placeholder='Enter Amount...' required='')
+                        div
+                            h6
+                                | Do You Want to Show Your Donation to Others?
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            h6
+                                | Should I Give Anonymously or Publicly?
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            .d-flex.justify-content-center
+                                div
+                                    h6.tab-text-active(class=`donationView` data-term="true" id=`yes` onclick=`setYerorNo("Yes")`)
+                                        | Yes
+                                div
+                                    h6.tab-text(class=`donationView` data-term="false" onclick=`setYerorNo("No")` id=`no`)
+                                        | No
+                        .display-block(id=`details`)
+                            h6
+                                | Enter About You
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea(id=`about` placeholder='About You...' required="")
+                        button.conform-service-booking(type="submit") Donate
+                .modal-footer
+
+    // Donation Modal
+    #ProductDonner.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='DonateLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#DonateLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Donate Now
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#common_product_donation()
+                        div
+                            h6
+                                | Enter Donor Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`nameAnbd` placeholder='Enter Donor Name...' required='')
+                        div
+                            h6
+                                | Organization Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`organizationAnbd` placeholder='Organization Name...' required='')
+                        div
+                            h6
+                                | E - Mail
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`emailAnbd` placeholder='E - Mail...' required='')
+                        div
+                            h6
+                                | Phone Number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`phoneAnbd` placeholder='Phone Number...' required='')
+                        div
+                            h6
+                                | Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`addressAnbd` placeholder='Address...' required='')
+                        div
+                            h6
+                                | Product
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`productAnbd` placeholder='Product...' required='')
+                        div
+                            h6
+                                | Quantity
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`producQuantityAnbd` placeholder='Quantity...' required='')
+                        div
+                            h6.fw-bold
+                                | Upload Product Image
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#productBannerAnbd(type='file' name='myfile')
+                        div
+                            h6
+                                | Do You Want to Show Your Donation to Others?
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            h6
+                                | Should I Give Anonymously or Publicly?
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            .d-flex.justify-content-center
+                                div
+                                    h6.tab-text-active(class=`productDonationView` data-term="true" id=`yesNPD` onclick=`setYerorNoNPD("Yes")`)
+                                        | Yes
+                                div
+                                    h6.tab-text(class=`productDonationView` data-term="false" onclick=`setYerorNoNPD("No")` id=`noNPD`)
+                                        | No
+                        .display-block()
+                            h6
+                                | Enter About You
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea(id=`aboutAnbd` placeholder='About You...' required="")
+                        button.conform-service-booking(type="submit") Donate
+                .modal-footer
+    #ProductDonationRequest.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='DonateLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#DonateLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Donate Now
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#common_product_donation_request()
+                        div
+                            h6
+                                | Enter Requester Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`namePdreq` placeholder='Enter Requester Name...' required='')
+                        div
+                            h6
+                                | Enter Request Product
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`productPdreq` placeholder='Enter Request Product...' required='')
+                        div
+                            h6
+                                | Cause
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`causePdreq` placeholder='Cause...' required='')
+                        div
+                            h6
+                                | E - Mail
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`emailPdreq` placeholder='E - Mail...' required='')
+                        div
+                            h6
+                                | Phone Number1
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`phone1Pdreq` placeholder='Phone Number...' required='')
+                        div
+                            h6
+                                | Phone Number 2
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`phone2Pdreq` placeholder='Phone Number...' required='')
+                        div
+                            h6
+                                | Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`addressPdreq` placeholder='Address...' required='')
+                        div
+                            h6
+                                | latitude
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`latitudePdreq` placeholder='latitude...' required='')
+                        div
+                            h6
+                                | longitude
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input(id=`longitudePdreq` placeholder='longitude...' required='')
+                        div
+                            h6.fw-bold
+                                | Upload Profile Image
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#profilePdreq(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Aadhaar
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#aadhaarPdreq(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Diablity Proof
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#disablityPdreq(type='file' name='myfile')
+
+                        .display-block()
+                            h6
+                                | Enter About You
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea(id=`aboutPdreq` placeholder='About You...' required="")
+                        button.conform-service-booking(type="submit") Donate
+                .modal-footer
+
+    // Request Modal
+    #Request.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='RequestLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#RequestLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Register as a Patient
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#new_fund_donation_request
+                        div
+                            h6
+                                | Full Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donName(placeholder='Full Name...' required='')
+                        div
+                            h6
+                                | Hospital Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donHospital(placeholder='Hospital Name...' required='')
+                        div
+                            h6
+                                | Disease / illness 
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donIllness(placeholder='Disease / illness ...' required='')
+                        div
+                            h6
+                                | E - Mail
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donEmail(placeholder='E - Mail...' required='')
+                        div
+                            h6
+                                | Your  Contact Number 1
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donPhone1(placeholder='Your Contact Number 1...' required='')
+                        div
+                            h6
+                                | Your  Contact Number 2
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donPhone2(placeholder='Your Contact Number 2...' required='')
+                        div
+                            h6
+                                | Current Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donCurrentAddress(placeholder='Current Address...' required='')
+                        div
+                            h6
+                                | Permanent Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donPerAddress(placeholder='Permanent Address...' required='')
+                        div
+                            h6
+                                | Hospital Contact Number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donHosptialContact(placeholder='Hospital Contact Number...' required='')
+                        div
+                            h6
+                                | Hospital Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donHospitalAddrss(placeholder='Hospital Address...' required='')
+                        div
+                            h6
+                                | Hospital Open Time
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donHospitalOpenTime(type="time" placeholder='Hospital Address...' required='')
+                        div
+                            h6
+                                | Hospital Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donHospitalCloseTime(type="time" placeholder='Hospital Address...' required='')
+                        div
+                            h6.fw-bold
+                                | Upload Patient Photo From Hospital
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donProfile(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Patient Profile
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donBannerImage(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Id Proof -1 
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donIdProof1(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Id Proof -2 
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donIdProof2(type='file' name='myfile')
+                     
+                        div
+                            h6.fw-bold
+                                | Upload Patient Report Sheet ID &amp; Document
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donReport(type='file' name='myfile')
+                        div
+                            h6.fw-bold
+                                | Upload Medical Certificate
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#donMedicalCertificate(type='file' name='myfile')
+                        div
+                            h6
+                                | Admission Date
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donAdmitDate(type="date" placeholder='Admission Date...' required='')
+                        div
+                            h6
+                                | Patient Details
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea#donPatientDetails(placeholder='Patient Details...' required='')
+                        div
+                            h6
+                                | Expecting Amount
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#donAmount(placeholder='Expecting Amount...' required='')
+                            button.conform-service-booking(type='submit') Submit Request
+                .modal-footer
+    // Money Request
+    section.container.mt-5
+        .d-flex.justify-content-between
+            div
+                h5.fw-bold.mb-4 Finance Support
+            div
+                a(href='./userMoneyRequest.html') View All
+        .services-list
+            each doc,index in docs.fundRequesters
+                div
+                    .small-shdow.card.rounded.mt-3.me-2
+                        .row
+                            .col-2
+                                img.img-thumbnail.border-0.job-img-list(src=doc.bannerImage alt='Shop Name')
+                                h5.ms-4.fw-bold.text-success Rs.#{doc.amount}
+                            .col-10.p-2
+                                h5.text-success.fw-bold= doc.cause
+                                h6.main-color= doc.name
+                                h6.main-color= doc.hospitalName
+                                p.text-secondary.text-12  #{doc.description}
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#Donate${index}`)
+                                            | Donate
+                                            i.fa-solid.fa-arrow-right
+                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='DonateLabel' id=`Donate${index}` aria-hidden='true')
+                    .modal-dialog.modal-dialog-scrollable
+                        .modal-content
+                            .modal-header
+                                h5#DonateLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                                    | Donate Now
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                form.patient_fund_donation(data-id=doc.hiwnrrsID,data-index=index)
+                                    div
+                                        h6
+                                            | Enter Donor Name
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`name${index}` placeholder='Enter Donor Name...' required='')
+                                    div
+                                        h6
+                                            | Organization Name
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`organization${index}` placeholder='Organization Name...' required='')
+                                    div
+                                        h6
+                                            | E - Mail
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`email${index}` placeholder='E - Mail...' required='')
+                                    div
+                                        h6
+                                            | Phone Number
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`phone${index}` placeholder='Phone Number...' required='')
+                                    div
+                                        h6
+                                            | Address
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`address${index}` placeholder='Address...' required='')
+                                    div
+                                        h6
+                                            | Enter Amount
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            input(id=`amount${index}` placeholder='Enter Amount...' required='')
+                                    div
+                                        h6
+                                            | Do You Want to Show Your Donation to Others?
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        h6
+                                            | Should I Give Anonymously or Publicly?
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        .d-flex.justify-content-center
+                                            div
+                                                h6.tab-text-active(class=`donationView${index}` data-term="true" id=`yes${index}` onclick=`setYerorNoSub("Yes",${index})`)
+                                                    | Yes
+                                            div
+                                                h6.tab-text(class=`donationView${index}` data-term="false" onclick=`setYerorNoSub("No",${index})` id=`no${index}`)
+                                                    | No
+                                    .display-block(id=`details${index}`)
+                                        h6
+                                            | Enter About You
+                                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                                        p
+                                            textarea(id=`about${index}` placeholder='About You...' required='')
+                                    button.conform-service-booking(type="submit") Donate
+                            .modal-footer
+
+    // Product Request
+    section.container.mt-5
+        .d-flex.justify-content-between
+            div
+                h5.fw-bold.mb-4 Product Request
+            div
+                a(href='./userProductRequest.html') View All
+        .poduct-list
+            each doc,index in docs.productRequesters
+                div
+                    .small-shdow.card.rounded.mt-3.me-2
+                        .row
+                            .col-2
+                                img.img-thumbnail.border-0.job-img-list(src=doc.profileImage alt='Shop Name')
+                            .col-10.p-2
+                                h5.text-success.fw-bold= doc.   productType
+                                h6.main-color= doc.name
+                                p.text-secondary.text-12= doc.description
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#productDonationRequsters${index}`)
+                                            | Donate
+                                            i.fa-solid.fa-arrow-right
+                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='DonateLabel' id=`productDonationRequsters${index}` aria-hidden='true')
+                        .modal-dialog.modal-dialog-scrollable
+                            .modal-content
+                                .modal-header
+                                    h5#DonateLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                                        | Donate Now
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    form.patient_product_donation(data-id=doc.hiwdcnprmID,data-index=index)
+                                        div
+                                            h6
+                                                | Enter Donor Name
+                                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                                            p
+                                                input(id=`nameP${index}` placeholder='Enter Donor Name...' required='')
+                                        .d-flex.justify-content-center
+                                            div
+                                                h6.tab-text-active(class=`productDonationView${index}` data-term="true" id=`yesPro${index}` onclick=`setYerorNoProduct("Yes",${index})`)
+                                                    | Yes
+                                            div
+                                                h6.tab-text(class=`productDonationView${index}` data-term="false" onclick=`setYerorNoProduct("No",${index})` id=`noPro${index}`) No
+                                        button.conform-service-booking(type="submit") Donate

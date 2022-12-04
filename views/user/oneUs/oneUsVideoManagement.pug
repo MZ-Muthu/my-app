@@ -1,0 +1,174 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        const invidual = document.getElementById("invidual");
+        const company = document.getElementById("company");
+        const Active = document.getElementById("Active-things");
+        const Completed = document.getElementById("HomeCare-Books");
+        function Invidual() {
+        invidual.className = "tab-text-active";
+        company.className = "tab-text";
+        Active.className = " mt-5 container display-block";
+        Completed.className = "display-n";
+        }
+        function Company() {
+        invidual.className = "tab-text";
+        company.className = "tab-text-active";
+        Active.className = "display-n";
+        Completed.className = " mt-5 container display-block";
+        }
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/meettheexpert.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 My Meet the Expert Bookings
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-3
+        .d-flex.justify-content-center
+            div
+                h6#invidual.tab-text-active(onclick='Invidual()')
+                    | Active Videos
+            div
+                h6#company.tab-text(onclick='Company()')
+                    | In-Active Videos
+    // Catercory button Section Start
+    // Card Section Start
+    section#Active-things.mt-5.container.display-block
+        .justify-content-center
+            h5.heading My Active Videos
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        button.btn.main-color-background.color-white.m-0.text-head(type='button' data-bs-toggle='modal' data-bs-target='#staticBackdrop-Facilities')
+            | Add More
+        #staticBackdrop-Facilities.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+            .modal-dialog.modal-dialog-scrollable
+                .modal-content
+                    .modal-header
+                        h5#staticBackdropLabel.modal-title.text-uppercase.main-color
+                            | Add Video Details
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                        form.row.g-3(id=`create_new_oneus_video`)
+                            .col-md-12
+                                label.form-label(for='title')
+                                    |  Title
+                                    span.text-danger *
+                                input#title.form-control(type='text' placeholder='Service Name' required='')
+                            .col-md-12
+                                label.form-label(for='title')
+                                    |  Categorie
+                                    span.text-danger *
+                                select#categorie.form-select.border(type='text' placeholder='Service Name' required='')
+                                    option(value="" disabled selected) -- Select Categorie --
+                                    each docs in categories 
+                                        option(value=docs)= docs
+                            .col-md-12
+                                label.form-label(for='phone')
+                                    |  Description  
+                                    span.text-danger *
+                                input#description.form-control(type='text'  placeholder='Service Description' required='')
+                            .col-md-12
+                                label.form-label(for='phone')
+                                    | Video
+                                    span.text-danger *
+                                input.form-control(type='file' id=`videos` accept='video/*')
+                            .col-12.text-center
+                                button.btn.main-color-background.color-white(type='submit')
+                                    | Add Video
+                    .modal-footer
+                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                            | Cancel
+
+        .mt-4
+            .row.row-cols-1.row-cols-md-3.g-4
+                each doc,index in videos.active
+                    .col
+                        .card
+                            video(style='width:100%;' height='240' )
+                                source(src=doc.video type='video/mp4')
+                            .d-flex.justify-content-between
+                                .card-body
+                                    h5.card-title  #{doc.title} - #{doc.categorie}
+                                    p.card-text= doc.description
+                                    p.card-text Status : #{doc.status}
+                                .d-flex.flex-wrap.align-content-center
+                                    a.col-3.main-color(href='#')
+                                        i.fa-solid.fa-pen.justify-content-md-end.main-color.float-end( data-bs-toggle='modal' data-bs-target=`#myModel-${index}`)
+                                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' id=`myModel-${index}` aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                            .modal-dialog.modal-dialog-scrollable
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#staticBackdropLabel.modal-title.text-uppercase.main-color
+                                                            | update Categories Details
+                                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                    .modal-body
+                                                        form.row.g-3#update_service( data-index=index  data-service=doc.hiwousvbmID)
+                                                            .col-md-12
+                                                                label.form-label(for='title')
+                                                                    | Title
+                                                                    span.text-danger *
+                                                                input.form-control(type='text' id=`title-${index}` value=doc.title placeholder='Title' required='')
+                                                            .col-md-12
+                                                                label.form-label(for='phone')
+                                                                    | Categorie
+                                                                    span.text-danger *
+                                                                select.form-select.border(type='text' placeholder='Service Name' id=`categorie-${index}` required='')
+                                                                    option(value="" disabled selected) -- Select Categorie --
+                                                                    each docs in categories 
+                                                                        if docs === doc.categorie
+                                                                            option(value=docs selected)= docs
+                                                                        else
+                                                                            option(value=docs )= docs
+                                                            .col-md-12
+                                                                label.form-label(for='phone')
+                                                                    | Description 
+                                                                    span.text-danger *
+                                                                input.form-control(type='text' value=doc.description id=`description-${index}` placeholder='phone' required='')
+                                                            img.mx-auto.d-block(src=`${doc.video}?${Date.now()}` style="width:200px;")
+                                                            input.form-control(type='file' id=`videos-${index}` accept='video/*')
+                                                            .col-12.text-center
+                                                                button.btn.main-color-background.color-white(type='submit' )
+                                                                    | Update Service
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                            | Cancel
+
+
+    section#HomeCare-Books.mt-5.container.display-n
+        .justify-content-center
+            h5.heading Not Qualified Videos
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+
+        .mt-4
+            .row.row-cols-1.row-cols-md-3.g-4
+                each doc,index in videos.rejected
+                    .col
+                        .card
+                            video(style='width:100%;' height='240' )
+                                source(src=doc.video type='video/mp4')
+                            .d-flex.justify-content-between
+                                .card-body
+                                    h5.card-title  #{doc.title} - #{doc.categorie}
+                                    p.card-text= doc.description
+                                    p Cause : #{doc.cause}

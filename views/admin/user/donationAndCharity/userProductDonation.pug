@@ -1,0 +1,291 @@
+extends ../../layout/adminBase
+
+block append script 
+  script(src="/JS/bundle/admin/bundleAdmin.js")   
+
+block block
+  #right.col-9
+    hr
+    include ./shared/detailsList
+    .d-flex.mt-3
+      .flex-grow-1
+        h5.fw-bold.mt-3.ms-3 Donation Request list
+    .pt-2.nav-tabs-section
+      ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+        li.nav-item.border.rounded(role='presentation')
+          button#pills-profile-tab.nav-link.inside-nav.fw-bold.active(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+            | Patient Product Donations
+        li.nav-item.border.rounded(role='presentation')
+          button#pills-contact-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+            | Direct Donation
+        li.nav-item.border.rounded(role='presentation')
+          button#pills-request-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-request' type='button' role='tab' aria-controls='pills-request' aria-selected='false')
+            | My Donation Request
+    #pills-tabContent.tab-content
+      #pills-profile.tab-pane.fade.active.show(role='tabpanel' aria-labelledby='pills-profile-tab')
+        h6.col-6.fw-bold.main-color.mt-5.text-head 
+        hr.m-0
+        .row.row-cols-1.row-cols-md-2.g-4.mt-4
+          each doc,index in individual
+            .col
+              .card.mb-3(style='max-width: 540px')
+                .row.g-0
+                  .col-md-4
+                    img.img-fluid.rounded-start(src=doc.bannerImage alt='User Image')
+                  .col-md-8
+                    .card-body.g-4
+                      h6.card-title.text-uppercase.fw-bold.fs-7
+                        | #{doc.name}
+                      p.card-text.m-0.fs-8
+                        | #{doc.about}
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Phone Number:   
+                        span.text-danger= doc.phone
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Product :   
+                        span.text-danger= doc.requester.productType
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Delivery Status:  
+                        span.text-danger= doc.deliveryProductStatus 
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Date :  
+                        span.text-danger= new Date(doc.createdAt).toLocaleDateString()
+                      .d-flex.justify-content-end
+                        button.btn.btn-primary(data-bs-toggle='modal' data-bs-target=`#bookingActive-${index}`) View
+                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`bookingActive-${index}`)
+                          .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+                            .modal-content
+                              .modal-header
+                                h5#staticBackdropLabel.modal-title
+                                  | Requester Details
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                              .modal-body.table-responsive
+
+                                .container.ps-4.pe-4
+                                  div
+                                    .border.border-color.width-100.p-0
+                                      .p-5.pt-2
+
+                                        .text-center
+                                          img.rounded-circle.resume-image.mt-3(src=doc.requester.profileImage alt='User Image')
+                                          h6.main-color.text-uppercase.fw-bold.mt-2
+                                            | #{doc.requester.name}
+                                        .row.border.rounded
+                                          .col-6.p-2
+                                            h6.main-color.fs-5.fw-bold= doc.requester.name
+                                            p.fs-7.secondary-color.fw-bold
+                                              | #{doc.requester.phone1}
+                                            p.text-secondary.fw-bold
+                                              | #{doc.requester.phone2}
+
+                                          .col-6.p-2.border-start
+                                            h6.main-color.fs-5.fw-bold
+                                              | Verification Documents
+                                            .d-flex
+                                              .p-2.flex-grow-1
+                                                p.fw-bold Aadhar :
+                                              .p-2
+                                                a(href=doc.requester.aadhaar) View ID
+                                            .d-flex
+                                              .p-2.flex-grow-1
+                                                p.fw-bold Disablity Proof :
+                                              .p-2
+                                                a(href=doc.requester.disablityProof) View ID
+                                        .text-center
+                                          h6.main-color.text-uppercase.fw-bold.mt-5
+                                            | Receipt
+                                        hr.m-0
+                                        .col-10.m-auto.border.mt-2
+                                          // Hero Section
+                                          .vendor-hero-image(style=`background-image:url("${doc.bannerImage}")`)
+                                          // Hero Section
+                                          .p-3
+                                            h6.fw-bold.text-uppercase.main-color
+                                              | Requester Details
+                                            h6.text-secondary
+                                              span.fw-bold Email : 
+                                              | #{doc.requester.email ? doc.requester.email :"-"}
+                                            p.text-secondary
+                                              span.fw-bold Donated Product : 
+                                              | #{doc.requester.productType}
+                                            p.text-secondary
+                                              span.fw-bold Description : 
+                                              | #{doc.requester.description}
+                                            p.text-secondary
+                                              span.fw-bold Started From : 
+                                              | #{new Date(doc.requester.createdAt).toLocaleDateString()}
+                                            p.text-danger
+                                              span.fw-bold.text-secondary Address : 
+                                              |#{doc.requester.address}
+                                            p.text-danger
+                                              span.fw-bold.text-secondary Verified : 
+                                              |#{doc.requester.verified ? "Verified" : "Not-Verified" }
+                                            h6.text-secondary= doc.cause
+                                            hr
+                                            p
+                                              span.fw-bold Phone Number 1 : 
+                                              |#{doc.requester.phone1}
+                                            p
+                                              span.fw-bold Phone Number 2 :#{doc.requester.phone2}
+
+                                            hr
+                                        //- .d-grid.gap-2.col-6.mx-auto.m-3
+                                        //-   button.btn.btn-success(type='button') Donate Now
+
+
+
+                              .modal-footer
+                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                  | Cancel
+
+      #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+        hr.m-0
+        .mt-3.table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Name
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Organization
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Email
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Phone
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Quantity
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Address
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Description 
+                th.color-white.main-color-background.text-center(scope='col')
+                  | Status
+            tbody 
+              each docs in bulk
+                tr 
+                  td= docs.name
+                  td= docs.organization ? docs.organization : "-"
+                  td= docs.email ? docs.email : "-"
+                  td= docs.phone ? docs.phone : "-"
+                  td= docs.producQuantity
+                  td= docs.address ? docs.address : "-"
+                  td= docs.description ? docs.description : "-"
+                  td= docs.receivedToAdmin
+      #pills-request.tab-pane.fade(role='tabpanel' aria-labelledby='pills-request-tab')
+        h6.col-6.fw-bold.main-color.mt-5.text-head 
+          hr.m-0
+        .row.row-cols-1.row-cols-md-2.g-4.mt-4
+          each doc,index in requests
+            .col
+              .card.mb-3(style='max-width: 540px')
+                .row.g-0
+                  .col-md-4
+                    img.img-fluid.rounded-start(src=doc.profileImage alt='User Image')
+                  .col-md-8
+                    .card-body.g-4
+                      h6.card-title.text-uppercase.fw-bold.fs-7
+                        | #{doc.name}
+                      p.card-text.m-0.fs-8
+                        | #{doc.about}
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Phone Number 1 :   
+                        span.text-danger= doc.phone1
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Phone Number 2 :   
+                        span.text-danger= doc.phone2
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Product :   
+                        span.text-danger= doc.productType
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Delivery Status:  
+                        span.text-danger= doc.donationStatus 
+                      p.card-text.m-0.fs-8.fw-bold.text-uppercase
+                        | Date :  
+                        span.text-danger= new Date(doc.createdAt).toLocaleDateString()
+                      .d-flex.justify-content-end
+                        button.btn.btn-primary(data-bs-toggle='modal' data-bs-target=`#book-${index}`) View
+                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`book-${index}`)
+                          .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+                            .modal-content
+                              .modal-header
+                                h5#staticBackdropLabel.modal-title
+                                  | Requester Details
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                              .modal-body.table-responsive
+
+                                .container.ps-4.pe-4
+                                  div
+                                    .border.border-color.width-100.p-0
+                                      .p-5.pt-2
+
+                                        .text-center
+                                          img.rounded-circle.resume-image.mt-3(src=doc.profileImage alt='User Image')
+                                          h6.main-color.text-uppercase.fw-bold.mt-2
+                                            | #{doc.name}
+                                        .row.border.rounded
+                                          .col-6.p-2
+                                            h6.main-color.fs-5.fw-bold= doc.name
+                                            p.fs-7.secondary-color.fw-bold
+                                              | #{doc.phone1}
+                                            p.text-secondary.fw-bold
+                                              | #{doc.phone2}
+
+                                          .col-6.p-2.border-start
+                                            h6.main-color.fs-5.fw-bold
+                                              | Verification Documents
+                                            .d-flex
+                                              .p-2.flex-grow-1
+                                                p.fw-bold Aadhar :
+                                              .p-2
+                                                a(href=doc.aadhaar) View ID
+                                            .d-flex
+                                              .p-2.flex-grow-1
+                                                p.fw-bold Disablity Proof :
+                                              .p-2
+                                                a(href=doc.disablityProof) View ID
+                                        .text-center
+                                          h6.main-color.text-uppercase.fw-bold.mt-5
+                                            | Receipt
+                                        hr.m-0
+                                        .col-10.m-auto.border.mt-2
+                                          // Hero Section
+                                          .vendor-hero-image(style=`background-image:url("${doc.profileImage}")`)
+                                          // Hero Section
+                                          .p-3
+                                            h6.fw-bold.text-uppercase.main-color
+                                              | Details
+                                            h6.text-secondary
+                                              span.fw-bold Email : 
+                                              | #{doc.email ? doc.email :"-"}
+                                            p.text-secondary
+                                              span.fw-bold Donated Product : 
+                                              | #{doc.productType}
+                                            p.text-secondary
+                                              span.fw-bold Description : 
+                                              | #{doc.description}
+                                            p.text-secondary
+                                              span.fw-bold Started From : 
+                                              | #{new Date(doc.createdAt).toLocaleDateString()}
+                                            p.text-danger
+                                              span.fw-bold.text-secondary Address : 
+                                              |#{doc.address}
+                                            p.text-danger
+                                              span.fw-bold.text-secondary Verified : 
+                                              |#{doc.verified ? "Verified" : "Not-Verified" }
+                                            h6.text-secondary= doc.cause
+                                            hr
+                                            p
+                                              span.fw-bold Phone Number 1 : 
+                                              |#{doc.phone1}
+                                            p
+                                              span.fw-bold Phone Number 2 :#{doc.phone2}
+
+                                            hr
+                                        //- .d-grid.gap-2.col-6.mx-auto.m-3
+                                        //-   button.btn.btn-success(type='button') Donate Now
+
+
+
+                              .modal-footer
+                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                  | Cancel

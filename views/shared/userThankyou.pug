@@ -1,0 +1,173 @@
+extends ../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/login.css")
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js") 
+
+block block 
+    // Thank you text section Start
+    section.container.mt-5.mb-5.pt-5.pb-5
+        h1.text-center.main-color Thank you for the Booking
+        p.text-center Come back agine to the shop
+        a.back-home-button(href='./') GO BACK TO HOME
+    // Thank you text section End
+    // First Service Section Start
+    section.mt-4.container
+        .justify-content-center
+            h5.heading Our Related Service for you
+            .underline
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/ambulance.jpg' alt='Ambulance Service')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Ambulance
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./UserHomeCareServiceHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/homeCare.jpg' alt='Home Care Service')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Home care services
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/fitness.jpg' alt='Fitness')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Fitness
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/bloodDonation.jpg' alt='Blood Donation')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Blood Donation
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/JobPortal.jpg' alt='Job Portal')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Job Portal
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/De-Addication.jpg' alt='De-Addiction')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text De-Addiction
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+    // First Service Section End
+    // Product Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Most Related Products
+            .underline
+        div
+            ul#autoWidth.cs-hidden
+                li.item-a
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Lacoste
+                                span Sweatshirt
+                            a.price(href='#') Rs.8680
+                li.item-b
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Mango
+                                span Casual Shirt
+                            a.price(href='#') Rs.4490
+                li.item-c
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Nike Tshirt
+                                span V-Neck T-shirt
+                            a.price(href='#') Rs.3051
+                li.item-d
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Allen Solly Woman
+                                span Formal Shirt
+                            a.price(href='#') Rs.1299
+                li.item-e
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Puma
+                                span V-Neck T-shirt
+                            a.price(href='#') Rs.3299
+                li.item-f
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Ritu Kumar
+                                span Embroidered Tunic
+                            a.price(href='#') Rs.5600
+                li.item-g
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') UNDER ARMOUR
+                                span Golf T-shirt
+                            a.price(href='#') Rs.4499
+                li.item-h
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') DOROTHY PERKINS
+                                span Solid Cape Top
+                            a.price(href='#') Rs.3990
+    // Product Section End

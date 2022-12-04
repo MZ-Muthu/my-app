@@ -1,0 +1,580 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        $(".services-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    script.
+        $(".facilities-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    script.
+        $(".specialists-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    // Togal button Scripte
+    script.
+        function Hospital() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text-active";
+        specialty.className = "tab-text";
+        facilities.className = "tab-text";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-block";
+        SpecialtyDetails.className = "display-n";
+        FacilitiesAvailable.className = "display-n";
+        }
+        function Specialty() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text";
+        specialty.className = "tab-text-active";
+        facilities.className = "tab-text";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-n";
+        SpecialtyDetails.className = "display-block";
+        FacilitiesAvailable.className = "display-n";
+        }
+        function Facilities() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text";
+        specialty.className = "tab-text";
+        facilities.className = "tab-text-active";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-n";
+        SpecialtyDetails.className = "display-n";
+        FacilitiesAvailable.className = "display-block";
+        }
+
+block block 
+    // Hero section Start
+    section
+        .carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src=doc.bannerImage alt='...')
+                    .hero-image-overlay
+                    .carousel-caption.overlay-section.container.d-none.d-md-block
+                        p.mt-5.fs-2.float-end
+                            a(href='#')
+                                i.fa-solid.fa-share.text-white
+                        h1.text-white.mt-5= doc.name
+                        p.text-white=doc.stream
+                        .d-flex.flex-row.bd-highlight.mb-5
+                            .bd-highlight.me-2
+                                p.text-white
+                                    i.fa-solid.fa-address-book.fs-2
+                            .bd-highlight
+                                p.text-white= doc.website
+                        .mt-5.text-white
+                            .row.mt-5.mb-3
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone.me-2= doc.phone
+                                .col
+                                    h6.fw-bold
+                                        i.fa-regular.fa-clock.me-2
+                                        |  #{doc.openTime} to #{doc.closeTime}
+                            .row
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone-volume.me-2=doc.centerPhone
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-star.me-2
+                                        |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Scetion Start
+    section.container
+        .mt-3
+            .p-5
+                // Catercory button Section Start
+                section.mt-1.mb-2
+                    .d-flex.justify-content-center
+                        div
+                            h6#Hospital.tab-text-active(onclick='Hospital()')
+                                | Hospital Details
+                        div
+                            h6#Specialty.tab-text(onclick='Specialty()')
+                                | Specialty Details
+                        div
+                            h6#Facilities.tab-text(onclick='Facilities()')
+                                | Facilities Available
+                // Catercory button Section Start
+                div
+                    #Hospital-Details.display-block
+                        h4.fw-bold.mb-4 About Us
+                        p= doc.aboutUs
+                        h4.fw-bold.mb-4.mt-5 Our hospital images
+                        .row.row-cols-1.row-cols-md-6.g-4
+                            each docs in doc.imageGallery
+                                .col
+                                    .card.h-100
+                                        img.card-img-top(src=docs alt='...')
+
+                        h4.fw-bold.mb-4.mt-5 Our hospital Room images
+                        .row.row-cols-1.row-cols-md-6.g-4
+                            each docs in doc.hospitalRoomImags
+                                .col
+                                    .card.h-100
+                                        img.card-img-top(src=docs alt='...')
+
+                        h4.fw-bold.mb-4.mt-5 Our Cantine Images
+                        .row.row-cols-1.row-cols-md-6.g-4
+                            each docs in doc.hospitalCanteenImags
+                                .col
+                                    .card.h-100
+                                        img.card-img-top(src=docs alt='...')
+
+                        h4.fw-bold.mb-4.mt-5 Our guestroom Images
+                        .row.row-cols-1.row-cols-md-6.g-4
+                            each docs in doc.hospitalGuestRoomImags
+                                .col
+                                    .card.h-100
+                                        img.card-img-top(src=docs alt='...')
+
+                        h4.fw-bold.mb-4.mt-5 Other Details
+                        .row.row-cols-1.row-cols-md-3.g-4
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color number of beds
+                                    p.m-0= doc.hospitalAvailableFacilities.numberOfBeds
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color number of operation theter
+                                    p.m-0=doc.hospitalAvailableFacilities.numberOfOperationTheater
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color personal nursing care
+                                    p.m-0=doc.hospitalAvailableFacilities.personalNursingCare
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color number of ventilators
+                                    p.m-0=doc.hospitalAvailableFacilities.numberOfVendilators
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color number of ambulance
+                                    p.m-0=doc.hospitalAvailableFacilities.numberOfAmbulance
+                    #Specialty-Details.display-block
+                        h4.fw-bold.mb-4.mt-5 Our Hospital Specialists
+                        .specialists-list.row.row-cols-4
+                            each docs in doc.specialist
+                                div.col
+                                    .service-list-card.h-100.text-center.pt-3
+                                        img.specialists-card-img(src=docs.bannerImage alt='specialists Image')
+                                        .service-card-body
+                                            h6.service-heading= docs.name
+                                            .d-flex.justify-content-center
+                                                p.text-secondory Success Rate : #{docs.successRate}%
+                                            .d-flex.justify-content-center
+                                                //- div
+                                                //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                                //- div
+                                                //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                                //- div
+                                                //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                                //- div
+                                                //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                                //- div
+                                                //-     i.fa-solid.fa-star.main-color.text-12
+                                            p.service-des= docs.posistion
+
+                        h4.fw-bold.mb-4.mt-5 Other Details
+                        .row.row-cols-1.row-cols-md-3.g-4
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color currency exchange
+                                    p.m-0= doc.specialitiesDetails.currencyExcanage ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color threadless playing area
+                                    p.m-0=doc.specialitiesDetails.threadlessPlayingArea ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Hospital packegs
+                                    p.m-0=doc.specialitiesDetails.hospitalPackages ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color testing labs available
+                                    p.m-0=doc.specialitiesDetails.testingLabAvailablit ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color second opinion
+                                    p.m-0=doc.specialitiesDetails.secondOption ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Name of the diagnostic machine available
+                                    p.m-0=doc.specialitiesDetails.diagnosticMachines
+                        h4.fw-bold.mb-4.mt-5 Our Hospital Services
+                        .services-list.row.row-cols-4
+                            each docs in doc.hospitalServices
+                                div.mb-3
+                                    .service-list-card.h-100
+                                        img.service-card-img(src=docs.bannerImage alt='Service Image')
+                                        .service-card-body
+                                            h6.service-heading= docs.name
+                                            p.service-des= docs.description
+                                            .d-flex.justify-content-between
+                                                div
+                                                    p.service-price Rs.#{docs.priceFrom} to Rs.#{docs.priceTo}
+                                                //- div
+                                                    p.service-hours
+                                                        | Hours: 
+                                                        span 3-4 hr
+
+                        h4.fw-bold.mb-4.mt-5 Our Hospital facilities
+                        .facilities-list.row.row-cols-4
+                            each docs in doc.hospitalFacilities
+                                div
+                                    .service-list-card.h-100
+                                        img.service-card-img(src=docs.bannerImage alt='Service Image')
+                                        .service-card-body
+                                            h6.service-heading= docs.name
+                                            p.service-des= docs.description
+                    #Facilities-Available.display-block
+                        h4.fw-bold.mb-4.mt-5 Other Details
+                        .row.row-cols-1.row-cols-md-3.g-4
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Transportation Services
+                                    p.m-0= doc.nearbyFacilities.transportationService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Visa Arrangements
+                                    p.m-0= doc.nearbyFacilities.visaArrangements ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Flight Arrangements
+                                    p.m-0= doc.nearbyFacilities.flightArrangeMents ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Travel Desk
+                                    p.m-0= doc.nearbyFacilities.travelDesk ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Multilingual Staff
+                                    p.m-0= doc.nearbyFacilities.multilingualStaff ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Interpreter Services
+                                    p.m-0= doc.nearbyFacilities.interpreterService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Airport pickup and drop facility
+                                    p.m-0= doc.nearbyFacilities.airportPickupAndDropFacility ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Currency exchange
+                                    p.m-0= doc.nearbyFacilities.currencyExcanage ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Rental Car Service
+                                    p.m-0= doc.nearbyFacilities.rentalCarService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Insurance coordination
+                                    p.m-0= doc.nearbyFacilities.insuranceContidion ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Food &amp; Dietary services
+                                    p.m-0= doc.nearbyFacilities.foodAndDietaryService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Suite Rooms
+                                    p.m-0= doc.nearbyFacilities.suiteRooms ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Laundry and House keeping services
+                                    p.m-0= doc.nearbyFacilities.laundryAndHouseKeepingService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Hotel/Guest house accommodation
+                                    p.m-0= doc.nearbyFacilities.hotelAndGuestHouseAccommodation ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color International cuisine
+                                    p.m-0 #{doc.nearbyFacilities.internationalCuisine ? "Yes" : "No"}
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Special Indian Food / Choice of Meals
+                                    p.m-0= doc.nearbyFacilities.specialIndianFoodOrChoiceOfMeals ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Day care Services
+                                    p.m-0= doc.nearbyFacilities.dayCareService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Nearby Hotels
+                                    p.m-0= doc.nearbyFacilities.nearByHotels ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Parking Facility
+                                    p.m-0= doc.nearbyFacilities.parkingFacility ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Security Services
+                                    p.m-0= doc.nearbyFacilities.securityService ? "Yes" : "No"
+                            .col
+                                .card.p-2.h-100
+                                    h6.fw-bold.text-uppercase.main-color Post Travel Medical Care
+                                    p.m-0= doc.nearbyFacilities.postTravelMedicalCare ? "Yes" : "No"
+                        h4.fw-bold.mb-4.mt-5 Transport Details
+                        .row.row-cols-1.row-cols-md-3.g-4
+                            .col
+                                .card.h-100
+                                    .d-flex.flex-row.bd-highlight.mt-4.ms-5.mb-3
+                                        .p-2.bd-highlight
+                                            i.fa-solid.fa-jet-fighter-up.trans-icon
+                                        .p-2.bd-highlight
+                                            h5.main-color.mt-2.fw-bold Airports
+                                    each docs in doc.nearBy.airports
+                                        .d-flex.bd-highlight
+                                            .p-2.flex-grow-1.bd-highlight
+                                                h6.main-color
+                                                    i.fa-solid.fa-jet-fighter.me-2
+                                                    | #{docs.name}, #{docs.city}
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-pin.me-2= docs.distance
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-dot
+                            .col
+                                .card.h-100
+                                    .d-flex.flex-row.bd-highlight.mt-4.ms-5.mb-3
+                                        .p-2.bd-highlight
+                                            i.fa-solid.fa-train-subway.trans-icon
+                                        .p-2.bd-highlight
+                                            h5.main-color.mt-2.fw-bold Railway Station
+                                    each docs in doc.nearBy.railwayStation
+                                        .d-flex.bd-highlight.p-2
+                                            .p-2.flex-grow-1.bd-highlight
+                                                h6.main-color
+                                                    i.fa-solid.fa-train.me-2
+                                                    | #{docs.name}, #{docs.city}
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-pin.me-2= docs.distance
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-dot
+                            .col
+                                .card.h-100
+                                    .d-flex.flex-row.bd-highlight.mt-4.ms-5.mb-3
+                                        .p-2.bd-highlight
+                                            i.fa-solid.fa-bus.trans-icon
+                                        .p-2.bd-highlight
+                                            h5.main-color.mt-2.fw-bold Bus Stops
+                                    each docs in doc.nearBy.railwayStation
+                                        .d-flex.bd-highlight.p-2
+                                            .p-2.flex-grow-1.bd-highlight
+                                                h6.main-color
+                                                    i.fa-solid.fa-bus.me-2
+                                                    | #{docs.name}, #{docs.city}
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-pin.me-2= docs.distance
+                                            .p-2.bd-highlight
+                                                p.main-color.main-border.p-1.rounded
+                                                    i.fa-solid.fa-location-dot
+                        h4.fw-bold.mb-4.mt-5 Nearby Hotels
+                        .row.row-cols-1.row-cols-md-4.g-4
+                            each docs in doc.nearBy.hotels
+                                .col
+                                    .service-list-card.h-100
+                                        img.service-card-img(src=docs.bannerImage alt='Service Image')
+                                        .service-card-body
+                                            .d-flex.justify-content-between
+                                                div
+                                                    h6.service-heading= docs.name
+                                                div
+                                                    p.text-secondary= docs.AC
+
+                                            //- p.service-des.m-0
+                                            //-     | This is a longer card with supporting text below as a
+                                            //-     | natural lead-in to additional content. This content is a
+                                            //-     | little bit longer.
+                                            .d-flex.justify-content-between.mt-1
+                                                .d-flex.justify-content-start
+                                                    div
+                                                        div Food Facility : #{docs.foodFacility ? "Yes" : "No"}
+                                                        div Distance : #{docs.distance}
+                                                    //- div
+                                                    //- p.service-price.mt-1 Ratings :
+                                                    //- .d-flex.justify-content-start
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                div
+                                                    .d-flex.justify-content-start
+                                                        .bd-highlight
+                                                            p.main-color.main-border.ps-1.pe-1.rounded
+                                                                i.fa-solid.fa-location-pin
+                                                        .bd-highlight.ms-2
+                                                            p.main-color.main-border.ps-1.pe-1.rounded
+                                                                i.fa-solid.fa-phone
+
+                        h4.fw-bold.mb-4.mt-5 Nearby Restaurants
+                        .row.row-cols-1.row-cols-md-4.g-4
+                            each docs in doc.nearBy.restaurants
+                                .col
+                                    .service-list-card.h-100
+                                        img.service-card-img(src='https://images.unsplash.com/photo-1622958191801-3ee875d24662?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80' alt='Service Image')
+                                        .service-card-body
+                                            .d-flex.justify-content-between
+                                                div
+                                                    h6.service-heading= docs.name
+                                                div
+                                                    p.text-secondary= docs.foodType
+                                            //- p.service-des.m-0
+                                            //-     | This is a longer card with supporting text below as a
+                                            //-     | natural lead-in to additional content. This content is a
+                                            //-     | little bit longer.
+                                            .d-flex.justify-content-between.mt-1
+                                                .d-flex.justify-content-start
+                                                    div
+                                                        div Distance : #{docs.distance}
+                                                    //- div
+                                                        p.service-price.mt-1 Ratings :
+                                                    //- .d-flex.justify-content-start
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                        div
+                                                            i.fa-solid.fa-star.main-color.text-12
+                                                div
+                                                    .d-flex.justify-content-start
+                                                        .bd-highlight
+                                                            p.main-color.main-border.ps-1.pe-1.rounded
+                                                                i.fa-solid.fa-location-pin
+                                                        .bd-highlight.ms-2
+                                                            p.main-color.main-border.ps-1.pe-1.rounded
+                                                                i.fa-solid.fa-phone

@@ -1,0 +1,83 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDNGeNSIMOhpEMyJy4bS2W0uKue0IBoutk&callback=initMap&v=weekly&region=IN' defer='') 
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/Medical.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Our Medicine Categorys
+    // Hero section End
+    // Category and User Profile Section
+    section.container.mt-5
+        .row
+            // Category Section
+            .col-8
+                h5.fw-bold.mb-4.text-uppercase Shop by Category
+                .row.row-cols-1.row-cols-md-2.g-4
+                    each doc in docs
+                        .col
+                            a.some(href=`/pharmacy/medicines?categorie=${doc.name}`)
+                                .card.h-100.mt-3.background-color-1.cursor-pointer
+                                    .row
+                                        .col-3
+                                            img.medi-category-img(alt='category image' src=doc.bannerImage)
+                                        .col-7
+                                            h6.text-uppercase.main-color
+                                                | #{doc.name}
+                                            p.text-12.text-secondary.m-0= doc.description
+                                        .col-2.align-self-center
+                                            .align-self-center
+                                                i.fa-solid.fa-circle-right.fs-4.main-color
+            // User Profile Section
+            .col-4.small-shdow.p-3
+                h5.fw-bold.mb-4.text-uppercase User Profile
+                a(href='/pharmacy/my-carts')
+                    .card.rounded-pill.background-color-2.cursor-pointer
+                        .d-flex.justify-content-start
+                            div
+                                i.fa-solid.fa-cart-plus.fs-4.main-color.p-3.rounded-circle.bg-white
+                            div
+                                h6.fw-bold.main-color.mt-3.ms-3 My Cart
+                a(href='./userMedicineOrderViewPage.html')
+                    .card.rounded-pill.background-color-4.cursor-pointer.mt-3
+                        .d-flex.justify-content-start
+                            div
+                                i.fa-solid.fa-box.fs-4.main-color.p-3.rounded-circle.bg-white
+                            div
+                                h6.fw-bold.main-color.mt-3.ms-3 My Current Order
+                a(href='#')
+                    .card.rounded-pill.background-color-3.cursor-pointer.mt-3
+                        .d-flex.justify-content-start
+                            div
+                                i.fa-solid.fa-boxes-packing.fs-4.main-color.p-3.rounded-circle.bg-white
+                            div
+                                h6.fw-bold.main-color.mt-3.ms-3 Old Orders
+                a.cursor-pointer
+                    .card.rounded-pill.background-color-5.cursor-pointer.mt-3
+                        a.d-flex.justify-content-start(type="button" data-bs-toggle='modal' data-bs-target='#opentMapForGetLocation')
+                            div
+                                i.fa-regular.fa-clipboard.fs-4.main-color.p-3.rounded-circle.bg-white
+                            div
+                                h6.fw-bold.main-color.mt-3.ms-3 Upload Priscription
+
+                    #opentMapForGetLocation.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+                                    .modal-content
+                                        .modal-header
+                                            h5#staticBackdropLabel.modal-title
+                                                | Product Details
+                                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                        .modal-body
+                                            #pharmacyMapLocation(style="width:100%;height:100%;")
+                                            .d-flex.book-button-map.justify-content-center
+                                                a.book-service.buton-width.mt-3#place_order_from_pharmacy(  type="button") Select Location
+
+

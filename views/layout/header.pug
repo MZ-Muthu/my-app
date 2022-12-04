@@ -1,0 +1,81 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow.p-0.sticky-top
+    .container-fluid
+        a.navbar-brand(href='/')
+            img(src='/Assets/logo.png' style='width:120px;')
+        button.navbar-toggler.collapsed.d-flex.d-lg-none.flex-column.justify-content-around(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+            span.toggler-icon.top-bar
+            span.toggler-icon.middle-bar
+            span.toggler-icon.bottom-bar
+        #navbarSupportedContent.collapse.navbar-collapse
+            ul.navbar-nav.me-auto.mb-lg-0.ms-0
+                li.nav-item
+                    a.nav-link.active.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(aria-current='page' href='#') HOME
+                li.nav-item
+                    a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='#') ABOUT US
+                li.nav-item.dropdown.has-megamenu
+                    a#navbarDropdown.nav-link.dropdown-toggle.pb-4.pt-4.ps-3.pe-3.hover-underline-animation.pb-4(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                        | SERVICES
+                    .dropdown-menu.megamenu(role='menu')
+                        .row.row-cols-1.row-cols-md-4
+                            .col
+                                a.dropdown-item(href='/ambulance/ambulance-service') Ambulance
+                                a.dropdown-item(href='/homecare-services') Home care services
+                                a.dropdown-item(href='/fitness') Fitness
+                                a.dropdown-item(href='/blook-donation') Blood Donation
+                                a.dropdown-item(href='/job-portal') Job Portal
+                                a.dropdown-item(href='/deaddiction-services') De-Addiction
+                            .col
+                                a.dropdown-item(href='/medical-records') Medical records
+                                a.dropdown-item(href='/hospital/package') Hospital Package
+                                a.dropdown-item(href='/medical-market') Medical Market
+                                a.dropdown-item(href='/differently-abled/buy-products') Differetly Abled Products
+                                a.dropdown-item(href='/hospital/tourism') Medical tourism
+                                a.dropdown-item(href='/hospital/details?type=hospitals') Hospital Details
+                            .col
+                                a.dropdown-item(href='/donation-and-charity') Donation &amp; Charity
+                                a.dropdown-item(href='#') Knowledge Base
+                                //- a.dropdown-item(href='#') Opticals
+                                a.dropdown-item(href='/organ-donation/organ-lists') Organ Donation
+                                a.dropdown-item(href='/study-abroad/colleges') Study Abroad
+                                //- a.dropdown-item(href='#') Doctor-Online Consultation
+                            .col
+                                a.dropdown-item(href='/pharmacy') Pharmacy
+                                a.dropdown-item(href='/laboratorys') Laboratory
+                                a.dropdown-item(href='/meet-the-experts') Meet The Experts
+                                a.dropdown-item(href='/hearing-aid/shop') Hearing AID
+                                //- a.dropdown-item(href='#') Community
+                                // dropdown-mega-menu.//
+                li.nav-item
+                    a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='#') CAREER
+                li.nav-item
+                    a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation.d-none(href='#') JOIN WITH 
+                -const role = user?.role === "admin" ? true : false;
+                if role
+                    li.nav-item.dropdown
+                        a#navbarDropdown.nav-link.dropdown-toggle.pb-4.pt-4.ps-3.pe-3.hover-underline-animation.pb-4(href='/admin' )
+                            | MANAGE ADMIN
+                -const roles = user?.role === "partner" ? true : false
+                if roles
+                    li.nav-item.dropdown
+                        a#navbarDropdown.nav-link.dropdown-toggle.pb-4.pt-4.ps-3.pe-3.hover-underline-animation.pb-4(href='/vendor-lists' )
+                            | MANAGE Vendors
+
+                li.nav-item
+                    a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='/one-us/videos') COMMUNITY
+                if user
+                    li.nav-item
+                        a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='/my-account') MY ACCOUNT
+                    li.nav-item
+                        a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='/logout') LOGOUT
+                else
+                    li.nav-item
+                        a.nav-link.pb-4.pt-4.ps-3.pe-3.hover-underline-animation(href='/login') LOGIN/SIGN UP
+            a.nav-link.p-3.float-end.fs-6.color-white.fw-bold.icon-header(href='#')
+                i.bi.bi-instagram
+            a.nav-link.p-3.float-end.fs-6.color-white.fw-bold.icon-header(href='#')
+                i.bi.bi-facebook
+            a.nav-link.p-3.float-end.fs-6.color-white.fw-bold.icon-header(href='#')
+                i.bi.bi-whatsapp
+            a.nav-link.p-3.float-end.fs-6.color-white.fw-bold.icon-header(href='#')
+                i.bi.bi-linkedin
+// Navbar End

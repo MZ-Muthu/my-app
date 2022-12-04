@@ -1,0 +1,189 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        $(".services-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+
+
+block block 
+    // Hero section Start
+    section
+        .carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src=service.bannerImage alt='homecare service banner')
+                    .hero-image-overlay1
+                    .carousel-caption.overlay-section.container.d-none.d-md-block
+                        p.mt-5.fs-2.float-end
+                            a(href='#')
+                                i.fa-solid.fa-share.text-white
+                        h1.text-white.mt-5= service.company[0].company
+                        p.text-white= service.sericeName
+                        .d-flex.flex-row.bd-highlight.mb-5
+                            .bd-highlight.me-2
+                                p.text-white
+                                    i.fa-solid.fa-address-book.fs-2
+                            .bd-highlight
+                                p.text-white= service.description
+                        .mt-5.text-white
+                            .row.mt-5.mb-3
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone.me-2= service.company[0].centerPhone
+                                .col
+                                    h6.fw-bold
+                                        i.fa-regular.fa-clock.me-2
+                                        |  #{service.company[0].openTime} to #{service.company[0].closeTime}
+                            .row
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone-volume.me-2
+                                        |  #{service.company[0].centerLandLine ? service.company[0].centerLandLine : "-"}
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-star.me-2
+                                        |  4/5 (125 Reviews)
+                        .mt-5
+                            a.text-white.border.p-2.rounded.border-white.donate-linkstyle(data-bs-toggle='modal' data-bs-target='#staticBackdrop') Book Home Care Now
+    // Hero section End
+    // Content Section Start
+    section.container.mt-5
+        div
+            h4.fw-bold.mb-4 Our service&rsquo;s facilities
+            each doc in service.company[0].homecare.facilities
+                .ps-4
+                    h5
+                        i.fa-solid.fa-circle.me-2.text-12= doc.title
+                    p= doc.description
+            h4.fw-bold.mb-4.mt-5 Our service&rsquo;s images
+            .row.row-cols-1.row-cols-md-6.g-4
+                each doc in service.serviceImages
+                    .col
+                        .card.h-100
+                            img.card-img-top(src=doc alt='...')
+
+            h4.fw-bold.mb-4.mt-5 Our Other Services
+            .services-list(class="row row-cols-1 row-cols-md-4 g-4")
+                each doc in related
+                    div.mb-2
+                        .service-list-card.h-100
+                            img.service-card-img(src=doc.bannerImage alt='Service Image')
+                            .service-card-body
+                                h6.service-heading= doc.serviceName
+                                p.service-des= doc.description
+                                .d-flex.justify-content-between
+                                    div
+                                        p.service-price Rs.#{doc.priceFrom} to Rs.#{doc.priceTo}
+                                    div
+                                        a.service-hours(href=`/homecare-services/service/${doc.id}`)
+                                            | view ->
+
+            .mt-4.justify-content-center
+
+                a.book-service(data-bs-toggle='modal' data-bs-target='#staticBackdrop')  Book Home Care Service
+                // Modal
+                #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                    .modal-dialog.modal-dialog-scrollable.modal-lg
+                        .modal-content
+                            .modal-header
+                                h5#staticBackdropLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                                    | Book Homecare Service
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                form#book_user_homecare(data-id=service.hiwhcssms)
+                                    div
+                                        h6
+                                            | Select Address
+                                        p
+                                            select.form-control.form-select.bg-l#address.border(type='text' placeholder='Quotation Valid Until')
+                                                option -- Select Your Address --
+                                                each doc in address
+                                                    option(value= doc.hiwnusID) #{doc.address}, #{doc.city}, #{doc.state}-#{doc.pincode}
+                                    div    
+                                        button.conform-service-booking(type="submit") Book
+                            .modal-footer
+                // Address List Section End
+
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan 
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate at temporibus optio est praesentium nisi! Quae facere maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan 
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate at temporibus optio est praesentium nisi! Quae facere maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Section End

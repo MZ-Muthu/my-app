@@ -1,0 +1,60 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='/Assets/images/Disabledabledpeople.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Our Disabled abled Product list
+    // Hero section End
+    // Disabled abled Product List Section Start
+    section.mt-4.container
+        .justify-content-center
+            h5.heading Our Disabled abled Product list
+            .underline
+            .mt-5
+                .row.row-cols-1.row-cols-md-5.g-4
+                 each doc in products
+                    .col
+                        a(href=`/differently-abled/buy-products/${doc.hiwhapdpID}`)
+                            .card.h-100
+                                img.card-img-top.cart-image-product(src=doc.bannerImage alt='...')
+                                .card-body
+                                    h6.text-center.main-color.text-uppercase
+                                        | #{doc.productName}
+                                    p.text-center.text-secondary Price : #{doc.price}
+        // Pagination Sction
+        .text-center
+            .pagination_rounded
+                ul
+                    li
+                        a.prev(href='#')
+                            i.fa.fa-angle-left(aria-hidden='true')
+                            |  Prev
+                    li
+                        a(href='#') 1
+                    li.hidden-xs
+                        a.active(href='#') 2
+                    li.hidden-xs
+                        a(href='#') 3
+                    li.hidden-xs
+                        a(href='#') 4
+                    li.hidden-xs
+                        a(href='#') 5
+                    li.visible-xs
+                        a(href='#') ...
+                    li
+                        a(href='#') 6
+                    li
+                        a.next(href='#')
+                            | Next 
+                            i.fa.fa-angle-right(aria-hidden='true')
+    // Disabled abled Product List Section End

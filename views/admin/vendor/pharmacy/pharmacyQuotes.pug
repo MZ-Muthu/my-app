@@ -1,0 +1,180 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")       
+
+block block 
+    #right.col-9 
+        include ../../shared/detailsList
+        .p-3
+                .d-flex.mt-3
+                    .flex-grow-1
+                        h5.fw-bold.mt-3.ms-3.fs-5 Booking Summary 
+                hr.m-0
+                .modal-body.table-responsive.mt-2
+                    table.table.table-bordered.table-font
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Number of Medicines
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requested
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Update Status 
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Details
+                        tbody#update_pharmacy_vendor_status(data-id=partner.hiwpmID)
+                            -const status = ['pending','responded',"accepted",'packed','outofdelivery','completed','missed']
+                            each doc,index in quotes.active
+                                tr
+                                    td= doc.medicines.length
+                                    td= new Date(doc.createdAt).toLocaleString()
+                                    td
+                                        select.update_status.form-select.border.border-2.bg-li(id=`pharmacy_booking_status${index}` data-index= index data-id=doc.hiwnpmrsmsID required)
+                                            each sts in status 
+                                                if sts === doc.status
+                                                    option(value=sts selected) #{sts}
+                                                else
+                                                    option(value=sts ) #{sts}
+                                    td
+                                        a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activeHearingaidBooking-${index}`) View
+
+                                        // Modal
+                                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`activeHearingaidBooking-${index}`)
+                                            .modal-dialog.modal-dialog-scrollable
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#staticBackdropLabel.modal-title
+                                                            | Booking Details
+                                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                    .modal-body.table-responsive
+                                                        table.table.table-bordered
+                                                            thead
+                                                                tr
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking Details
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        //- | Booking ID - 09869766875
+                                                            tbody
+                                                                tr.text-center
+                                                                    th(scope='row')  Number of Medicines
+                                                                    td= doc.medicines.length
+                                                                tr
+                                                                    th(scope='row') Requested Date
+                                                                    td= new Date(doc.createdAt).toLocaleString()
+                                                                tr
+                                                                    th(scope='row') Status
+                                                                    td= doc.status
+                                                                if doc.address
+                                                                    tr
+                                                                        th(scope='row') Requested Address
+                                                                        td  
+                                                                            each val,key in doc.address
+                                                                                div 
+                                                                                    p 
+                                                                                        b.fw-fold #{key} : 
+                                                                                        span= val
+                                                                if doc.requestType === 'medicine'
+                                                                        tr
+                                                                            th(scope='row') Medicine Details
+                                                                            td
+                                                                                each med in doc.medicines
+                                                                                    div 
+                                                                                        p 
+                                                                                            b.fw-fold Medicine Name : 
+                                                                                            span= med.name
+                                                                                        p 
+                                                                                            b.fw-fold Description : 
+                                                                                            span= med.description
+                                                                                        p 
+                                                                                            b.fw-fold Price : 
+                                                                                            span= med.price
+                                                                                        p 
+                                                                                            b.fw-fold Categorie : 
+                                                                                            span= med.categorie
+                                                                                        img(src=med.bannerImage,style='width:200px;', alt="", srcset="")
+                                                                else if doc.requestType === 'prescription'
+                                                                        tr
+                                                                            th(scope='row') Prescription
+                                                                            td
+                                                                                div 
+                                                                                    p 
+                                                                                        b.fw-fold Prescription : 
+                                                                                    img(src=doc.prescription,style='width:200px;', alt="", srcset="")
+
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                            | Cancel
+                .d-flex.mt-3
+                    .flex-grow-1
+                        h5.fw-bold.mt-3.ms-3.fs-5 Previous booking
+                hr.m-0
+                .modal-body.table-responsive.mt-2
+                    table.table.table-bordered.table-font
+                        thead
+                            tr
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Number of Medicines
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Requested
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Update Status 
+                                th.color-white.main-color-background.text-center(scope='col')
+                                    | Details
+                        tbody#update_pharmacy_vendor_status(data-id=partner.name)
+
+                            each doc,index in quotes.history
+                                tr
+                                    td= doc.medicines.length
+                                    td= new Date(doc.createdAt).toLocaleString()
+                                    td= doc.status
+                                    td
+                                        a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#historyHearingaidBooking-${index}`) View
+
+                                        // Modal
+                                        .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`historyHearingaidBooking-${index}`)
+                                            .modal-dialog.modal-dialog-scrollable
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#staticBackdropLabel.modal-title
+                                                            | Booking Details
+                                                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                    .modal-body.table-responsive
+                                                        table.table.table-bordered
+                                                            thead
+                                                                tr
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        | Booking Details
+                                                                    th.color-white.main-color-background.text-center(scope='col')
+                                                                        //- | Booking ID - 09869766875
+                                                            tbody
+                                                                tr
+                                                                    th(scope='row')  Number of Medicines
+                                                                    td.text-center= doc.medicines.length
+                                                                tr
+                                                                    th(scope='row') Requested Date
+                                                                    td= new Date(doc.createdAt).toLocaleString()
+                                                                tr
+                                                                    th(scope='row') Status
+                                                                    td= doc.status
+                                                                tr
+                                                                    th(scope='row') Medicine Details
+                                                                    td
+                                                                        each med in doc.medicines
+                                                                            div 
+                                                                                p 
+                                                                                    b.fw-fold Medicine Name : 
+                                                                                    span= med.name
+                                                                                p 
+                                                                                    b.fw-fold Description : 
+                                                                                    span= med.description
+                                                                                p 
+                                                                                    b.fw-fold Price : 
+                                                                                    span= med.price
+                                                                                p 
+                                                                                    b.fw-fold Categorie : 
+                                                                                    span= med.categorie
+                                                                                img(src=med.bannerImage,style='width:200px;', alt="", srcset="")
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                            | Cancel

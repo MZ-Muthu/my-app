@@ -1,0 +1,34 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/ambulance.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Choose your Needed Facilitys from the list below
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center.mb-5
+            h5.heading
+                | Choose your Needed Facilitys from the list below
+            .underline
+        .row.row-cols-2.row-cols-md-5.g-5.mt-2
+            each doc in services
+                .col
+                    #test0.card.h-100.p-1.cursor-pointer.select_ambulac_serice(data-id=doc.name)
+                        img.specialists-card-img.rounded(src=doc.bannerImage alt='Facility Name')
+                        .card-body.p-1
+                            h6.main-color.mt-2.text-center=doc.name
+
+        .mt-4.justify-content-center
+            a.book-service.mt-3#send_ambulace_quotes Send Request

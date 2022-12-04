@@ -1,0 +1,99 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Home Care Service Centres List Section Start
+    section.mt-4.container
+        .row
+            // Profile Section
+            .col-4
+                .small-shdow.p-3.rounded
+                    h5.fw-bold.mb-4.text-uppercase User Profile
+                    a(href='/pharmacy/my-carts')
+                        .card.rounded-pill.background-color-2.cursor-pointer
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-cart-plus.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 My Cart
+                    a(href='./userMedicineOrderViewPage.html')
+                        .card.rounded-pill.background-color-4.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-box.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 My Current Order
+                    a(href='#')
+                        .card.rounded-pill.background-color-3.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-boxes-packing.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 Old Orders
+                    a.cursor-pointer
+                        .card.rounded-pill.background-color-5.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-regular.fa-clipboard.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 Upload Priscription
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded.mb-3
+                    p.card-small-description Shows 1-40 out of 400
+                    h4.fw-bold Your requestd Category Medicine List
+                .row.row-cols-1.row-cols-md-2.g-4
+                 each doc in medicines
+                    .col
+                        .card.h-100
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src=doc.bannerImage alt='Shop Name')
+                                .col-7.p-2
+                                    h6.m-0.text-uppercase.fw-bold= doc.name
+                                    p.m-0= doc.description
+                                    .d-flex.justify-content-between.m-0
+                                        .bd-highlight
+                                            h6.fw-bold.main-color
+                                                | Rs.#{doc.price}
+                                                //- span.fw-normal.text-danger (80%)
+                                        div
+                                            h6
+                                                i.fa-solid.fa-star.text-danger.fs-6.mt-1
+                                                | (145)
+                                        .me-1.mt-2
+                                            a.button-view-details.add_pharmacy_medicine_cart( data-id=doc.hiwpmmdsID)
+                                                i.fa-solid.fa-cart-plus
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Medicine List Section End

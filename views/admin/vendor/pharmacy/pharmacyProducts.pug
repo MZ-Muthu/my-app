@@ -1,0 +1,195 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")       
+
+block block 
+    #right.col-9 
+        include ../../shared/detailsList
+        .p-3
+            .row
+                h6.col-6.fw-bold.main-color.mt-3.text-head
+                    | Add and Edit Your Products
+                .col-6.d-grid.gap-2.d-md-flex.justify-content-md-end.m-0
+                    button.btn.main-color-background.color-white.m-0.text-head(type='button' data-bs-toggle='modal' data-bs-target='#staticBackdrop')
+                        | Add More
+                // Modal
+                #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                    .modal-dialog.modal-dialog-scrollable.modal-lg
+                        .modal-content
+                            .modal-header
+                                h5#staticBackdropLabel.modal-title.text-uppercase.main-color
+                                    | Add Product Details
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                form.row.g-2#add_new_medicines(data-id=partner.hiwpmID)
+                                    .col-sm-12
+                                        label.col-form-label.fw-bold Glass Type:
+                                        select#medicines.form-select.border.border-2.bg-li(required multiple)
+                                            option(value="") -- Select Glass type -- 
+                                            each docs in medicines
+                                                option(value=docs.hiwpmmdsID )= docs.name
+
+                                    .col-12.text-center
+                                        button.btn.main-color-background.color-white(type='submit')
+                                            | Add Product
+                            .modal-footer
+                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                    | Cancel
+
+            hr.m-0
+            .modal-body.table-responsive.mt-2
+                table.table.table-bordered.table-font
+                    thead
+                        tr
+                            th.color-white.main-color-background(scope='col')
+                                | Medicine Name
+                            th.color-white.main-color-background(scope='col')
+                                | Description
+                            th.color-white.main-color-background(scope='col')
+                                | Price 
+                            th.color-white.main-color-background(scope='col')
+                                | Categorie
+                            th.color-white.main-color-background(scope='col')
+                                | Created
+                    tbody#update_pharmacy_vendor_status(data-id=partner.name)
+                        -const status = ['pending',"accepted",'packed','outofdelivery','completed','missed']
+                        each doc,index in products
+                            tr
+                                td= doc.name
+                                td= doc.description
+                                td= doc.price
+                                td= doc.categorie
+                                td= new Date(doc.date).toLocaleString()
+                                //- td
+                                    a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#activeHearingaidBooking-${index}`) View
+
+                                    // Modal
+                                    //- .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`activeHearingaidBooking-${index}`)
+                                        .modal-dialog.modal-dialog-scrollable
+                                            .modal-content
+                                                .modal-header
+                                                    h5#staticBackdropLabel.modal-title
+                                                        | Booking Details
+                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                .modal-body.table-responsive
+                                                    table.table.table-bordered
+                                                        thead
+                                                            tr
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    | Booking Details
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    //- | Booking ID - 09869766875
+                                                        tbody
+                                                            tr
+                                                                th(scope='row')  Number of Medicines
+                                                                td= doc.medicines.length
+                                                            tr
+                                                                th(scope='row') Requested Date
+                                                                td= new Date(doc.createdAt).toLocaleString()
+                                                            tr
+                                                                th(scope='row') Status
+                                                                td= doc.status
+                                                            if doc.address
+                                                                tr
+                                                                    th(scope='row') Requested Address#{JSON.stringify(doc.address.address)}
+                                                                    td  
+                                                                        each val,key in doc.address
+                                                                            div 
+                                                                                p 
+                                                                                    b.fw-fold #{key} : 
+                                                                                    span= val
+                                                            tr
+                                                                th(scope='row') Medicine Details
+                                                                td
+                                                                    each med in doc.medicines
+                                                                        div 
+                                                                            p 
+                                                                                b.fw-fold Medicine Name : 
+                                                                                span= med.name
+                                                                            p 
+                                                                                b.fw-fold Description : 
+                                                                                span= med.description
+                                                                            p 
+                                                                                b.fw-fold Price : 
+                                                                                span= med.price
+                                                                            p 
+                                                                                b.fw-fold Categorie : 
+                                                                                span= med.categorie
+                                                                            img(src=med.bannerImage,style='width:200px;', alt="", srcset="")
+                                                .modal-footer
+                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                        | Cancel
+            //- .d-flex.mt-3
+                .flex-grow-1
+                    h5.fw-bold.mt-3.ms-3.fs-5 Previous booking
+            hr.m-0
+            //- .modal-body.table-responsive.mt-2
+                table.table.table-bordered.table-font
+                    thead
+                        tr
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Number of Medicines
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Requested
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Update Status 
+                            th.color-white.main-color-background.text-center(scope='col')
+                                | Details
+                    tbody#update_pharmacy_vendor_status(data-id=partner.name)
+
+                        each doc,index in quotes.history
+                            tr
+                                td= doc.medicines.length
+                                td= new Date(doc.createdAt).toLocaleString()
+                                td= doc.status
+                                td
+                                    a.text-primary.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#historyHearingaidBooking-${index}`) View
+
+                                    // Modal
+                                    .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`historyHearingaidBooking-${index}`)
+                                        .modal-dialog.modal-dialog-scrollable
+                                            .modal-content
+                                                .modal-header
+                                                    h5#staticBackdropLabel.modal-title
+                                                        | Booking Details
+                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                .modal-body.table-responsive
+                                                    table.table.table-bordered
+                                                        thead
+                                                            tr
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    | Booking Details
+                                                                th.color-white.main-color-background.text-center(scope='col')
+                                                                    //- | Booking ID - 09869766875
+                                                        tbody
+                                                            tr
+                                                                th(scope='row')  Number of Medicines
+                                                                td.text-center= doc.medicines.length
+                                                            tr
+                                                                th(scope='row') Requested Date
+                                                                td= new Date(doc.createdAt).toLocaleString()
+                                                            tr
+                                                                th(scope='row') Status
+                                                                td= doc.status
+                                                            tr
+                                                                th(scope='row') Medicine Details
+                                                                td
+                                                                    each med in doc.medicines
+                                                                        div 
+                                                                            p 
+                                                                                b.fw-fold Medicine Name : 
+                                                                                span= med.name
+                                                                            p 
+                                                                                b.fw-fold Description : 
+                                                                                span= med.description
+                                                                            p 
+                                                                                b.fw-fold Price : 
+                                                                                span= med.price
+                                                                            p 
+                                                                                b.fw-fold Categorie : 
+                                                                                span= med.categorie
+                                                                            img(src=med.bannerImage,style='width:200px;', alt="", srcset="")
+                                                .modal-footer
+                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                        | Cancel          

@@ -1,0 +1,124 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        -let pack = package.packageDetails.find(el=> el.category === name);
+        .justify-content-center.mb-5
+            h5.heading.text-uppercase OUR HOSPITAL #{package.packageDetails[0].category} PACKAGE DETAILS
+            .underline
+        .row
+            // Fillter Section
+            .col-4
+                .small-shdow.p-3.rounded
+                    h6.fw-bold Our Hospital Packages
+                    .mt-4
+                        form(action='#')    
+                            each doc,index in pack.subCategory
+                                a.mb-3
+                                    if index === 0
+                                        input.check_package_details(type='radio' name='radio-group' checked='' id=`test${index}` data-id=package._id data-id2=pack.hiwhpdsnmID,data-id3=doc.hiwhppdsID)
+                                    else
+                                        input.check_package_details(type='radio' name='radio-group' id=`test${index}` data-id=package._id data-id2=pack.hiwhpdsnmID,data-id3=doc.hiwhppdsID)
+                                    label(for=`test${index}`)= doc.name
+                                    br
+
+            // Card Section
+            .col-8
+                // Catercory button Section Start
+
+                .p-5.pt-2.nav-tabs-section
+                    ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                        each doc,index in pack.subCategory[0].packType
+                            li.nav-item.border.rounded(role='presentation')
+                                button.nav-link.inside-nav.fw-bold(id=`pills-${index}-tab` class=`${index === 0 && "active"}` data-bs-toggle='pill' data-bs-target=`#pills-${index}` type='button' role='tab' aria-controls=`pills-${index}` aria-selected='true')
+                                    | #{doc.packageName}
+                    #pills-tabContent.tab-content
+                        each doc,index in pack.subCategory[0].packType
+                            .tab-pane.fade.show(class=`${index === 0 && "active"}` id=`pills-${index}` role='tabpanel' aria-labelledby=`pills-${index}-tab`)
+                                div 
+                                    h5.mt-4.main-color.text-uppercase.fw-bold
+                                        | Packages Details
+                                    .small-shdow.rounded
+                                        .d-flex.justify-content-between
+                                            div
+                                                h5.fw-bold.mt-3.ms-3
+                                                    | #{doc.packageName} Health check Package
+                                            div
+                                                p.package-price Rs.#{doc.price}
+                                        .p-3
+                                            p
+                                                | Recommended To :
+                                                span.text-secondary
+                                                    | Age &gt;#{doc.recommendAge} years for all
+                                            p.text-secondary= doc.description
+                                            each val in doc.serviceList
+                                                .mt-3
+                                                    h6.text-uppercase= val.serviceTitle
+                                                    each vals in val.services
+                                                        p.m-0.text-secondary
+                                                            i.fa-solid.fa-chevron-right.me-2
+                                                            |#{vals}
+    // Card Section End
+    // Content Section Start
+    section.container.mt-5
+        div
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium  nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Section End

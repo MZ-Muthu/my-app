@@ -1,0 +1,240 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/bloodDonation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Blood Donation Service
+    // Hero section End
+    // Request Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Request and Post Blood Request
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-4.g-4
+                .col
+                    a(href='/blood-donation/related-donners')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='/Assets/images/blooddonation/find_donor.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading Find Donor
+                .col
+                    a(href='/blood-donation/nearby-blood-bank')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='/Assets/images/blooddonation/search_blood.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading Search blood bank
+                .col
+                    a.cursor-pointer(data-bs-toggle='modal' data-bs-target='#Register')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='/Assets/images/blooddonation/registerdonor.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading Register Donor
+                .col
+                    a.cursor-pointer(data-bs-toggle='modal' data-bs-target='#staticBackdrop')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='/Assets/images/blooddonation/requestblood.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading Request Blood
+    // Request Section End
+    // Blood Request Form Modal
+    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#staticBackdropLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | REQUEST BLOOD
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#blood_request
+                        div
+                            h6
+                                | Enter Patient Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#patientName(placeholder='Enter Patient Name...' name='fname' required='')
+                        div
+                            h6
+                                | Enter Contact Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#contactName(placeholder='Enter Contact Name...' name='fname' required='')
+                        div
+                            h6
+                                | Enter Mobile Number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#mobile(placeholder='Enter Mobile Number...' name='fname' required='')
+                        div
+                            h6
+                                | Select Blood Group
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                select.form-select.border#blood(aria-label='Default select example')
+                                    option(selected='' disabled value="") -- Select Blood Group --
+                                        option(value='A+') A+
+                                        option(value='A-') A-
+                                        option(value='B+') B+
+                                        option(value='B-') B-
+                                        option(value='AB+') AB+
+                                        option(value='AB-') AB-
+                                        option(value='O+') O+
+                                        option(value='O-') O-
+                        div
+                            h6
+                                | Number of units required
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#units(placeholder='Number of units required...' name='fname' required='')
+                        div
+                            h6
+                                | Required Date
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#date(placeholder='Operation Type...' type="date" name='fname' required='')
+                        div
+                            h6
+                                | Hospital Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#hospitalName(placeholder='Hospital Name...' name='fname' required='')
+                        div
+                            h6
+                                | Hospital Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#hospitalAddress(placeholder='Hospital Address...' name='fname' required='')
+                        div
+                            h6
+                                | Operation Type
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#operationType(placeholder='Operation Type...' name='fname' required='')
+                        div
+                            h6
+                                | Location
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            .d-flex
+                                input.m-2#latitude(placeholder='Latitude' name='fname' required='')
+                                input.m-2#longitude(placeholder='Longitude' name='fname' required='')
+                        div
+                            h6
+                                | Other Comments
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                textarea#description(placeholder='Other Comments...' name='fname' required='')
+                            button.conform-service-booking(type="submit") Submit
+                .modal-footer
+    // Register Doner Modal
+    #Register.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='RegisterLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#RegisterLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Register Donor
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    form#new_blood_donner
+                        div
+                            h6
+                                | Enter Donor Name
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#name(placeholder='Enter Donor Name...' name='fname' required='')
+                        div
+                            h6
+                                | Enter Mobile Number
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#phone(placeholder='Enter Mobile Number...' name='fname' required='')
+                        div
+                            h6
+                                | Select Blood Group
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                select.form-select.border#blood(aria-label='Default select example')
+                                    option(selected='' disabled value="") -- Select Blood Group --
+                                    option(value='A+') A+
+                                    option(value='A-') A-
+                                    option(value='B+') B+
+                                    option(value='B-') B-
+                                    option(value='AB+') AB+
+                                    option(value='AB-') AB-
+                                    option(value='O+') O+
+                                    option(value='O-') O-
+                        div
+                            h6
+                                | Last Donated Date
+                            p
+                                input#lastDonated(placeholder='Frequency for Donation...' type="date" name='fname')
+                        div
+                            h6
+                                | Address
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            p
+                                input#address(placeholder='Address...' name='fname' required='')
+                        div
+                            h6
+                                | Location
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            .d-flex
+                                input.m-2#latitude(placeholder='Latitude' name='fname' required='')
+                                input.m-2#longitude(placeholder='Longitude' name='fname' required='')
+                        div
+                            h6.fw-bold
+                                | Upload Id Proof
+                                i.fa-solid.fa-star-of-life.text-danger.text-12
+                            input#myfile(type='file' name='myfile')
+                            button.conform-service-booking(type="submit") Submit
+                .modal-footer
+    // Request Result Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Your Requestes and from others
+            .underline
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href='/blood-donation/accepted-requests')
+                        .card.h-100.pt-3
+                            .row
+                                .col-2
+                                    img.request-img(src='/Assets/images/blooddonation/whointerest.png' alt='specialists Image')
+                                .col-10
+                                    h6.fw-bold.text-uppercase.main-color.mt-4.ms-2
+                                        | People who have shown interest (50 Requestes)
+                .col
+                    a(href='/blood-donation/my-requests')
+                        .card.h-100.pt-3
+                            .row
+                                .col-2
+                                    img.request-img(src='/Assets/images/blooddonation/newrequest.png' alt='specialists Image')
+                                .col-10
+                                    h6.fw-bold.text-uppercase.main-color.mt-4.ms-2
+                                        | New Requestes (50 Requestes)
+                .col
+                    a(href='/my-account/blood-donation')
+                        .card.h-100.pt-3
+                            .row
+                                .col-2
+                                    img.request-img(src='/Assets/images/blooddonation/find_donor.png' alt='specialists Image')
+                                .col-10
+                                    h6.fw-bold.text-uppercase.main-color.mt-4.ms-2
+                                        | History
+    // Request Result Section End

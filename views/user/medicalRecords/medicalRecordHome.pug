@@ -1,0 +1,67 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='./Assets/images/MedicalRecord.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Medical Record Category Section
+    // Hero section End
+    // Request Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Medical Record Category Section
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href=`/medical-records/records`)
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/prescription.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading doctor prescription
+                .col
+                    a(href='/medical-records/records')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/medical-test.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading TEST REPORTS
+                .col
+                    a(href='/medical-records/records')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/medical-record.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading HOSPITAL REPORT
+                .col
+                    a(href='/medical-records/records')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/HealthCheckup.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading HEALTH CHECKUP
+                .col
+                    a(href='/medical-records/records')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/medical-bills.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading BILLS
+                .col
+                    a(href='/medical-records/records')
+                        .service-list-card.h-100.text-center.pt-3
+                            img.blood-card-img(src='./Assets/images/medicalrecords/health-insurance.png' alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading INSURANCE
+    // Request Section End

@@ -1,0 +1,551 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+    script.
+        $(".services-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    script.
+        $(".facilities-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    script.
+        $(".specialists-list").slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        prevArrow: false,
+        nextArrow: false,
+        responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+        },
+        },
+        {
+        breakpoint: 600,
+        settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        },
+        },
+        {
+        breakpoint: 480,
+        settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        },
+        },
+        ],
+        });
+    // Togal button Scripte
+    script.
+        function Hospital() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text-active";
+        specialty.className = "tab-text";
+        facilities.className = "tab-text";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-block p-4 small-shdow";
+        SpecialtyDetails.className = "display-n p-4 small-shdow";
+        FacilitiesAvailable.className = "display-n p-4 small-shdow";
+        }
+        function Specialty() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text";
+        specialty.className = "tab-text-active";
+        facilities.className = "tab-text";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-n p-4 small-shdow";
+        SpecialtyDetails.className = "display-block p-4 small-shdow";
+        FacilitiesAvailable.className = "display-n p-4 small-shdow";
+        }
+        function Facilities() {
+        const hospital = document.getElementById("Hospital");
+        const specialty = document.getElementById("Specialty");
+        const facilities = document.getElementById("Facilities");
+        hospital.className = "tab-text";
+        specialty.className = "tab-text";
+        facilities.className = "tab-text-active";
+        const HospitalDetails = document.getElementById("Hospital-Details");
+        const SpecialtyDetails = document.getElementById("Specialty-Details");
+        const FacilitiesAvailable = document.getElementById(
+        "Facilities-Available"
+        );
+        HospitalDetails.className = "display-n p-4 small-shdow";
+        SpecialtyDetails.className = "display-n p-4 small-shdow";
+        FacilitiesAvailable.className = "display-block p-4 small-shdow";
+        }
+
+
+block block 
+    // Hero section Start
+    section
+        .carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src=doc.partnerId.bannerImage alt='...')
+                    .hero-image-overlay
+                    .carousel-caption.overlay-section.container.d-none.d-md-block
+                        p.mt-5.fs-2.float-end
+                            a(href='#')
+                                i.fa-solid.fa-share.text-white
+                        h1.text-white.mt-5= doc.partnerId.company
+                        //- p.text-white= do.
+                        .d-flex.flex-row.bd-highlight.mb-5
+                            .bd-highlight.me-2
+                                p.text-white
+                                    i.fa-solid.fa-address-book.fs-2
+                            .bd-highlight
+                                p.text-white= doc.partnerId.address
+                        .mt-5.text-white
+                            .row.mt-5.mb-3
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone.me-2
+                                        |  #{doc.partnerId.phone}
+                                .col
+                                    h6.fw-bold
+                                        i.fa-regular.fa-clock.me-2
+                                        |  #{doc.partnerId.openTime} to #{doc.partnerId.closeTime}
+                            .row
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone-volume.me-2
+                                        |  #{doc.partnerId.centerPhone}
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-star.me-2
+                                        |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Scetion Start
+    section.container
+        .mt-3
+            .p-5
+                // Catercory button Section Start
+                section.mt-1.mb-2
+                    .d-flex.justify-content-center
+                        div
+                            h6#Hospital.tab-text-active(onclick='Hospital()')
+                                | College Details
+                        div
+                            h6#Specialty.tab-text(onclick='Specialty()')
+                                | Course Details
+                        div
+                            h6#Facilities.tab-text(onclick='Facilities()')
+                                | Facilities available
+                // Catercory button Section Start
+                div
+                    #Hospital-Details.display-block.p-4.small-shdow
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 University Established Year
+                            .col-7
+                                p= doc.collegeDetails.establishedYear
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 University Type
+                            .col-7
+                                p=doc.collegeDetails.universityType
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Affiliation
+                            .col-7
+                                p= doc.collegeDetails.affliation
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Teaching Language
+                            .col-7
+                                p= doc.collegeDetails.teachingLanguage
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Syllabus
+                            .col-7
+                                p= doc.collegeDetails.syllabus
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | No.of Hospital beds available in the College
+                            .col-7
+                                p= doc.collegeDetails.availableHospitalBeds
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Majority of studes are come from
+                            .col-7
+                                p= doc.collegeDetails.majorityStrudentsFrom
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 College infrastructure video
+                            .col-7
+                                video(width='400' )
+                                    source(src=doc.collegeDetails.collegeInfraStructureVideo type='video/mp4')
+                                    |                     Your browser does not support HTML video.
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Couses available
+                            .col-7
+                                p= doc.collegeDetails.courseAvailable
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 UG
+                            .col-7
+                                p= doc.collegeDetails.ugCourses
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 PG
+                            .col-7
+                                p= doc.collegeDetails.pgCourses
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Total number of seats available in UG
+                            .col-7
+                                p= doc.collegeDetails.availableSeatsinUG
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Total number of seats available in PG
+                            .col-7
+                                p= doc.collegeDetails.availableSeatsinPG
+                        h6.fw-bold.mb-4 Hostel Images
+                        .row.row-cols-1.row-cols-md-6.g-4
+                            each docs in doc.collegeDetails.hostelImages
+                                .col
+                                    .card.h-100
+                                        img.card-img-top(src=docs alt='...')
+
+                        h6.fw-bold.mb-4 Hostel facilities
+                        .row.ms-3
+                            .col-5
+                                h6.fw-bold.mb-4 With Food
+                            .col-7
+                                p= doc.collegeDetails.hostelFacilities.withFood ? "Yes" : "No"
+                        .row.ms-3
+                            .col-5
+                                h6.fw-bold.mb-4 Cooking Facilities
+                            .col-7
+                                p= doc.collegeDetails.hostelFacilities.cookingFacilites ? "Yes" : "No"
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Proximity from college to hostal
+                            .col-7
+                                p= doc.collegeDetails.proximityFromCollegetoHostel
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Libraty Facilities
+                            .col-7
+                                p=  doc.collegeDetails.libraryFacilities ? "Yes" : "No"
+                        if doc.collegeDetails.libraryFacilities
+                            h6.fw-bold.mb-4 Library images
+                            .row.row-cols-1.row-cols-md-6.g-4
+                                each docs in doc.collegeDetails.libraryImages
+                                    .col
+                                        .card.h-100
+                                            img.card-img-top(src=docs alt='...')
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Sports/ Indoor Activities
+                            .col-7
+                                p=doc.collegeDetails.sportIndoorActivities.join(', ')
+                    #Specialty-Details.display-block.p-4.small-shdow
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 UG Course
+                            .col-7
+                                p= doc.courseDetails.underGraduateCourses
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 PG Course
+                            .col-7
+                                p= doc.courseDetails.postGraduateCourses.join(", ")
+                        h6.fw-bold.mb-4 Eligibility Criteria
+                        .row.ms-5
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Minimum Percentace of marks Required
+                            .col-7
+                                p= doc.courseDetails.eligiblityCretria.minimumPercentage
+                        .row.ms-5
+                            .col-5
+                                h6.fw-bold.mb-4 Entrance Exam
+                            .col-7
+                                p= doc.courseDetails.eligiblityCretria.entranceExam
+                        h6.fw-bold.mb-4.mt-3 Fees Details
+                        .ms-5
+                            table.table
+                                thead.table-dark
+                                    tr
+                                        th(scope='col') UG Fees
+                                        th(scope='col') Fees in USD
+                                        th(scope='col') Fees in INR
+                                tbody
+                                    tr
+                                        td Tution Fees(1 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.tutionFees}
+                                    tr
+                                        td Tution Fees with Hostel(1 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.tutionFeesHostel}
+                                    tr
+                                        td Tution Fees with AC Hostel(1 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.tutionFeesACHostel}
+                                    tr
+                                        td Tution Fees(5 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.totalTutionFees}
+                                    tr
+                                        td Tution Fees with Hostel(5 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.totalTutionFeesHostel}
+                                    tr
+                                        td Tution Fees with AC Hostel(5 year)
+                                        td $ 5,000
+                                        td Rs. #{doc.courseDetails.underGraduateFees.totalTutionFeesACHostel}
+                        h6.fw-bold.mb-4.mt-3 UG Course Syllabus
+                        each docs,index in doc.courseDetails.underGraduationCourseSyllabus
+                            .ms-5
+                                h6.fw-bold.mb-4.mt-3.text-decoration-underline
+                                    |Year - #{docs.year}
+                                .ms-3
+                                    .row
+                                        .col-5
+                                            h6.fw-bold.mb-4 Semester - #{docs.year*2 -1}
+                                        .col-7
+                                            each val in docs.semester1
+                                                p=val
+                                    .row
+                                        .col-5
+                                            h6.fw-bold.mb-4 Semester - #{docs.year*2}
+                                        .col-7
+                                            each val in docs.semester2
+                                                p=val
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 First Term Fees
+                            .col-7
+                                p During Admisson $ #{doc.courseDetails.termFees.firstTerm}
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Remaining Fees to be Paid
+                            .col-7
+                                p= doc.courseDetails.termFees.remainingFees
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Course Duration
+                            .col-7
+                                p=doc.courseDetails.courseDuration
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 LAB Details
+                            .col-7
+                                p= doc.courseDetails.labDetails
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Scholarship Availability
+                            .col-7
+                                p= doc.courseDetails.scholrshipAvailablity ? "Yes" : "No"
+                    #Facilities-Available.display-block
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Indian Food Availablity inside the Hostel
+                            .col-7
+                                p= doc.faciliteisAvailable.scholrshipAvailablity ? "Yes" : "No"
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Indian Food Availablity inside the Hostel
+                            .col-7
+                                p=doc.faciliteisAvailable.indianFoodAvailablityinHostel 
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Monthly House Rental Outside the Univercity(Approximately)
+                            .col-7
+                                p $#{doc.faciliteisAvailable.monthlyRentalAvailablityOutsideCollege}
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Daily Travel Expenditure(Approximately)
+                            .col-7
+                                p $#{doc.faciliteisAvailable.travelExpenditure}
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Nearest Airport
+                            .col-7
+                                p=doc.faciliteisAvailable.nearestAirport
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Distance From Airport to College
+                            .col-7
+                                p=doc.faciliteisAvailable.distanceAirporttoCollege
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Bus Facilities
+                            .col-7
+                                p=doc.faciliteisAvailable.distanceAirporttoCollege ? " Yes" : "No"
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Proximite from college to Indian Embassy
+                            .col-7
+                                p=doc.faciliteisAvailable.proximityFromCollegetoIndianEmbassy
+                        h6.fw-bold.mb-4 Indian Embassy Contact Details
+                        .ms-3
+                            .row
+                                .col-5
+                                    h6.fw-bold.mb-4 Address
+                                .col-7
+                                    p=doc.faciliteisAvailable.indianEmbassyContactDetails.address
+                            .row
+                                .col-5
+                                    h6.fw-bold.mb-4 Phone
+                                .col-7
+                                    p=doc.faciliteisAvailable.indianEmbassyContactDetails.phone
+                            .row
+                                .col-5
+                                    h6.fw-bold.mb-4 Email
+                                .col-7
+                                    p=doc.faciliteisAvailable.indianEmbassyContactDetails.email
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Nearest Country via road
+                            .col-7
+                                p=doc.faciliteisAvailable.nearestCountryvaiRoad
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Near By Indian Restaurants
+                            .col-7
+                                each docs in doc.faciliteisAvailable.nearbyIndianRestarents
+                                    p= docs
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4
+                                    | Mode of Transportation Available Nearby
+                            .col-7
+                                each docs in doc.faciliteisAvailable.modeofIndianTransportAvailablity
+                                    p= docs
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Visa Formality
+                            .col-7
+                                p=doc.faciliteisAvailable.visaFormality ? "Yes" : "No"
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Political Stablity
+                            .col-7
+                                p=doc.faciliteisAvailable.politicalStablity ? "Yes" : "No"
+                        .row
+                            .col-5
+                                h6.fw-bold.mb-4 Women Safety
+                            .col-7
+                                p=doc.faciliteisAvailable.womenSafety ? "Yes" : "No"
+                        h6.fw-bold.mb-4 Other Embassy
+                        each docs in doc.faciliteisAvailable.otherEmbassy
+                            .ms-3
+                                .row
+                                    .col-5
+                                        h6.fw-bold.mb-4 Afghanistan Phone
+                                    .col-7
+                                        p Afghanistan Phone
+                                .row
+                                    .col-5
+                                        h6.fw-bold.mb-4 Fax
+                                    .col-7
+                                        p Fax
+                                .row
+                                    .col-5
+                                        h6.fw-bold.mb-4 Email
+                                    .col-7
+                                        p Email
+    // Content Scetion End
+    //- .mt-4.justify-content-center
+        a.book-service(href='#') Apply Now

@@ -1,0 +1,149 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block
+    // Product List Section Start
+    section.mt-4.container-fluid
+        .row
+            // Fillter Section
+            .col-4
+                .small-shdow.p-3.rounded
+                    h5.fw-bold.mb-4.text-uppercase User Profile
+                    a(href='/medical-market/my-cart')
+                        .card.rounded-pill.background-color-2.cursor-pointer
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-cart-plus.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 My Cart
+                    a(href='/medical-market/my-wishlist')
+                        .card.rounded-pill.background-color-4.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-box.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 Wish List
+                    a(href='/medical-market/my-orders')
+                        .card.rounded-pill.background-color-3.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-boxes-packing.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 Orders Details
+                    a(href='/medical-market/quotes-management')
+                        .card.rounded-pill.background-color-3.cursor-pointer.mt-3
+                            .d-flex.justify-content-start
+                                div
+                                    i.fa-solid.fa-boxes-packing.fs-4.main-color.p-3.rounded-circle.bg-white
+                                div
+                                    h6.fw-bold.main-color.mt-3.ms-3 My Quotes 
+                .small-shdow.p-2.rounded
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold
+                                i.fa-solid.fa-gears.me-3
+                                |  Fillter Product
+                                |                   Category
+                        div
+                            a.text-12.text-decoration-underline(href='./userMerketPlaceHome.html') View All
+                    .mt-4
+                        .row.row-cols-1.row-cols-md-2.g-4
+                            each docs in categories
+                                .col
+                                    a(href=`./shop?serviceName=${docs.name}`)
+                                        div
+                                            img.small-shdow.img-thumbnail(src=docs.bannerImage alt='category name')
+                                            h6.text-center.main-color= docs.name
+
+                .small-shdow.p-3.rounded.mt-3
+                    h6.fw-bold.mt-5
+                        i.fa-solid.fa-hand-holding-dollar.me-3
+                        |  Sort by price
+                    .mt-4
+                        form(action='#')
+                            p
+                                input#test1(type='radio' name='radio-group' checked='')
+                                label(for='test1') Defulte List
+                            p
+                                input#test2(type='radio' name='radio-group')
+                                label(for='test2') Low to Height
+                            p
+                                input#test3(type='radio' name='radio-group')
+                                label(for='test3') Height to Low
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded
+                    p.card-small-description Shows 1-40 out of 400
+                    .d-flex.justify-content-between
+                        div
+                            h4.fw-bold Your requestd Product List
+                        div
+                            a.add-records Send Qoute Here
+                .row.row-cols-2.row-cols-md-3.g-3.m-0
+                    each docs in products
+                        .col
+                            .card.h-100
+                                img.card-img-top(src=docs.bannerImage alt='service Name')
+                                .p-2
+                                    h6.fw-bold.main-color
+                                        | #{docs.productName}
+                                    p.m-0.text-12= docs.description
+                                    if docs.discountPrice
+                                        p.fw-bold.m-0 Rs.#{docs.discountPrice}
+                                            small.ms-2.text-secondary
+                                                del Rs.#{docs.price}
+                                    else 
+                                        p.fw-bold.m-0 Rs.#{docs.price}
+
+                                    .d-flex
+                                        .flex-grow-1
+                                            p.fw-bold
+                                                | Rating :
+                                                span.text-12.text-warning
+                                                    i.fa-solid.fa-star
+                                                    i.fa-solid.fa-star
+                                                    i.fa-solid.fa-star
+                                                    i.fa-solid.fa-star
+                                                    i.fa-regular.fa-star
+                                        div
+                                            i.fa-solid.fa-cart-shopping.card-cart-icon
+                                        div
+                                            i.fa-solid.fa-heart.card-cart-icon
+                                a(href=`/medical-market/shop/${docs.hiwmmpmID}`)
+                                    h6.merket-category-card.m-0
+                                        | View Product
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Product List Section End
+

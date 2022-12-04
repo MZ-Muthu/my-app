@@ -1,0 +1,33 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+
+block block
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/MedicalMarket.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Market Place porduct Categorys
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center.mb-5
+            h5.heading Market Place porduct Categorys
+            .underline
+        .row.row-cols-2.row-cols-md-4.g-5
+         each doc in docs
+            .col
+                .card.h-100
+                    img.card-img-top(src=doc.bannerImage alt='service Name')
+                    a(href=`/medical-market/shop?serviceName=${doc.name}`)
+                        h6.merket-category-card.m-0
+                            | #{doc.name}
+                            i.fa-solid.fa-arrow-right.ms-2
+    // Card Section End

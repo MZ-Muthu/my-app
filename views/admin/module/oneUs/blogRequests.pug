@@ -1,0 +1,46 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9
+
+        .d-flex.bd-highlight.mt-3
+            .p-2.flex-grow-1.bd-highlight
+                h6.fs-5.text-body.fw-bold.text-uppercase Manage Blogs
+            .me-3.flex-grow-1.bd-highlight
+                form.mt-0(action='')
+                    .p-1.bg-light.rounded.rounded-pill.shadow-sm.mt-0
+                        .input-group
+                            input.form-control.border-0.bg-light(type='search' placeholder="What're you searching for?" aria-describedby='button-addon1')
+                            .input-group-append
+                                button#button-addon1.btn.btn-link.text-secondary(type='submit')
+                                    i.fa.fa-search
+            .p-2.bd-highlight
+                i.fa-solid.fa-bell.fs-5.text-body
+            .p-2.bd-highlight
+                h6.fs-5.text-body.fw-bold |
+            .p-2.bd-highlight
+                h6.fs-5.text-body.fw-bold Akstar111
+            .p-2.bd-highlight
+                img.login-user-image(src='/Assets/image/profile.jpg' alt='user image')
+        hr
+        include shared/dataList
+
+        div.mt-4
+            .row.row-cols-1.row-cols-md-3.g-4#update_oneus_blog_status
+                each doc,index in blogs
+                    .col
+                        .card
+                            img(src=doc.bannerImage style='width:100%;'  )
+                            .d-flex.justify-content-between
+                                .card-body
+                                    h5.card-title  #{doc.title} - #{doc.categorie}
+                                    p.card-text= doc.description
+                                .d-flex.flex-wrap.align-content-center
+                                    a.col-3.main-color(href='#')
+                            .d-flex.justify-content-around
+                                    button.btn.btn-success#accept(data-id=doc.hiwousvmID) Accept
+                                    button.btn.btn-danger#reject(data-id=doc.hiwousvmID) Reject
+                                        

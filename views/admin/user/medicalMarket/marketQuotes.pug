@@ -1,0 +1,191 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")   
+
+block block
+    #right.col-9
+
+        hr
+        include ./shared/detailsList
+        .p-3
+            .p-5.pt-2.nav-tabs-section
+                ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-home-tab.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home' type='button' role='tab' aria-controls='pills-home' aria-selected='true')
+                            | New Request
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-profile-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                            | Active Request
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-contact-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+                            | History
+                #pills-tabContent.tab-content
+                    #pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab')
+                        .mt-5
+                            form#request_user_quotes(data-for="user" data-id=user.id)
+                                .mb-3.row
+                                    label.col-sm-3.col-form-label.fw-bold(for='inputPassword') Select Available Product
+                                    .col-sm-7
+                                        select.form-select.bg-li.border#productName(aria-label='Default select example')
+                                            option(selected='') Select Product
+                                            each doc in names
+                                                option(value=doc)= doc
+
+                                .mb-3.row
+                                    label.col-sm-3.col-form-label.fw-bold(for='description') Product Description:
+                                    .col-sm-7
+                                        textarea#description.form-control.bg-li(rows='3')
+                                            | Good quality
+                                .mb-3.row
+                                    label.col-sm-3.col-form-label.fw-bold(for='quantity') No Of Quantity Required *:
+                                    .col-sm-7
+                                        input.form-control.bg-l#quantity(type='text' placeholder='Quotation Valid Until')
+                                
+                                .mb-3.row
+                                    label.col-sm-3.col-form-label.fw-bold(for='quantity') Address *:
+                                    .col-sm-7
+                                        select.form-control.form-select.bg-l#address(type='text' placeholder='Quotation Valid Until')
+                                            option -- Select Your Address --
+                                            each doc in address
+                                                option(value= doc.hiwnusID) #{doc.address}, #{doc.city}, #{doc.state}-#{doc.pincode}
+                                
+                                .text-center
+                                    button.btn.btn-danger.ps-5.pe-5.me-5(type='button')
+                                        | Cancel
+                                    button.btn.btn-success.ps-4.pe-4.me-s(type='submit')
+                                        | Send Request
+                        .row.mt-5
+                            h6.col-6.fw-bold.main-color.mt-3.text-head
+                                | Pending Request
+                        hr.m-0
+                        if request
+                            .mt-3.table-responsive.table-font
+                                table.table.table-bordered
+                                    thead
+                                        tr
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Product Name
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Product Quantity
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Quoted Vendors
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Date
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Status
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Delete
+                                    tbody#manage_user_quotes
+                                        each doc,index in request
+                                            tr
+                                                th(scope='row')= doc.productName
+                                                td= doc.quantity
+                                                td= doc.total
+                                                td= new Date(doc.proposalDate).toLocaleString()
+                                                td= doc.proposeStatus
+                                                td
+                                                    a.pointer.cursor-pointer.btn.btn-danger#cancel_quotes(data-from=doc.from data-index=index data-quoteId=doc._id data-id=user.id) cancel
+
+                        else 
+                            p 
+                            | currently you don't have any active requested service.
+                    #pills-profile.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile-tab')
+                        if activeList.length
+                            each doc in negotiate
+                                .border.rounded.p-3.mt-4
+                                    .d-flex.bd-highlight.ms-0
+                                        .me-auto.bd-highlight
+                                            h6.fs-5.secondary-color.fw-bold
+                                                | #{doc.productName}
+                                        .p-2.bd-highlight
+                                            i.fa-solid.fa-trash.text-danger.fs-5
+                                        .p-2.bd-highlight.ms-4
+                                            i.fa-solid.fa-pen.secondary-color.fs-5
+                                    div
+                                        h6.fw-bold.text-dark
+                                            | Product Description:
+                                            span.text-secondary.fw-normal= doc.productDescription
+
+                                    div
+                                        h6.fw-bold.text-dark
+                                            | Quantity:
+                                            span.text-secondary.fw-normal= doc.quantity
+                                    .d-flex.bd-highlight.ms-0
+                                        .me-auto.bd-highlight
+                                            h6.fw-bold.text-dark
+                                                | Quoted Date:
+                                                span.text-secondary.fw-normal= new Date(doc.proposalDate).toLocaleDateString()
+                                        .p-2.bd-highlight
+                                            a(href=`./quotes/lowest-quotes/${doc._id}`) View
+                        else 
+                            p 
+                                | currently you don't have any active requested service.
+                    #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+                        if history.length
+                            h6.col-6.fw-bold.main-color.mt-5.text-head
+                                | History
+                            hr.m-0
+                            .mt-3.table-responsive
+                                table.table.table-bordered.table-font
+                                    thead
+                                        tr
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Vendor Name
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                |  Quantity
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Price per piece
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Sample Image
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Date
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | Status
+                                            th.color-white.main-color-background.text-center(scope='col')
+                                                | View
+                                    tbody
+                                        each doc,index in history
+                                            tr
+                                                th(scope='row')= doc.partner.name
+                                                td= doc.quantity
+                                                td= doc.estimateCost
+                                                td
+                                                    a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target='#staticBackdrop2') View
+                                                td= new Date(doc.proposalDate).toLocaleDateString()
+                                                td.text-primary= doc.proposeStatus === 'rejected-by-user' ? "Rejected" : "Completed"
+                                                td
+                                                    a(href=`./quotes/get-a-quote/${doc.hiwmmqrrsID}`) View
+
+                                // Modal
+                                #staticBackdrop2.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-scrollable
+                                        .modal-content
+                                            .modal-header
+                                                h5#staticBackdropLabel.modal-title
+                                                    | Product Details
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                .row
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                                    .col-md-2.mt-3.col-lg-6
+                                                        img.img-fluid(src='https://source.unsplash.com/collection/190727/1500x900' alt='image')
+                                            .modal-footer
+                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                    | Cancel
+                        else 
+                            p 
+                                | currently you don't have any active history.

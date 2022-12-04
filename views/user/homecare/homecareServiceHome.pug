@@ -1,0 +1,39 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block
+    section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/homeCare.jpg' alt='homecare service banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text Home Care Service list
+                p.text-dark.fw-bold.hero-description Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, optio
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container-xl.margin-ts-screen
+        .justify-content-center.mb-5.margin-tb-screen
+            h5.heading Our Best Home Care Services
+            .underline
+        .row.row-cols-2.row-cols-md-4.g-1
+            each doc in homecare
+                .col
+                    .card.h-100.p-1
+                        img.card-img-top.rounded(src=doc.bannerImage alt='service Name')
+                        .card-body.p-0
+                            .row.row-cols-1.row-cols-md-2
+                                .col
+                                    p.m-0.p-0.main-color.mt-2.card-head-s-screen= doc.name
+                                .col
+                                    a(href=`/homecare-services/${doc.name}?serviceType=company`)
+                                        .d-flex.justify-content-between.m-0.homecare-card-button.margin-top-view-more
+                                            .p-2.bd-highlight
+                                                p.m-0.text-12.margin-top-view-more.p-0.color-white.card-head-gos-screen.marginTop-small-s View List
+                                            .p-2.bd-highlight
+                                                i.fa-solid.fa-arrow-right.color-white.card-head-s-screen.text-12

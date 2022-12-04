@@ -1,0 +1,193 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block
+    // Compnay Details Section Start
+    section.container.small-shdow.p-4.mt-4
+        .row
+            .col-2
+                img.company-logo(src=doc.bannerImage)
+            .col-8
+                h4.main-color.fw-bold= doc.jobTitle
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-calendar-day.me-2.text-primary
+                            |                 #{doc.yearOfExperience} Years
+                    .bd-highlight
+                        pa
+                            i.fa-solid.fa-business-time.me-2.ms-3.text-primary
+                            |                 #{doc.jobType}
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-location-dot.me-2.text-primary
+                            |                 #{doc.city}
+                    .bd-highlight
+                        p
+                            i.fa-solid.fa-indian-rupee-sign.me-2.ms-3.text-primary
+                            |                 Rs.#{doc.salaryPerMonth}
+                .d-flex.flex-row.bd-highlight.m-0
+                    .bd-highlight
+                        p
+                            span.fw-bold Speciality :#{doc.category}
+                    .bd-highlight
+                        p
+                            span.fw-bold.ms-4 Category : #{doc.speciality}
+            .col-2
+                a.apply-job Apply Now
+        .vertical-line.mt-3.mb-3
+        .d-flex.justify-content-end
+            div
+                p
+                    span.fw-bold Posted on :
+                    |  #{new Date(doc.createdAt).toLocaleDateString()}
+    // Compnay Details Section End
+    // Job Details Section Start
+    section.p-4.container.small-shdow.mt-3
+        div
+            h4.fw-bold Job Description
+            h6.mt-3.fw-bold Job Brief :
+            p= doc.description
+            h6.mt-3.fw-bold Job Responsibilities :
+            .ms-2
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+            h6.mt-3.fw-bold Qualification Requirements :
+            .ms-2
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+                p
+                    i.fa-solid.fa-circle.text-12.me-3
+                    |  Lorem ipsum dolor
+                    |             sit amet consectetur adipisicing elit. Aliquid distinctio pariatur
+                    |             eligendi autem dolorum in voluptates quod perspiciatis, soluta
+                    |             explicabo!
+            h6.mt-3.fw-bold About Recruiter :
+            p
+                | Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia
+                | quasi quod repudiandae non harum amet? Quod excepturi, veniam
+                | consectetur ex ipsa illum, vitae blanditiis rem quibusdam sunt hic ut
+                | in architecto eligendi, modi fuga sit repudiandae vel delectus eum
+                | facilis laudantium dolore vero? Blanditiis ipsam non eos numquam
+                | cumque nihil.Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                | Officia quasi quod repudiandae non harum amet? Quod excepturi, veniam
+                | consectetur ex ipsa illum, vitae blanditiis rem quibusdam sunt hic ut
+                | in architecto eligendi, modi fuga sit repudiandae vel delectus eum
+                | facilis laudantium dolore vero? Blanditiis ipsam non eos numquam
+                | cumque nihil.
+    // Job Details Section End
+    // Apply Button
+    .mt-4.justify-content-center
+        a.book-service(href='#' data-bs-toggle='modal' data-bs-target='#staticBackdrop') Apply Now
+    // Modal
+    #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog.modal-dialog-scrollable
+            .modal-content
+                .modal-header
+                    h5#staticBackdropLabel.modal-title.main-color.fs-6.text-uppercase.fw-bold
+                        | Apply For &ldquo;Construction Worker&rdquo;
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body  
+                 form#apply_job(data-id=doc.hiwjbmID)
+                    div
+                        h6
+                            | Full name
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#name(placeholder='Full name...' name='fname' required='')
+                    div
+                        h6
+                            | Phone number
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#phone(placeholder='Phone number...' name='fname' required='')
+                    div
+                        h6
+                            | Email
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#email(placeholder='Email...' name='fname' required='')
+                    div
+                        h6
+                            | Experience
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#experience(placeholder='Experience...' name='fname' required='')
+                    div
+                        h6
+                            | Category
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#category(placeholder='Category...' name='fname' required='')
+                    div
+                        h6
+                            |Speciality
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#speciality(placeholder='Seciality...' name='fname' required='')
+                    div
+                        h6
+                            | location
+                            i.fa-solid.fa-star-of-life.text-danger.text-12
+                        p
+                            input#location(placeholder='Location...' name='fname' required='')
+                        button.conform-service-booking(type="submit") Submit
+                .modal-footer

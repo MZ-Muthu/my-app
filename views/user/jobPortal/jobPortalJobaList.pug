@@ -1,0 +1,230 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+    script.
+        let suggestions = [
+        "Channel",
+        "CodingLab",
+        "CodingNepal",
+        "YouTube",
+        "YouTuber",
+        "YouTube Channel",
+        "Blogger",
+        "Bollywood",
+        "Vlogger",
+        "Vechiles",
+        "Facebook",
+        "Freelancer",
+        "Facebook Page",
+        "Designer",
+        "Developer",
+        "Web Designer",
+        "Web Developer",
+        "Login Form in HTML & CSS",
+        "How to learn HTML & CSS",
+        "How to learn JavaScript",
+        "How to became Freelancer",
+        "How to became Web Designer",
+        "How to start Gaming Channel",
+        "How to start YouTube Channel",
+        "What does HTML stands for?",
+        "What does CSS stands for?",
+        ];
+        // getting all required elements
+        const searchWrapper = document.querySelector(".search-input");
+        const inputBox = searchWrapper.querySelector("input");
+        const suggBox = searchWrapper.querySelector(".autocom-box");
+        const icon = searchWrapper.querySelector(".icon");
+        let linkTag = searchWrapper.querySelector("a");
+        let webLink;
+        let marginTop = document.getElementById("align-center-page");
+        let resultSection = document.getElementById("result-section");
+        // if user press any key and release
+        inputBox.onkeyup = (e) => {
+        let userData = e.target.value; //user enetered data
+        let emptyArray = [];
+        if (userData) {
+        icon.onclick = () => {
+        // webLink = "https://www.google.com/search?q=" + userData;
+        // linkTag.setAttribute("href", webLink);
+        // console.log(webLink);
+        // linkTag.click();
+        //- marginTop.className = "justify-content-center mt-3";
+        resultSection.className = "mt-4 container display-block";
+        };
+        emptyArray = suggestions.filter((data) => {
+        //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+        return data
+        .toLocaleLowerCase()
+        .startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map((data) => {
+        // passing return data inside li tag
+        return (data = "<li>" + data + "</li>");
+        });
+        searchWrapper.classList.add("active"); //show autocomplete box
+        showSuggestions(emptyArray);
+        let allList = suggBox.querySelectorAll("li");
+        for (let i = 0; i < allList.length; i++) {
+        //adding onclick attribute in all li tag
+        allList[i].setAttribute("onclick", "select(this)");
+        }
+        } else {
+        searchWrapper.classList.remove("active"); //hide autocomplete box
+        }
+        };
+        function select(element) {
+        let selectData = element.textContent;
+        inputBox.value = selectData;
+        icon.onclick = () => {
+        //   webLink = "https://www.google.com/search?q=" + selectData;
+        //   linkTag.setAttribute("href", webLink);
+        //   linkTag.click();
+        marginTop.className = "justify-content-center mt-3";
+        resultSection.className = "mt-4 container display-block";
+        };
+        searchWrapper.classList.remove("active");
+        }
+        function showSuggestions(list) {
+        let listData;
+        if (!list.length) {
+        userValue = inputBox.value;
+        listData = "<li>" + userValue + "</li>";
+        } else {
+        listData = list.join("");
+        }
+        suggBox.innerHTML = listData;
+        }
+
+
+block block 
+    // Search Section Start
+    section
+        #align-center-page.justify-content-center.mt-5
+            h5.heading Search your related Jobs and apply here
+            .underline
+        //- .wrapper
+            .search-input
+                a(href='' target='_blank' hidden='')
+                input(type='text' placeholder='Type to search..')
+                .autocom-box
+                    // here list are inserted from javascript
+                .icon
+                    i.fas.fa-search
+    // Search Section End
+    // Home Care Service Centres List Section Start
+    section#result-section.mt-4.container
+        .row
+            // Fillter Section
+            .col-4
+                .small-shdow.p-3.rounded
+                    h6.fw-bold
+                        i.fa-solid.fa-location-dot.me-3
+                        |  Fillter by Location
+                    .mt-4
+                        label.check-box-container
+                            | One
+                            input(type='checkbox' checked='checked')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                    h6.fw-bold.mt-5
+                        i.fa-solid.fa-bars-staggered.me-3
+                        |  Fillter by
+                        |               Caetogry
+                    .mt-4
+                        form(action='#')
+                            p
+                                input#test1(type='radio' name='radio-group' checked='')
+                                label(for='test1') Apple
+                            p
+                                input#test2(type='radio' name='radio-group')
+                                label(for='test2') Peach
+                            p
+                                input#test3(type='radio' name='radio-group')
+                                label(for='test3') Orange
+            // Card Section
+            .col-8
+                .small-shdow.p-2.rounded
+                    p.card-small-description Shows 1-40 out of 400
+                    h4.fw-bold Your Search Related Jobs 
+                each doc in jobs
+                    .small-shdow.rounded.mt-3
+                        .row
+                            .col-3
+                                img.img-thumbnail.border-0.job-img-list(src=doc.bannerImage alt='Shop Name')
+                            .col-9
+                                h5.m-0= doc.jobTitle
+                                p.m-0= doc.speciality
+                                .d-flex.flex-row.bd-highlight.m-0.pe-3
+                                    .bd-highlight
+                                        p.card-small-description
+                                            i.fa-solid.fa-calendar-day.me-2.text-primary
+                                            |                       #{doc.yearOfExperience} Years
+                                    .bd-highlight
+                                        p.card-small-description
+                                            i.fa-solid.fa-location-dot.me-2.ms-3.text-primary
+                                            |                       
+                                    .bd-highlight
+                                        p.card-small-description
+                                            i.fa-solid.fa-business-time.me-2.ms-3.text-primary
+                                            |                       Full Time
+                                .d-flex.flex-row.bd-highlight.m-0
+                                    .bd-highlight.m-0
+                                        p
+                                            i.fa-solid.fa-book.me-2.text-primary
+                                    .bd-highlight
+                                        p.card-small-description.trangate-text( )= doc.description
+                                .d-flex.justify-content-between.m-0
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        .bd-highlight.me-1.fw-bold Posted Date :
+                                        .bd-highlight
+                                            p.ms-2.text-secondry.text-12.mt-1= new Date(doc.createdAt).toLocaleDateString()
+                                    .me-1.mt-3
+                                        a.button-view-details(href=`/job-portal/job/${doc.hiwjbmID}`)
+                                            | View Details 
+                                            i.fa-solid.fa-arrow-right
+
+                // Pagination Sction
+                div
+                    .pagination_rounded
+                        ul
+                            li
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li
+                                a(href='#') 1
+                            li.hidden-xs
+                                a.active(href='#') 2
+                            li.hidden-xs
+                                a(href='#') 3
+                            li.hidden-xs
+                                a(href='#') 4
+                            li.hidden-xs
+                                a(href='#') 5
+                            li.visible-xs
+                                a(href='#') ...
+                            li
+                                a(href='#') 6
+                            li
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Home Care Service Centres List Section End

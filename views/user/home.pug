@@ -1,0 +1,682 @@
+extends ../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(type='text/javascript' src='/JS/jquery.js')
+    script(type='text/javascript' src='/JS/lightslider.js')
+    script(type='text/javascript' src='/JS/scripte.js')
+
+
+block block 
+    // Hero Section Start
+    section
+        #carouselExampleCaptions.carousel.slide.carousel-fade(data-bs-ride='carousel')
+            .carousel-indicators
+                button.active(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
+                button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='1' aria-label='Slide 2')
+                button(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='2' aria-label='Slide 3')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src='./Assets/images/hero1.jpg' alt='...')
+                    .overlay
+                    .carousel-caption.d-md-block
+                        h1 First slide label
+                        p
+                            | Some representative placeholder content for the first slide.
+                .carousel-item
+                    img.d-block.w-100(src='./Assets/images/hero2.jpg' alt='...')
+                    .overlay
+                    .carousel-caption.d-md-block
+                        h1 Second slide label
+                        p
+                            | Some representative placeholder content for the second slide.
+                .carousel-item
+                    img.d-block.w-100(src='./Assets/images/hero3.jpg' alt='...')
+                    .overlay
+                    .carousel-caption.d-md-block
+                        h1 Third slide label
+                        p
+                            | Some representative placeholder content for the third slide.
+            button.carousel-control-prev(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev')
+                span.carousel-control-prev-icon(aria-hidden='true')
+                span.visually-hidden Previous
+            button.carousel-control-next(type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='next')
+                span.carousel-control-next-icon(aria-hidden='true')
+                span.visually-hidden Next
+    // Hero Section End
+    // First Service Section Start
+    section.mt-4.container
+        .justify-content-center
+            h5.heading Basic services of daily life
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href='./userAmbulanceHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/ambulance.jpg' alt='Ambulance Service')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Ambulance
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./UserHomeCareServiceHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/homeCare.jpg' alt='Home Care Service')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Home care services
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userFitnessHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/fitness.jpg' alt='Fitness')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Fitness
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userBloodDonationHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/bloodDonation.jpg' alt='Blood Donation')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Blood Donation
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userJobPortalHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/JobPortal.jpg' alt='Job Portal')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Job Portal
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userDe-addicationList.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/De-Addication.jpg' alt='De-Addiction')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text De-Addiction
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+    // First Service Section End
+    // Second Service Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Basic services of daily life
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href='./userMedicalRecordsHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/MedicalRecord.jpg' alt='Medical records')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Medical records
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userHospitalPackageHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/HospitalPackge.jpg' alt='Hospital Package')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Hospital Package
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userMerketPlaceHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/MedicalMarket.jpg' alt='Medical Market')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Medical Market
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userDisabledAbledHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/Disabledabledpeople.jpg' alt='Disabled abled people')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Disabled abled people
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userMedicalTourismHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/MedicalTourism.jpg' alt='Medical tourism')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Medical tourism
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userHospitalDetailsList.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/HospitalDetails.jpg' alt='Hospital Details')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Hospital Details
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+    // Second Service Section End
+    // Third Service Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Basic services of daily life
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-3.g-4
+                .col
+                    a(href='./userDonationandCharityHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/donation.jpg' alt='Donation & Charity')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Donation &amp; Charity
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userKnowledgeBaseHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/knowledge_base.jpg' alt='Knowledge Base')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Knowledge Base
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/opticals.jpg' alt='Opticals')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Opticals
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userOrganDonation.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/orgondonation.jpg' alt='Organ Donation')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Organ Donation
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userStudyAbrodList.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/study_abroad.jpg' alt='Study Abroad')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Study Abroad
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/doctor_c.jpg' alt='Doctor-Online Consultation')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Online Consultation
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userPharmasyHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/Medical.jpg' alt='Pharmacy')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Pharmacy
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userLaboratoryHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/Lab.jpg' alt='Laboratory')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Laboratory
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='./userMeetTheExpertHome.html')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/meettheexpert.jpg' alt='Meet The Experts')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text
+                                    | Meet The Experts
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/community.jpg' alt='Community')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Community
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/Hearing Aid.jpg' alt='hearing aid')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text hearing aid
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+                .col
+                    a(href='#')
+                        .card.h-100.border-0.shadow-big
+                            img.card-img-topc.rounded(src='./Assets/images/pillRemainder.jpg' alt='hearing aidPill Remainder')
+                            .card-overlay.rounded
+                                h5.text-center.card-heading-text Pill Remainder
+                                p.text-center.card-small-text
+                                    | Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    | Molestias, consequuntur.
+    // Third Service Section End
+    // Product Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Most Valuable Products
+            .underline
+        div
+            ul#autoWidth.cs-hidden
+                li.item-a
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Lacoste
+                                span Sweatshirt
+                            a.price(href='#') Rs.8680
+                li.item-b
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Mango
+                                span Casual Shirt
+                            a.price(href='#') Rs.4490
+                li.item-c
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Nike Tshirt
+                                span V-Neck T-shirt
+                            a.price(href='#') Rs.3051
+                li.item-d
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Allen Solly Woman
+                                span Formal Shirt
+                            a.price(href='#') Rs.1299
+                li.item-e
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Puma
+                                span V-Neck T-shirt
+                            a.price(href='#') Rs.3299
+                li.item-f
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') Ritu Kumar
+                                span Embroidered Tunic
+                            a.price(href='#') Rs.5600
+                li.item-g
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') UNDER ARMOUR
+                                span Golf T-shirt
+                            a.price(href='#') Rs.4499
+                li.item-h
+                    .box.small-shdow.mb-1
+                        .slide-img
+                            img(src='https://raw.githubusercontent.com/techiecoder2079/Product-Slider/main/5puma.png' alt='')
+                            .overlaybutton
+                                a.buy-btn(href='#') Buy Now
+                        .detail-box
+                            .type
+                                a(href='#') DOROTHY PERKINS
+                                span Solid Cape Top
+                            a.price(href='#') Rs.3990
+    // Product Section End
+    // Section Success of mediapp Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Success of mediapp
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-1.row-cols-md-3.g-4
+                .col
+                    .border.rounded
+                        .row.g-0
+                            .col-md-4
+                                img.img-fluid.rounded-start(src='./Assets/images/users.png' alt='Users')
+                            .col-md-8.pt-2.ps-2
+                                .card-body
+                                    h6.card-title-text Total user
+                                    p.card-small-description.m-0
+                                        | This is a wider card with supporting text below as a
+                                        | natural lead-in to additional content.
+                                    p.count-text.mt-1 250000000
+                .col
+                    .border.rounded
+                        .row.g-0
+                            .col-md-4
+                                img.img-fluid.rounded-start(src='./Assets/images/vendors.png' alt='vendors')
+                            .col-md-8.pt-2.ps-2
+                                .card-body
+                                    h6.card-title-text Total vendors
+                                    p.card-small-description.m-0
+                                        | This is a wider card with supporting text below as a
+                                        | natural lead-in to additional content.
+                                    p.count-text.mt-1 250000000
+                .col
+                    .border.rounded
+                        .row.g-0
+                            .col-md-4
+                                img.img-fluid.rounded-start(src='./Assets/images/savedpepoles.png' alt='mediapp saved pepoles')
+                            .col-md-8.pt-2.ps-2
+                                .card-body
+                                    h6.card-title-text mediapp saved pepoles
+                                    p.card-small-description.m-0
+                                        | This is a wider card with supporting text below as a
+                                        | natural lead-in to additional content.
+                                    p.count-text.mt-1 250000000
+    // Success of mediapp Section End
+    // Section Success of mediapp Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading satisfied people review
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4.scroll-section
+            .Scroll-Container
+                .slide-card.h-100.small-shdow
+                    .d-flex.align-items-center
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                    .card-body
+                        h5.reView-title Card title
+                        p.card-small-description
+                            | This is a longer card with supporting text below as a natural
+                            | lead-in to additional content. This content is a little bit
+                            | longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.
+                    .d-flex.justify-content-start
+                        div
+                            img.user-profile-image(src='./Assets//images/userProfileImage.jpg' alt='user image')
+                        div
+                            p.user-name-text.mt-2.ms-1 Ajay kumar
+                .slide-card.h-100.small-shdow
+                    .d-flex.align-items-center
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                    .card-body
+                        h5.reView-title Card title
+                        p.card-small-description
+                            | This is a longer card with supporting text below as a natural
+                            | lead-in to additional content. This content is a little bit
+                            | longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.
+                    .d-flex.justify-content-start
+                        div
+                            img.user-profile-image(src='./Assets//images/userProfileImage.jpg' alt='user image')
+                        div
+                            p.user-name-text.mt-2.ms-1 Ajay kumar
+                .slide-card.h-100.small-shdow
+                    .d-flex.align-items-center
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                    .card-body
+                        h5.reView-title Card title
+                        p.card-small-description
+                            | This is a longer card with supporting text below as a natural
+                            | lead-in to additional content. This content is a little bit
+                            | longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.
+                    .d-flex.justify-content-start
+                        div
+                            img.user-profile-image(src='./Assets//images/userProfileImage.jpg' alt='user image')
+                        div
+                            p.user-name-text.mt-2.ms-1 Ajay kumar
+                .slide-card.h-100.small-shdow
+                    .d-flex.align-items-center
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                    .card-body
+                        h5.reView-title Card title
+                        p.card-small-description
+                            | This is a longer card with supporting text below as a natural
+                            | lead-in to additional content. This content is a little bit
+                            | longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.
+                    .d-flex.justify-content-start
+                        div
+                            img.user-profile-image(src='./Assets//images/userProfileImage.jpg' alt='user image')
+                        div
+                            p.user-name-text.mt-2.ms-1 Ajay kumar
+                .slide-card.h-100.small-shdow
+                    .d-flex.align-items-center
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-solid.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                        div
+                            i.fa-regular.fa-star.text-12.text-warning
+                    .card-body
+                        h5.reView-title Card title
+                        p.card-small-description
+                            | This is a longer card with supporting text below as a natural
+                            | lead-in to additional content. This content is a little bit
+                            | longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.This is a longer card with supporting text below as a
+                            | natural lead-in to additional content. This content is a little
+                            | bit longer.
+                    .d-flex.justify-content-start
+                        div
+                            img.user-profile-image(src='./Assets//images/userProfileImage.jpg' alt='user image')
+                        div
+                            p.user-name-text.mt-2.ms-1 Ajay kumar
+        .scroll-buttons
+            .d-flex.justify-content-center
+                div
+                    i.fa-solid.fa-chevron-left.button-inactive.pre-btn(onclick='PreFunction()')
+                div
+                    i.fa-solid.fa-chevron-right.button-inactive.nxt-btn(onclick='nextFunction()')
+    // Success of mediapp Section End
+    // Donation Section Start
+    section
+        div
+            .carrousel
+                #slidelist1.carrousel-item
+                    .single-slide-item
+                        .row.m-0.container
+                            .col-6.col-md-4
+                                .image-circle
+                                img.donation-requester-image(src='./Assets//images/userProfileImage.jpg' alt='userImage')
+                            .col-md-8.p-4
+                                h5.text-white Donation Heading 1
+                                .donation-slide-underline
+                                p.text-white.mt-4
+                                    | Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                    | Eveniet quisquam pariatur officiis aut repellendus, enim,
+                                    | esse odit eligendi soluta laboriosam ullam ea animi sint
+                                    | nobis corporis autem cupiditate quidem nam harum debitis
+                                    | voluptas! Nostrum nisi assumenda quidem nesciunt consequatur
+                                    | sapiente at, blanditiis iste! Sapiente reiciendis cumque
+                                    | exercitationem. Quod, quisquam quidem.
+                                a.text-white.border.p-2.mt-5.rounded.border-white.donate-linkstyle(href='#') Donate Now
+                #slidelist2.carrousel-item
+                    .single-slide-item
+                        .row.m-0.container
+                            .col-6.col-md-4
+                                .image-circle
+                                img.donation-requester-image(src='./Assets//images/userProfileImage.jpg' alt='userImage')
+                            .col-md-8.p-4
+                                h5.text-white Donation Heading 1
+                                .donation-slide-underline
+                                p.text-white.mt-4
+                                    | Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                    | Eveniet quisquam pariatur officiis aut repellendus, enim,
+                                    | esse odit eligendi soluta laboriosam ullam ea animi sint
+                                    | nobis corporis autem cupiditate quidem nam harum debitis
+                                    | voluptas! Nostrum nisi assumenda quidem nesciunt consequatur
+                                    | sapiente at, blanditiis iste! Sapiente reiciendis cumque
+                                    | exercitationem. Quod, quisquam quidem.
+                                a.text-white.border.p-2.mt-5.rounded.border-white.donate-linkstyle(href='#') Donate Now
+                #slidelist3.carrousel-item
+                    .single-slide-item
+                        .row.m-0.container
+                            .col-6.col-md-4
+                                .image-circle
+                                img.donation-requester-image(src='./Assets//images/userProfileImage.jpg' alt='userImage')
+                            .col-md-8.p-4
+                                h5.text-white Donation Heading 1
+                                .donation-slide-underline
+                                p.text-white.mt-4
+                                    | Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                    | Eveniet quisquam pariatur officiis aut repellendus, enim,
+                                    | esse odit eligendi soluta laboriosam ullam ea animi sint
+                                    | nobis corporis autem cupiditate quidem nam harum debitis
+                                    | voluptas! Nostrum nisi assumenda quidem nesciunt consequatur
+                                    | sapiente at, blanditiis iste! Sapiente reiciendis cumque
+                                    | exercitationem. Quod, quisquam quidem.
+                                a.text-white.border.p-2.mt-5.rounded.border-white.donate-linkstyle(href='#') Donate Now
+        .scroll-buttons.margin-top
+            .d-flex.justify-content-center
+                div
+                    i.fa-solid.fa-chevron-left.button-inactive.pre-btn(onclick='carrouselLeft()')
+                div
+                    i.fa-solid.fa-chevron-right.button-inactive.nxt-btn(onclick='carrouselRight()')
+    // Donation Section End

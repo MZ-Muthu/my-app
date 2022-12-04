@@ -1,0 +1,169 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    script.
+        const invidual = document.getElementById("invidual");
+        const company = document.getElementById("company");
+        const Active = document.getElementById("Active-things");
+        const Completed = document.getElementById("HomeCare-Books");
+        function Invidual() {
+        invidual.className = "tab-text-active";
+        company.className = "tab-text";
+        Active.className = " mt-5 container display-block";
+        Completed.className = "display-n";
+        }
+        function Company() {
+        invidual.className = "tab-text";
+        company.className = "tab-text-active";
+        Active.className = "display-n";
+        Completed.className = " mt-5 container display-block";
+        } 
+block block  
+    // Hero section Start
+    section.small-hero-image-div
+        img.small-hero-image(src='./Assets/images/Lab.jpg' alt='homecare service banner')
+        .small-hero-image-overlay
+            .hero-image-text
+                h1 Our Best Labs Booking History
+    // Hero section End
+    // Catercory button Section Start
+    section.mt-3
+        .d-flex.justify-content-center
+            div
+                h6#invidual.tab-text-active(onclick='Invidual()')
+                    | Active List
+            div
+                h6#company.tab-text(onclick='Company()') History
+    // Catercory button Section Start
+    // Lab List Section Start
+    section#Active-things.mt-5.container.display-block
+        div
+            .row.row-cols-1.row-cols-md-2.g-4
+                each doc in laboratory.active
+                    .col
+                        .small-shdow.rounded.mt-3.card.h-100.m-0.p-0
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='/Assets/images/Lab.jpg' alt='Shop Name')
+                                .col-7
+                                    h5.m-0= doc.name
+                                    p.m-0= doc.bookingType === "lab" ? "Laboratory" : "Homebased"
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        -const price = doc.askedService.reduce((a,b)=> a+b.price*1,0)
+                                        -console.log(doc.askedService)
+                                        .bd-highlight
+                                            p.fw-bold
+                                                i.fa-solid.fa-indian-rupee-sign.me-2.text-primary
+                                                |                         Rs.#{price}
+                                    p.text-12 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .d-flex.flex-row.bd-highlight.m-0
+                                            .bd-highlight.me-1.fw-bold Ratings :
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-regular.fa-star.text-12.text-warning
+                                        .m-0.me-1.mt-3
+                                            a.button-view-details()= doc.status
+
+            // Pagination Sction
+            div
+                .pagination_rounded
+                    ul
+                        li
+                            a.prev(href='#')
+                                i.fa.fa-angle-left(aria-hidden='true')
+                                |  Prev
+                        li
+                            a(href='#') 1
+                        li.hidden-xs
+                            a.active(href='#') 2
+                        li.hidden-xs
+                            a(href='#') 3
+                        li.hidden-xs
+                            a(href='#') 4
+                        li.hidden-xs
+                            a(href='#') 5
+                        li.visible-xs
+                            a(href='#') ...
+                        li
+                            a(href='#') 6
+                        li
+                            a.next(href='#')
+                                | Next 
+                                i.fa.fa-angle-right(aria-hidden='true')
+    // Lab List Section End
+    section#HomeCare-Books.mt-5.container.display-n
+        div
+            .row.row-cols-1.row-cols-md-2.g-4
+                each doc in laboratory.history
+                    .col
+                        .small-shdow.rounded.mt-3.card.h-100.m-0.p-0
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0(src='/Assets/images/Lab.jpg' alt='Shop Name')
+                                .col-7
+                                    h5.m-0= doc.name
+                                    p.m-0= doc.bookingType === "lab" ? "Laboratory" : "Homebased"
+                                    .d-flex.flex-row.bd-highlight.m-0
+                                        -const price = doc.askedService.reduce((a,b)=> a+b.price*1,0)
+                                        -console.log(doc.askedService)
+                                        .bd-highlight
+                                            p.fw-bold
+                                                i.fa-solid.fa-indian-rupee-sign.me-2.text-primary
+                                                |                         Rs.#{price}
+                                    p.text-12 Lorem ipsum dolor sit amet.
+                                    .d-flex.justify-content-between.m-0
+                                        .d-flex.flex-row.bd-highlight.m-0
+                                            .bd-highlight.me-1.fw-bold Ratings :
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-solid.fa-star.text-12.text-warning
+                                            .bd-highlight
+                                                i.fa-regular.fa-star.text-12.text-warning
+                                        .m-0.me-1.mt-3
+                                            a.button-view-details(href=`${doc.status === "completed" && doc.report  }`)= doc.status === "completed" ? "Download" : doc.status
+
+            // Pagination Sction
+            div
+                .pagination_rounded
+                    ul
+                        li
+                            a.prev(href='#')
+                                i.fa.fa-angle-left(aria-hidden='true')
+                                |  Prev
+                        li
+                            a(href='#') 1
+                        li.hidden-xs
+                            a.active(href='#') 2
+                        li.hidden-xs
+                            a(href='#') 3
+                        li.hidden-xs
+                            a(href='#') 4
+                        li.hidden-xs
+                            a(href='#') 5
+                        li.visible-xs
+                            a(href='#') ...
+                        li
+                            a(href='#') 6
+                        li
+                            a.next(href='#')
+                                | Next 
+                                i.fa.fa-angle-right(aria-hidden='true')
+    // Lab List Section End

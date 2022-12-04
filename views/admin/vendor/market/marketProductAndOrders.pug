@@ -1,0 +1,594 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9 
+        include ../../shared/detailsList
+        .p-3
+            .p-5.pt-2.nav-tabs-section
+                ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-home-tab.nav-link.inside-nav.active.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-home' type='button' role='tab' aria-controls='pills-home' aria-selected='true')
+                            | Add Product
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-profile-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                            | Order List
+                    li.nav-item.border.rounded(role='presentation')
+                        button#pills-contact-tab.nav-link.inside-nav.fw-bold(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+                            | History
+                #pills-tabContent.tab-content
+                    #pills-home.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-home-tab')
+                        .row
+                            h6.col-6.fw-bold.main-color.mt-3.text-head
+                                | Add and Edit Your Products
+                            .col-6.d-grid.gap-2.d-md-flex.justify-content-md-end.m-0
+                                button.btn.main-color-background.color-white.m-0.text-head(type='button' data-bs-toggle='modal' data-bs-target='#staticBackdrop')
+                                    | Add More
+                            // Modal
+                            #staticBackdrop.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+                                    .modal-content
+                                        .modal-header
+                                            h5#staticBackdropLabel.modal-title.text-uppercase.main-color
+                                                | Add Product Details
+                                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                        .modal-body
+                                            .container
+                                                form.row.g-3#create_medical_product(data-id=partner.hiwpmID)
+                                                    .col-md-12
+                                                        label.form-label(for='productName')
+                                                            | Product Name
+                                                            span.text-danger *
+                                                        input#productName.form-control(type='text' placeholder='Product Name' required='')
+                                                    .col-md-12
+                                                        label.form-label(for='productStream')
+                                                            | Product Stream
+                                                            span.text-danger *
+                                                        select#productStream.form-select.border(required='')
+                                                            option(selected='' disabled='' value='')
+                                                                |-- Select the Categories --
+                                                            each doc in categories
+                                                                option(value=doc)=doc
+                                                    .col-md-12
+                                                        label.form-label(for='productCategory')
+                                                            | Select Product Type
+                                                            span.text-danger *
+                                                        select#marketProductType.form-select.border(required='')
+                                                            option(selected='' disabled='' value='') -- Select Product Type --
+                                                            option(value='single') No color, No size
+                                                            option(value='colorOnly') Color Only
+                                                            option(value='sizeOnly') Size Only
+                                                            option(value='colorWithSize') Color With Size
+                                                    .col-md-12.p-5.border#productDetails
+                                                    .col-md-12
+                                                        label.form-label(for='productName')
+                                                            | Additional Product Details
+                                                            span.text-danger *
+                                                        #productAdditionalDetails
+                                                            .d-flex.justify-content-center.additiionalProductDetailsList
+                                                                input.newProductAdditionalDetailssTitle.form-control(type='text' placeholder='Title' required='')
+                                                                p.ms-5.me-5.lead.fw-bold :
+                                                                input.newProductAdditionalDetailssDetail.form-control(type='text' placeholder='Detail' required='')
+                                                        .d-flex.justify-content-center.mt-2
+                                                            button.btn.btn-success#newAboutProductAdditionalDetails(type='button') Add Additional Details
+                                                    .col-md-12
+                                                        label.form-label(for='productName')
+                                                            | About the Product
+                                                            span.text-danger *
+                                                        #productAboutDetails
+                                                            input.aboutNewProduct.form-control(type='text' placeholder='About' required='')
+                                                        .d-flex.justify-content-center.mt-2
+                                                            button.btn.btn-success#newAboutProductDetails(type='button') Add Product Details
+                                                    .col-md-12
+                                                        label.form-label(for='productDescription')
+                                                            | Product' Short Description
+                                                            span.text-danger *
+                                                        input#productDescription.form-control(type='text' placeholder='Product Description' required='')
+                                                    .col-12.text-center.d-grid
+                                                        button.btn.btn-block.main-color-background.color-white(type='submit')
+                                                            | Add Product
+                                        .modal-footer
+                                            button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                | Cancel
+
+                        hr.m-0
+                        .mt-3
+                            .row.row-cols-1.row-cols-md-4.g-1#update_medical_product
+                                if products.length
+                                    each doc,index in products
+                                        .col
+                                            .card.h-100
+                                                img.card-img-top(src=`${doc.bannerImage}?${new Date().getTime()}` alt='Product Iamge')
+                                                .card-body.mt-0.p-1
+                                                    .row
+                                                        h5.card-title.mt-0.fs-6.fw-bold.col-9
+                                                            | #{doc.productName}
+                                                        a.col-3.main-color(type='button' data-bs-toggle='modal' data-bs-target=`#staticBackdrop${index}`)
+                                                            i.fa-solid.fa-pen.justify-content-md-end.main-color
+                                                    p.card-text.text-hidden.m-0=doc.description
+                                                    .d-flex
+                                                        p.fw-bold.m-0.fs-5 Rs. #{doc.discountPrice}
+                                                        p.ms-1.m-0.mt-1.text-decoration-line-through.fs-6.text-secondary
+                                                            | #{doc.price}
+                                                        //- p.ms-1.m-0.mt-1.text-danger.fs-6 (50%)
+                                                    .modal.fade(data-bs-backdrop='static' id=`staticBackdrop${index}` data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                                                        .modal-dialog.modal-dialog-scrollable.modal-fullscreen
+                                                            .modal-content
+                                                                .modal-header
+                                                                    h5#staticBackdropLabel.modal-title.text-uppercase.main-color
+                                                                        | Update Product Details
+                                                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                                .modal-body
+                                                                    .container
+                                                                        form.row.g-3#update_service(data-index=index data-id2=doc.hiwmmpmID data-id=partner.hiwpmID)
+                                                                            .col-md-12
+                                                                                label.form-label(for='productName')
+                                                                                    | Product Name
+                                                                                    span.text-danger *
+                                                                                input.form-control(type='text' value=doc.productName id=`productName${index}` placeholder='Product Name' required='')
+                                                                            .col-md-12
+                                                                                label.form-label(for='productCategory')
+                                                                                    | Product Stream
+                                                                                    span.text-danger *
+                                                                                select.form-select.border(required='' id=`productStream${index}`)
+                                                                                    option(selected='' disabled='' value='')
+                                                                                        |-- Select the Categories --
+                                                                                    each docs in categories
+                                                                                        if doc.productStream === docs
+                                                                                            option(value=docs selected)=docs
+                                                                                        else
+                                                                                            option(value=docs)=docs
+                                                                            .col-md-12
+                                                                                label.form-label(for='productCategory')
+                                                                                    | Select Product Type
+                                                                                    span.text-danger *
+                                                                                select.form-select.border(required='' id=`marketProductType${index}`,class="marketUpdateProductType" data-index=index)
+                                                                                    option(selected='' disabled='' value='') -- Select Product Type --
+                                                                                    -const type = {single:"No color, No size",colorOnly:"Color Only",sizeOnly:"Size Only",colorWithSize:"Color With Size"}
+                                                                                    each value,key in type
+                                                                                        if key === doc.productType
+                                                                                            option(value=key selected)=value
+                                                                                        else
+                                                                                            option(value=key)=value
+                                                                            .col-md-12.p-5.border(id=`productDetails${index}`)
+                                                                                if doc.productType === 'single'
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Price
+                                                                                            span.text-danger *
+                                                                                        input.form-control(type='text' value=doc.price id=`price${index}` placeholder='Price' required='')
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Discount Price
+                                                                                            span.text-danger *
+                                                                                        input.form-control(type='text' value=doc.discountPrice id=`discountPrice${index}` placeholder='Discount Price')
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Banner Image
+                                                                                            span.text-danger *
+                                                                                        br
+                                                                                        img(src=doc.bannerImage style="width:150px;")
+                                                                                        input.form-control.mt-2(type='file'  id=`image${index}` )
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Image Gallery
+                                                                                            span.text-danger *
+                                                                                        br
+                                                                                        .d-flex 
+                                                                                            each img in doc.imageGallery
+                                                                                                img.me-2(src=img style="width:150px;")
+                                                                                        input.form-control.mt-2(type='file' multiple='' id=`imageGallery${index}`)
+                                                                                else if doc.productType === 'colorOnly'
+                                                                                    each docs,index2 in doc.productDetails
+                                                                                        .border.m-2.p-3(data-index=index,id=`newMarketColorProduct${index}${index2}` class=`newmarketColorProducts${index}`  data-index2=index2 data-id=docs.hiwmmppdsmID)
+                                                                                            .d-flex.justify-content-end.position-relative
+                                                                                                a.btn.btn-danger.deleteColorOnlyUpdateData(data-index2=index2 data-index=index id=`delelteNewProductDetails${index}${index2}`) Delete
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='newColor1667303094822')
+                                                                                                    | Color
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`newColor${index}${index2}` value=docs.color placeholder='Color' required='')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='price')
+                                                                                                    | Price
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`newPrice${index}${index2}` placeholder='Price' value=docs.subDetails[0].price required='')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='price')
+                                                                                                    | Discount Price
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`discountPrice${index}${index2}` value=docs.subDetails[0].discountPrice placeholder='Discount Price')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='newProductImage1667303094822')
+                                                                                                    | Product Image
+                                                                                                    span.text-danger *
+                                                                                                    br
+                                                                                                    img(src=docs.bannerImage style="width:150px;")
+                                                                                                input.form-control.mt-2(type='file' id=`newProductImage${index}${index2}`  accept='image/*')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='newProductImageGallery1667303094822')
+                                                                                                    | Product Image Gallery
+                                                                                                    span.text-danger *
+                                                                                                    br
+                                                                                                    .d-flex 
+                                                                                                        each img in docs.imageGallery
+                                                                                                            img.me-2(src=img style="width:150px;")
+                                                                                                input.form-control(type='file' id=`newProductImageGallery${index}${index2}` multiple='' accept='image/*')
+                                                                                    .d-grid 
+                                                                                        button.btn.btn-success.btn-block(id=`add_update_market_o_color${index}` data-index=index type='button' class='addColorOnlyProductDetailsWR') Add Color
+                                                                                else if doc.productType === 'sizeOnly'
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Banner Image
+                                                                                            span.text-danger *
+                                                                                                br
+                                                                                                img(src=doc.bannerImage style="width:150px;")
+                                                                                        input.form-control(type='file' id=`image${index}` )
+                                                                                    .col-md-12
+                                                                                        label.form-label(for='price')
+                                                                                            | Image Gallery
+                                                                                            span.text-danger *
+                                                                                            .d-flex 
+                                                                                                each img in doc.imageGallery
+                                                                                                    img.me-2(src=img style="width:150px;")
+                                                                                        input.form-control(type='file' id=`imageGallery${index}` multiple='' )
+                                                                                    each docs,index2 in doc.productDetails[0].subDetails
+                                                                                        .border.m-2.p-3(data-index=index data-index2=index2 id=`newMarketSizeProduct${index}${index2}` class=`newmarketSizeProducts${index}` data-id=docs.hiwmmpdssID)
+                                                                                            .d-flex.justify-content-end.position-relative
+                                                                                                a.btn.btn-danger.deleteSizeOnlyDataUpdate(data-index=index data-index2=index2,id=`delelteNewSizeProductDetails${index}${index2}`) Delete
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='newSize1667326783401')
+                                                                                                    | Size
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`newSize${index}${index2}` value=docs.size placeholder='Size' required='')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='price')
+                                                                                                    | Price
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`newPrice${index}${index2}` value=docs.price placeholder='Price' required='')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for='price')
+                                                                                                    | Discount Price
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(type='text' id=`discountPrice${index}${index2}` placeholder='Discount Price' value=docs.discountPrice)
+                                                                                    .d-grid
+                                                                                        button.btn.btn-success.btn-block.addSizeOnlyDataUpdate(type='button' id=`add_market_o_size${index}` data-index=index )
+                                                                                            | Add Size
+                                                                                else if doc.productType === 'colorWithSize'
+                                                                                    each docs,index2 in doc.productDetails
+                                                                                        .border.m-2.p-3(class=`newMarketVWSubUpdateDetails${index}` id=`updateMarketVRProductDetails${index}${index2}` data-index=index data-index2=index2 data-id=docs.hiwmmppdsmID )
+                                                                                            .d-flex.justify-content-end.position-relative
+                                                                                                a.btn.btn-danger.deleteUpdatedMarketSubColorDetails(id=`delelteupdateProductDetails${index}${index2}` data-index=`${index}` data-index2=index2) Delete
+                                                                                            .col-md-12()
+                                                                                                label.form-label(for=1 id=`updateColor${id}`)
+                                                                                                    | Color
+                                                                                                    span.text-danger *
+                                                                                                input.form-control(value=docs.color id=`newColor${index}${index2}` type='text' placeholder='Color' required='')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for=`newProductImage${index}${index2}`)
+                                                                                                    | Product Image
+                                                                                                    span.text-danger *
+                                                                                                br 
+                                                                                                img(src=docs.bannerImage style='width:150px;')
+                                                                                                input.form-control(id=`newProductImage${index}${index2}`
+                                                                                                    type='file'  accept='image/*')
+                                                                                            .col-md-12
+                                                                                                label.form-label(for=`newProductImageGallery${index}${index2}`)
+                                                                                                    | Product Image Gallery
+                                                                                                    span.text-danger *
+                                                                                                br
+                                                                                                each imgGal in docs.imageGallery
+                                                                                                    img(src=imgGal style='width:130px;')
+                                                                                                input.form-control(id=`newProductImageGallery${index}${index2}` type='file' multiple=''  accept='image/*')
+                                                                                            div(id=`marketUpdateSubDeatail${index}${index2}` )
+                                                                                                each subDoc,index3 in docs.subDetails
+                                                                                                    .m-2.p-2(id=`updateMarketSubProductDetails${index}${index2}${index3}` class=`updateMarketSubColorDetails${index}${index2}` data-index=index data-index2=index2 data-index3=index3 data-id=subDoc.hiwmmpdssID)
+                                                                                                        .d-flex.justify-content-end
+                                                                                                            a.btn.btn-danger.deleteMarketSubDetails(id=`delelteNewSubProductDetails${index}${index2}${index3}` data-index=index data-index2=index2 data-index3=index3) Delete
+                                                                                                        .col-md-12
+                                                                                                            label.form-label(for=`newSize${index}${index2}${index3}`)
+                                                                                                                | Size
+                                                                                                                span.text-danger *
+                                                                                                            input.form-control(id=`newSize${index}${index2}${index3}` type='text' placeholder='Size' required='' value=subDoc.size)
+                                                                                                        .col-md-12
+                                                                                                            label.form-label(for=`newPrice${index}${index2}${index3}`)
+                                                                                                                | Price
+                                                                                                                span.text-danger *
+                                                                                                            input.form-control(id=`newPrice${index}${index2}${index3}` type='text'  value=subDoc.price placeholder='Price' required='')
+                                                                                                        .col-md-12
+                                                                                                            label.form-label(for=`newDiscountPrice${index}${index2}${index3}`)
+                                                                                                                | Discount Price
+                                                                                                                span.text-danger *
+                                                                                                            input.form-control(id=`newDiscountPrice${index}${index2}${index3}` type='text' 
+                                                                                                            value=subDoc.discountPrice placeholder='Discount Price')
+                                                                                            div(id=`productVariablecolorDetails${index}`)
+                                                                                            .d-flex.justify-content-center.mt-2
+                                                                                                button.btn.btn-success.addMarketProductSubUpdateDetails(type='button' id=`addMarketVRNUpdateSubDeatail${index}${index2}` data-index=index data-index2=index2 ) Add Details
+
+                                                                                    div(id=`productVariableMaincolorDetails${index}`)
+                                                                                    .d-grid
+                                                                                        a.btn.btn-success.btn-block(class=`add_update_market_product_details` data-index=index id=`addMaindMedicalProductDatas${index}`) Add Product Details
+
+                                                                            .col-md-12
+                                                                                label.form-label(for='productName')
+                                                                                    | Additional Product Details
+                                                                                    span.text-danger *
+                                                                                div(id=`productAdditionalDetails${index}`)
+                                                                                    each value,key in doc.additionalProductDetails
+                                                                                        .d-flex.justify-content-center.mt-2(class=`additiionalProductDetailsList${index}`)
+                                                                                            input.form-control(type='text' class=`updateProductAdditionalDetailssTitle${index}` value=key placeholder='Title' required='')
+                                                                                            p.ms-5.me-5.lead.fw-bold :
+                                                                                            input.form-control(type='text' class=`updateProductAdditionalDetailssDetail${index}` value=value placeholder='Detail' required='')
+                                                                                .d-flex.justify-content-center.mt-2
+                                                                                    button.btn.btn-success(id=`updateAboutProductAdditionalDetails${index}` class='updateAboutProductAdditionalDetails' type='button' data-index=index) Add Additional Details
+                                                                            .col-md-12
+                                                                                label.form-label(for='productName')
+                                                                                    | About the Product
+                                                                                    span.text-danger *
+                                                                                div(id=`productAboutDetails${index}`)
+                                                                                    each docs in doc.aboutItem
+                                                                                        input.form-control.mt-2(type='text' id=`aboutUpdateProduct${index}` placeholder='About' value=docs required='')
+                                                                                .d-flex.justify-content-center.mt-2
+                                                                                    button.btn.btn-success(id=`updateAboutProductDetails${index}`,type='button' data-index=index class='updateMarketAboutDetails') Add Product Details
+                                                                            .col-md-12
+                                                                                label.form-label(for='productDescription')
+                                                                                    | Product' Short Description
+                                                                                    span.text-danger *
+                                                                                input.form-control(type='text' id=`productDescription${index}` value=doc.description placeholder='Product Description' required='')
+                                                                            .col-12.text-center.d-grid
+                                                                                button.btn.btn-block.main-color-background.color-white(type='submit')
+                                                                                    | Update Product
+                                                                .modal-footer
+                                                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                        | Cancel
+
+                                else 
+                                    p There are no products available for you.  
+                    #pills-profile.tab-pane.fade(role='tabpanel' aria-labelledby='pills-profile-tab')
+                        h6.col-6.fw-bold.main-color.mt-5.text-head
+                            | Order List
+                        hr.m-0
+                        .mt-3.table-responsive
+                            table.table.table-bordered
+                                thead
+                                    tr.text-nowrap
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Address
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Product Name
+
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Order Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | View
+                                tbody#update_vendor_market_product_status
+                                    -const status = ['placed', 'accepted','rejected', 'shipped', 'outofdelivery', 'delivered']
+                                    each doc,inds in orders.active
+                                        tr.text-nowrap
+                                            th(scope='row')= doc.address.name
+                                            td= doc.address.phone1
+                                            td #{doc.address.address},#{doc.address.pincode}
+                                            td= doc.productData.productName
+                                            td= new Date(doc.createdAt).toLocaleString()
+                                            td  
+                                                select.form-select.border.update_status(aria-label='Default select example' id=`update_market_status-${inds}` data-index=inds data-id=partner.hiwpmID data-id2=doc.hiwommpSID style="width:auto;")
+                                                    each docs in status
+                                                        if docs === doc.orderStatus
+                                                            option(value=docs selected)= docs
+                                                        else 
+                                                            option(value=docs)= docs
+
+                                            td
+                                                a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#orderActive-${inds}`) View
+                                                // Modal
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`orderActive-${inds}`)
+                                                    .modal-dialog.modal-dialog-scrollable.modal-lg
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | Product Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | Order Details
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Order ID - 09869766875
+                                                                    tbody
+                                                                        //- tr
+                                                                        //-     th(scope='row') Product Id
+                                                                        //-     td 8798789678
+                                                                        tr
+                                                                            th(scope='row') Product Name
+                                                                            td= doc.productData.productName
+                                                                        if doc.productData.productType === "colorOnly" || doc.productData.productType === "colorWithSize"
+                                                                            tr
+                                                                                th(scope='row') Color
+                                                                                td= doc.product.color
+                                                                        if doc.productData.productType === "sizeOnly" || doc.productData.productType === "colorWithSize"
+                                                                            tr
+                                                                                th(scope='row') Size
+                                                                                td= doc.product.size
+                                                                        tr
+                                                                            th(scope='row') Product Image
+                                                                            td
+                                                                                img.thumbnail(src=doc.product.bannerImage alt='Product Image')
+                                                                        tr
+                                                                            th(scope='row') Product Image Gallery
+                                                                            td
+                                                                                if doc.product && doc.product.imageGallery
+                                                                                    each galImg in doc.product.imageGallery
+                                                                                        img.p-2(src=galImg,style=`width:75px`, alt="", srcset="")
+                                                                                else 
+                                                                                    p -
+                                                                        tr
+                                                                            th(scope='row') Order Status
+                                                                            td= doc.orderStatus
+                                                                        tr
+                                                                            th(scope='row') Address
+                                                                            td #{doc.address.address}, #{doc.address.city}, #{doc.address.state}, #{doc.address.pincode}
+                                                                        tr
+                                                                            th(scope='row') Phone Number 1
+                                                                            td= doc.address.phone1
+                                                                        tr
+                                                                            th(scope='row') Phone Number 2
+                                                                            td= doc.address.phone2
+                                                                        tr
+                                                                            th(scope='row') Quanity
+                                                                            td= doc.product.quantity
+                                                                        tr
+                                                                            th(scope='row') Price
+                                                                            td= doc.product.price
+                                                                        tr
+                                                                            th(scope='row') Discount Price
+                                                                            td= doc.product.discountPrice
+
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th(scope='row') Ordered Date
+                                                                            td=doc.createdAt ? new Date(doc.createdAt).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td=doc.acceptedDate ? new Date(doc.acceptedDate).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Shipped Date
+                                                                            td=doc.shippedDate ? new Date(doc.shippedDate).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Out of Delivery Date Date
+                                                                            td=doc.outOfDeliveryDate ? new Date(doc.outOfDeliveryDate).toLocaleString():"-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel
+                    #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+                        h6.col-6.fw-bold.main-color.mt-5.text-head History
+                        hr.m-0
+                        .mt-3.table-responsive
+                            table.table.table-bordered
+                                thead
+                                    tr.text-nowrap
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Name
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Phone Number
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Address
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Product Name
+
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Order Date
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | Status
+                                        th.color-white.main-color-background.text-center(scope='col')
+                                            | View
+                                tbody
+                                    each doc,inds in orders.history
+                                        tr.text-nowrap
+                                            th(scope='row')= doc.address.name
+                                            td= doc.address.phone1
+                                            td #{doc.address.address},#{doc.address.pincode}
+                                            td= doc.productData.productName
+                                            td= new Date(doc.createdAt).toLocaleString()
+                                            td=doc.orderStatus
+                                            td
+                                                a.pointer.cursor-pointer(data-bs-toggle='modal' data-bs-target=`#orderHistory-${inds}`) View
+                                                // Modal
+                                                .modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true' id=`orderHistory-${inds}`)
+                                                    .modal-dialog.modal-dialog-scrollable.modal-lg
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#staticBackdropLabel.modal-title
+                                                                    | Product Details
+                                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                                            .modal-body.table-responsive
+                                                                table.table.table-bordered
+                                                                    thead
+                                                                        tr
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                | Order Details
+                                                                            th.color-white.main-color-background.text-center(scope='col')
+                                                                                //- | Order ID - 09869766875
+                                                                    tbody
+                                                                        //- tr
+                                                                        //-     th(scope='row') Product Id
+                                                                        //-     td 8798789678
+                                                                        tr
+                                                                            th(scope='row') Product Name
+                                                                            td= doc.productData.productName
+                                                                        if doc.productData.productType === "colorOnly" || doc.productData.productType === "colorWithSize"
+                                                                            tr
+                                                                                th(scope='row') Color
+                                                                                td= doc.product.color
+                                                                        if doc.productData.productType === "sizeOnly" || doc.productData.productType === "colorWithSize"
+                                                                            tr
+                                                                                th(scope='row') Size
+                                                                                td= doc.product.size
+                                                                        tr
+                                                                            th(scope='row') Product Image
+                                                                            td
+                                                                                img.thumbnail(src=doc.product.bannerImage alt='Product Image')
+                                                                        tr
+                                                                            th(scope='row') Product Image Gallery
+                                                                            td
+                                                                                if doc.product && doc.product.imageGallery
+                                                                                    each galImg in doc.product.imageGallery
+                                                                                        img.p-2(src=galImg,style=`width:75px`, alt="", srcset="")
+                                                                                else 
+                                                                                    p -
+                                                                        tr
+                                                                            th(scope='row') Order Status
+                                                                            td= doc.orderStatus
+                                                                        tr
+                                                                            th(scope='row') Address
+                                                                            td #{doc.address.address}, #{doc.address.city}, #{doc.address.state}, #{doc.address.pincode}
+                                                                        tr
+                                                                            th(scope='row') Phone Number 1
+                                                                            td= doc.address.phone1
+                                                                        tr
+                                                                            th(scope='row') Phone Number 2
+                                                                            td= doc.address.phone2
+                                                                        tr
+                                                                            th(scope='row') Quanity
+                                                                            td= doc.product.quantity
+                                                                        tr
+                                                                            th(scope='row') Price
+                                                                            td= doc.product.price
+                                                                        tr
+                                                                            th(scope='row') Discount Price
+                                                                            td= doc.product.discountPrice
+
+                                                                        tr
+                                                                            th.text-danger(scope='row')
+                                                                                | Payment Mode
+                                                                            td.text-danger Online
+                                                                        tr
+                                                                            th(scope='row') Ordered Date
+                                                                            td=doc.createdAt ? new Date(doc.createdAt).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Accepted Date
+                                                                            td=doc.acceptedDate ? new Date(doc.acceptedDate).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Shipped Date
+                                                                            td=doc.shippedDate ? new Date(doc.shippedDate).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Out of Delivery Date Date
+                                                                            td=doc.outOfDeliveryDate ? new Date(doc.outOfDeliveryDate).toLocaleString():"-"
+                                                                        tr
+                                                                            th(scope='row') Delivered Date
+                                                                            td=doc.deliveredDate ? new Date(doc.deliveredDate).toLocaleString():"-"
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal')
+                                                                    | Cancel

@@ -1,0 +1,87 @@
+extends ../../layout/adminBase
+
+block append script 
+    script(src="/JS/bundle/admin/bundleAdmin.js")     
+
+block block 
+    #right.col-9 
+        include ./shared/detailsList
+        .p-3
+            .d-flex
+                .flex-grow-1
+                    h5.fw-bold.mt-3.ms-3.fs-5 Hospital Package Management
+                    .pt-2.nav-tabs-section
+                        ul#pills-tab.nav.nav-pills.nav-justified.mb-3(role='tablist')
+                            li.nav-item.border.rounded(role='presentation')
+                                button#pills-profile-tab.nav-link.inside-nav.fw-bold.active.text-nowrap(data-bs-toggle='pill' data-bs-target='#pills-profile' type='button' role='tab' aria-controls='pills-profile' aria-selected='false')
+                                    | Active Applications
+                            li.nav-item.border.rounded(role='presentation')
+                                button#pills-contact-tab.nav-link.inside-nav.fw-bold.text-nowrap(data-bs-toggle='pill' data-bs-target='#pills-contact' type='button' role='tab' aria-controls='pills-contact' aria-selected='false')
+                                    | History
+                    #pills-tabContent.tab-content
+                        #pills-profile.tab-pane.fade.active.show(role='tabpanel' aria-labelledby='pills-profile-tab')
+                            .d-flex.mt-3
+                                .flex-grow-1
+                                    h5.fw-bold.mt-3.ms-3.fs-5 Applied Jobs
+                            hr.m-0
+                            .row.row-cols-1.row-cols-md-2.g-4.mt-2.mb-4
+                                each doc in application.active
+                                    .col
+                                        .row.h-100.border.p-1.m-2.rounded
+                                            .col-3
+                                                img.w-100.rounded-circle(src=doc.jobDetails.bannerImage alt='User Image')
+                                            .col-9
+                                                .row
+                                                    .col-8
+                                                        h5.fs-6.text-uppercase.main-color.fw-bold
+                                                            | !{doc.jobDetails.jobTitle}
+                                                    .col-4
+                                                        span.badge.text-bg-primary.float-end=doc.status
+                                                .row
+                                                    .col-6
+                                                        p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                            i.fa-solid.fa-dollar-sign
+                                                            |  #{doc.jobDetails.salaryPerMonth}/month
+                                                    .col-6
+                                                        p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                            i.fa-solid.fa-location-dot
+                                                            | #{doc.jobDetails.city}
+                                                .col-6
+                                                    p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                        i.fa-solid.fa-calendar
+                                                        |  #{new Date(doc.createdAt).toLocaleString()}
+                                                p.text-secondary.fs-8.text-uppercase.fw-bold.p-0.m-0=doc.jobDetails.description
+                        #pills-contact.tab-pane.fade(role='tabpanel' aria-labelledby='pills-contact-tab')
+                            .d-flex.mt-3
+                                .flex-grow-1
+                                    h5.fw-bold.mt-3.ms-3.fs-5 History
+                            hr.m-0
+                            .row.row-cols-1.row-cols-md-2.g-4.mt-2.mb-4
+                                each doc in application.history
+                                    .col
+                                        .row.h-100.border.p-1.m-2.rounded
+                                            .col-3
+                                                img.w-100.rounded-circle(src=doc.jobDetails.bannerImage alt='User Image')
+                                            .col-9
+                                                .row
+                                                    .col-8
+                                                        h5.fs-6.text-uppercase.main-color.fw-bold
+                                                            | !{doc.jobDetails.jobTitle}
+                                                    .col-4
+                                                        span.badge.text-bg-primary.float-end=doc.status
+                                                .row
+                                                    .col-6
+                                                        p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                            i.fa-solid.fa-dollar-sign
+                                                            |  #{doc.jobDetails.salaryPerMonth}/month
+                                                    .col-6
+                                                        p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                            i.fa-solid.fa-location-dot
+                                                            | #{doc.jobDetails.city}
+                                                .col-6
+                                                    p.text-secondary.fs-8.text-uppercase.fw-bold
+                                                        i.fa-solid.fa-calendar
+                                                        |  #{new Date(doc.createdAt).toLocaleString()}
+                                                p.text-secondary.fs-8.text-uppercase.fw-bold.p-0.m-0=doc.jobDetails.description
+
+

@@ -1,0 +1,15 @@
+.col-2.p-0.border.m-0.border-color.display-none
+    ul.nav.flex-column.p-0.m-0
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "home" ? "vendor-nav-link-active" : "" }` aria-current='page' href='/vendor/pharmacy') Manage Pharmacys
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "medicines" ? "vendor-nav-link-active" : "" }` aria-current='page' href='/vendor/pharmacy/my-medicines') Medicines Management
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "request" ? "vendor-nav-link-active" : "" }` aria-current='page' href='/vendor/pharmacy/quotes-management') Quotes Management
+        li.nav-item
+            a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "job" ? "vendor-nav-link-active" : "" }` href=`/vendor/${partner.for}/job-management`) Job Management
+        li.nav-item
+           a.nav-link.border.vendor-nav-link(class=`${ activeScreen === "quotes" ? "vendor-nav-link-active" : "" }` href=`/vendor/${partner.for}/quotes`) Purchase
+        li.nav-item
+            a.nav-link.border.vendor-nav-link#logoutW log out
+        

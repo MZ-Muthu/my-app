@@ -1,0 +1,143 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+    script 
+        var l = "lists";
+
+block block 
+    // Hero section Start
+    section
+        .hero-image-wrapper
+            img.hero-image(src='/Assets/images/HospitalPackge.jpg' alt='homecare service banner')
+            .hero-image-overlay
+            .hero-image-text
+                h2.fw-bold.text-uppercase.hero-big-text= ` Best Hospitals For ${name} Pakages`
+    // Hero section End
+    // Home Care Service Centres List Section Start
+    section.mt-4.container-xxl
+        .row
+            // Fillter Section
+            .col-4.small-screnn-vn
+                .small-shdow.p-2.rounded
+                    .d-flex.justify-content-between
+                        div
+                            h6.fw-bold
+                                i.fa-solid.fa-gears.me-3
+                                |  Other Packages List
+                        div
+                            a.text-12.text-decoration-underline(href=`/hospital/package`) View All
+                    .mt-4
+                        .row.row-cols-1.row-cols-md-2.g-4
+                            each doc in packages
+                                .col
+                                    a(href=`/hospital/package/${doc.name}`)
+                                        div
+                                            img.small-shdow.img-thumbnail(src=doc.bannerImage alt='category name')
+                                            h6.text-center.main-color= doc.name
+                .small-shdow.p-3.rounded.mt-3
+                    h6.fw-bold
+                        i.fa-solid.fa-location-dot.me-3
+                        |  Fillter by Location
+                    .mt-4
+                        label.check-box-container
+                            | One
+                            input(type='checkbox' checked='checked')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                        label.check-box-container
+                            | One
+                            input(type='checkbox')
+                            span.checkmark
+                    h6.fw-bold.mt-5
+                        i.fa-solid.fa-hand-holding-dollar.me-3
+                        |  Sort by price
+                    .mt-4
+                        form(action='#')
+                            p
+                                input#test1(type='radio' name='radio-group' checked='')
+                                label(for='test1') Apple
+                            p
+                                input#test2(type='radio' name='radio-group')
+                                label(for='test2') Peach
+                            p
+                                input#test3(type='radio' name='radio-group')
+                                label(for='test3') Orange
+            // Card Section
+            .col-8.small-width-100
+                .small-shdow.p-2.rounded
+                    p.card-small-description.m-0 Shows 1-40 out of 400
+                    h4.fw-bold.text-header-smalls.text-capitalize Hospital List for #{name} Package
+                .row.row-cols-1.row-cols-md-1.row-cols-sm-2.g-1
+                    each doc in lists
+                        .small-shdow.rounded.mt-3
+                            .row.m-0
+                                .col-md-2.m-0.p-0
+                                    img.img-thumbnail.border-0(src=doc.bannerImage alt='Shop Name')
+                                .col-md-10.pt-2.ps-2.m-0
+                                    h6.m-0.text-header-smalls.fw-bold= doc.name
+                                    p.m-0.text-14.text-secondsry Lorem ipsum dolor sit amet.
+                                    .row  
+                                        .d-flex.flex-row.bd-highlight.m-0
+                                            .bd-highlight
+                                                p.card-small-description.m-0
+                                                    i.fa-solid.fa-address-book.me-2.text-primary
+                                                    |                       #{doc.address}
+                                        .col-7
+                                            .d-flex.justify-content-between.m-0.p-0
+                                                .d-flex.flex-row.bd-highlight.m-0
+                                                    .bd-highlight.me-1.fw-bold.text-14 Ratings :
+                                                    .bd-highlight
+                                                        i.fa-solid.fa-star.text-12.text-warning
+                                                    .bd-highlight
+                                                        i.fa-solid.fa-star.text-12.text-warning
+                                                    .bd-highlight
+                                                        i.fa-solid.fa-star.text-12.text-warning
+                                                    .bd-highlight
+                                                        i.fa-solid.fa-star.text-12.text-warning
+                                                    .bd-highlight
+                                                        i.fa-regular.fa-star.text-12.text-warning   
+                                        .col-5                     
+                                            a.button-view-details.text-12.float-end(href=`/hospital/package/${doc.package.category}/${doc.id}`)
+                                                | View Details 
+                                                i.fa-solid.fa-arrow-right
+
+                // Pagination Sction
+                .text-center
+                    .pagination_rounded
+                        ul
+                            li.card-head-s-screen
+                                a.prev(href='#')
+                                    i.fa.fa-angle-left(aria-hidden='true')
+                                    |  Prev
+                            li.card-head-s-screen
+                                a(href='#') 1
+                            li.hidden-xs.card-head-s-screen
+                                a.active(href='#') 2
+                            li.hidden-xs.small-screnn-vn
+                                a(href='#') 3
+                            li.hidden-xs.small-screnn-vn
+                                a(href='#') 4
+                            li.hidden-xs.small-screnn-vn
+                                a(href='#') 5
+                            li.visible-xs.small-screnn-vn
+                                a(href='#') ...
+                            li.small-screnn-vn
+                                a(href='#') 6
+                            li.card-head-s-screen
+                                a.next(href='#')
+                                    | Next 
+                                    i.fa.fa-angle-right(aria-hidden='true')
+    // Home Care Service Centres List Section End

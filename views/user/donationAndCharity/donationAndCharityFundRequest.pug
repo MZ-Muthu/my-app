@@ -1,0 +1,69 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    //- script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='./Assets/images/donation.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Money Request List
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Money Request List from pepoles
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                .col
+                    .small-shdow.card.rounded.mt-3.me-2
+                        .row
+                            .col-4
+                                img.img-thumbnail.border-0(src='https://images.unsplash.com/photo-1586773831566-893f3648d9f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=636&q=80' alt='Shop Name')
+                                h5.ms-4.fw-bold.text-success Rs.5,00,000
+                            .col-8.p-2
+                                h5.text-success.fw-bold Affected By Malaria
+                                h6.main-color Rajesh Con
+                                h6.main-color Vectoria Hospital, Chennai.
+                                p.text-secondary.text-12
+                                    | Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                    | Fugit error, quibusdam natus, distinctio ipsum dolor sit amet
+                                    | consectetur adipisicing elit. Fugit error, quibusdam
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details(href='#')
+                                            | Donate 
+                                            i.fa-solid.fa-arrow-right
+                .col
+                    .small-shdow.card.rounded.mt-3.me-2
+                        .row
+                            .col-4
+                                img.img-thumbnail.border-0(src='https://images.unsplash.com/photo-1586773831566-893f3648d9f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=636&q=80' alt='Shop Name')
+                                h5.ms-4.fw-bold.text-success Rs.5,00,000
+                            .col-8.p-2
+                                h5.text-success.fw-bold Affected By Malaria
+                                h6.main-color Rajesh Con
+                                h6.main-color Vectoria Hospital, Chennai.
+                                p.text-secondary.text-12
+                                    | Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                    | Fugit error, quibusdam natus, distinctio ipsum dolor sit amet
+                                    | consectetur adipisicing elit. Fugit error, quibusdam
+                                .d-flex.flex-row-reverse.bd-highlight
+                                    .me-1.mt-3
+                                        a.button-view-details(href='#')
+                                            | Donate 
+                                            i.fa-solid.fa-arrow-right
+    // Card Section End

@@ -1,0 +1,95 @@
+extends ../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+
+block block 
+    // Hero section Start
+    section
+        img.hero-image(src='/Assets/images/Hearing Aid.jpg' alt='homecare service banner')
+        .hero-image-overlay
+            .hero-image-text
+                h1 Hearing Aid Account Page
+    // Hero section End
+    // Card Section Start
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Hearing Aid Order History
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .d-flex.flex-row-reverse.bd-highlight.m-0
+            .bd-highlight.m-0
+                //- a(href='./userHearingAidMyOrders.html') View All
+        .mt-4
+            .row.row-cols-2.row-cols-md-5.g-4
+                each doc in orders
+                    .col
+                        a(href=`/my-account/hearing-aid/order/${doc.hiwonhas}`)
+                            .card.h-100
+                                img.card-img-top.cart-image-product(src=doc.productData.bannerImage alt='...')
+                                .card-body
+                                    h6.text-center.main-color.text-uppercase
+                                        | #{doc.productData.productName}
+                                    if doc.productData.discountPrice
+                                        p.text-center.text-secondary.fw-bold
+                                            | Rs.#{doc.productData.discountPrice} 
+                                            span.text-success.text-decoration-line-through Rs.#{doc.productData.price}
+                                    else
+                                        p.text-center.text-secondary.fw-bold
+                                            | Rs.#{doc.productData.price}
+    section.mt-5.container
+        .justify-content-center
+            h5.heading Hospital Booking History
+            .underline
+            p.text-center.w-75.m-auto.mt-4
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit
+                | laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                | Fugit laudantium aperiam quo debitis ad nesciunt eos libero totam odit
+                | impedit.
+        .d-flex.flex-row-reverse.bd-highlight.m-0
+            .bd-highlight.m-0
+                //- a(href='./userHearingAidBookings.html') View All
+        .mt-4
+            .row.row-cols-2.row-cols-md-2.g-4
+                each doc in bookings
+                    .col
+                        .small-shdow.card.rounded.mt-3
+                            .row
+                                .col-5
+                                    img.img-thumbnail.border-0.h-100(src=doc.hosital[0].bannerImage alt='Shop Name')
+                                .col-7.p-2
+                                    .d-flex.bd-highlight
+                                        .flex-grow-1.bd-highlight
+                                            h6.main-color.fw-bold.text-uppercase
+                                                | #{doc.hosital[0].company}
+                                    p.main-color.fw-bold.m-0 #{doc.hosital[0].city}
+                                    p.text-12.m-0= doc.hosital[0].address
+                                    .d-flex.justify-content-between
+                                        div
+                                            p.main-color.fw-bold.text-12.m-0
+                                                | Requested Date:
+                                                span.ms-2.text-secondary  #{new Date(doc.bookedDate).toLocaleDateString()}
+                                    .d-flex.justify-content-between
+                                        div
+                                            p.main-color.fw-bold.text-12.m-0
+                                                | Phone:
+                                                span.ms-2.text-secondary
+                                                    | #{doc.hosital[0].centerPhone}
+                                        div
+                                            h5.main-color.fw-bold.m-0.me-2 Rs.#{doc.hosital[0].hearingAid.price}
+                                    .d-flex.justify-content-between
+                                        div 
+                                        div 
+                                         if doc.status === "requested" || doc.status === 'accepted'
+                                            button.btn.btn-danger.cancel_hearingaid_bookings.me-2(data-id=doc.hiwbhhID) Cancel
+                                    

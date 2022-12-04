@@ -1,0 +1,157 @@
+extends ../../../layout/base
+
+block append head 
+    link(rel="stylesheet", href="/CSS/userStyle.css")
+    link(rel="stylesheet", href="/CSS/lightslider.css")
+
+block append script 
+    script(src="/JS/bundle/user/bundleUser.js")     
+    // Search Box Script
+
+block block 
+    // Hero section Start
+    section
+        .carousel.slide(data-bs-ride='carousel')
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src=doc.bannerImage alt='...')
+                    .hero-image-overlay
+                    .carousel-caption.overlay-section.container.d-none.d-md-block
+                        p.mt-5.fs-2.float-end
+                            a(href='#')
+                                i.fa-solid.fa-share.text-white
+                        h1.text-white.mt-5= doc.name
+                        p.text-white=doc.stream
+                        .d-flex.flex-row.bd-highlight.mb-5
+                            .bd-highlight.me-2
+                                p.text-white
+                                    i.fa-solid.fa-address-book.fs-2
+                            .bd-highlight
+                                p.text-white= doc.website
+                        .mt-5.text-white
+                            .row.mt-5.mb-3
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone.me-2= doc.centerPhone
+                                .col
+                                    h6.fw-bold
+                                        i.fa-regular.fa-clock.me-2
+                                        |  #{doc.openTime} to #{doc.closeTime}
+                            .row
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-phone-volume.me-2=doc.centerLandLine
+                                .col
+                                    h6.fw-bold
+                                        i.fa-solid.fa-star.me-2
+                                        |  4/5 (125 Reviews)
+    // Hero section End
+    // Content Section Start
+    section.container.mt-5
+        div
+            h4.fw-bold.mb-4 About Us
+            p= doc.aboutUs
+            h4.fw-bold.mb-4.mt-5 Our hospital images
+                .row.row-cols-1.row-cols-md-6.g-4
+                    each docs in doc.imageGallery
+                        .col
+                            .card.h-100
+                                img.card-img-top(src=docs alt='...')
+            h4.fw-bold.mb-4.mt-5 Our Hospital Sevices
+            .row.row-cols-1.row-cols-md-4.g-4
+                each docs in doc.hospitalServices
+                    div
+                        .service-list-card.h-100
+                            img.service-card-img(src=docs.bannerImage alt='Service Image')
+                            .service-card-body
+                                h6.service-heading= docs.name
+                                p.service-des= docs.description
+                                .d-flex.justify-content-between
+                                    div
+                                        p.service-price Rs.#{docs.priceFrom} to Rs.#{docs.priceTo}
+                                    //- div
+                                        p.service-hours
+                                            | Hours: 
+                                            span 3-4 hr
+
+            h4.fw-bold.mb-4.mt-5 Our Hospital facilities
+            .row.row-cols-1.row-cols-md-4.g-4
+                each docs in doc.hospitalFacilities
+                    div
+                        .service-list-card.h-100
+                            img.service-card-img(src=docs.bannerImage alt='Service Image')
+                            .service-card-body
+                                h6.service-heading= docs.name
+                                p.service-des= docs.description
+            h4.fw-bold.mb-4.mt-5 Our Hospital Specialists
+            .row.row-cols-1.row-cols-md-4.g-4
+                each docs in doc.specialist
+                    div
+                        .service-list-card.h-100.text-center.pt-3
+                            img.specialists-card-img(src=docs.bannerImage alt='specialists Image')
+                            .service-card-body
+                                h6.service-heading= docs.name
+                                .d-flex.justify-content-center
+                                    p.text-secondory Success Rate : #{docs.successRate}%
+                                .d-flex.justify-content-center
+                                    //- div
+                                    //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                    //- div
+                                    //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                    //- div
+                                    //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                    //- div
+                                    //-     i.fa-solid.fa-star.main-color.text-12.me-2
+                                    //- div
+                                    //-     i.fa-solid.fa-star.main-color.text-12
+                                p.service-des= docs.posistion
+
+            h4.fw-bold.mb-4.mt-5 Reviews
+            div
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+                .d-flex.flex-row.bd-highlight
+                    .p-2.bd-highlight
+                        i.fa-solid.fa-circle-user.fs-1.fw-bold
+                    .p-2.bd-highlight
+                        h6.fw-bold
+                            | Muthazhagan
+                            span.review-date-time  - Jan-01-2022 | 04:30:45
+                        .d-flex.flex-row.bd-highlight.starts
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-solid.fa-star.text-12.text-warning
+                            div
+                                i.fa-regular.fa-star.text-12.text-warning
+                        p.review-head.m-0.mt-1 Lorem ipsum dolor sit amet
+                        p.user-review.m-0
+                            | Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                            | Cupiditate at temporibus optio est praesentium nisi! Quae facere
+                            | maiores sequi temporibus nesciunt cupiditate hic adipisci ad!
+    // Content Section End
